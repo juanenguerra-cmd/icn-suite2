@@ -1,8 +1,9 @@
 import React from "react";
 import { CensusPage } from "@/features/census/CensusPage";
 import { VaccinationPage } from "@/features/vaccination/VaccinationPage";
+import { AbtPage } from "@/features/abt/AbtPage";
 
-type TabId = "census" | "vaccinations";
+type TabId = "census" | "vaccinations" | "abt";
 
 export default function App() {
   const [tab, setTab] = React.useState<TabId>("census");
@@ -34,12 +35,23 @@ export default function App() {
               >
                 Vaccinations
               </button>
+
+              <button
+                type="button"
+                className={
+                  "rounded-full border px-4 py-2 hover:bg-gray-50 " +
+                  (tab === "abt" ? "bg-gray-50" : "")
+                }
+                onClick={() => setTab("abt")}
+              >
+                ABT
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {tab === "census" ? <CensusPage /> : <VaccinationPage />}
+      {tab === "census" ? <CensusPage /> : tab === "vaccinations" ? <VaccinationPage /> : <AbtPage />}
     </div>
   );
 }

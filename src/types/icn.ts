@@ -38,6 +38,21 @@ export interface VaccineRecord {
   createdISO: string;
 }
 
+export type AbxStatus = "active" | "stopped";
+
+export interface AntibioticRecord {
+  id: string;
+  residentId: string;
+  antibiotic: string;
+  startDateISO: string; // YYYY-MM-DD
+  stopDateISO?: string; // YYYY-MM-DD
+  indication?: string;
+  notes?: string;
+  status: AbxStatus;
+  createdISO: string;
+  updatedISO?: string;
+}
+
 export interface ICNState {
   schemaVersion: number;
   residentsById: Record<string, Resident>;
@@ -45,6 +60,9 @@ export interface ICNState {
 
   // Vaccinations
   vaccinesByResidentId: Record<string, VaccineRecord[]>;
+
+  // Antibiotics (ABT)
+  abxByResidentId: Record<string, AntibioticRecord[]>;
 
   importState: (data: unknown) => void;
   exportState: () => unknown;
@@ -56,5 +74,13 @@ export interface ICNState {
     entries: Array<Pick<VaccineRecord, "name" | "nameOther" | "dateISO" | "notes">>
   ) => void;
   deleteVaccine: (residentId: string, vaccineId: string) => void;
+
+  addAbxBatch: (
+    residentId: string,
+    entries: Array<Pick<AntibioticRecord, "antibiotic" | "startDateISO" | "indication" | "notes"> & { stopDateISO?: string }>
+  ) => void;
+  stopAbx: (residentId: string, abxId: string, stopDateISO: string) => void;
+  deleteAbx: (residentId: string, abxId: string) => void;
+
   resetAll: () => void;
 }

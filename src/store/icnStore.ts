@@ -1,6 +1,6 @@
 import { create, type StateCreator } from "zustand";
 import { persist } from "zustand/middleware";
-import type { ICNState, Resident, CensusSnapshot, VaccineRecord } from "@/types/icn";
+import type { ICNState, Resident, CensusSnapshot, VaccineRecord, AntibioticRecord } from "@/types/icn";
 import { makeId } from "@/lib/id";
 
 const SCHEMA_VERSION = 1;
@@ -16,6 +16,8 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
 
       vaccinesByResidentId: {},
 
+      abxByResidentId: {},
+
       exportState: () => {
         const s = get();
         return {
@@ -23,6 +25,7 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
           residentsById: s.residentsById,
           censusHistory: s.censusHistory,
           vaccinesByResidentId: s.vaccinesByResidentId,
+          abxByResidentId: s.abxByResidentId,
           exportedISO: nowISO()
         };
       },
@@ -36,7 +39,8 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
             schemaVersion: typeof d.schemaVersion === "number" ? d.schemaVersion : SCHEMA_VERSION,
             residentsById: d.residentsById ?? {},
             censusHistory: d.censusHistory ?? [],
-            vaccinesByResidentId: d.vaccinesByResidentId ?? {}
+            vaccinesByResidentId: d.vaccinesByResidentId ?? {},
+            abxByResidentId: d.abxByResidentId ?? {}
           });
         } catch {
           // no-op
@@ -117,8 +121,102 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
         });
       },
 
+      addAbxBatch: (residentId, entries) => {
+        if (!residentId) return;
+        const cleaned = (entries || [])
+          .map((e) => ({
+            antibiotic: (e.antibiotic || "").trim(),
+            startDateISO: (e.startDateISO || "").trim(),
+            stopDateISO: (e.stopDateISO || "").trim() || undefined,
+            indication: e.indication?.trim() || undefined,
+            notes: e.notes?.trim() || undefined
+          }))
+          .filter((e) => !!e.antibiotic && !!e.startDateISO);
+
+        if (cleaned.length === 0) return;
+
+        set((s) => {
+          const prev = s.abxByResidentId[residentId] ?? [];
+          const createdISO = nowISO();
+          const nextAdds: AntibioticRecord[] = cleaned.map((e) => {
+            const status: AntibioticRecord["status"] = e.stopDateISO ? "stopped" : "active";
+            return {
+              id: makeId("abx"),
+              residentId,
+              antibiotic: e.antibiotic,
+              startDateISO: e.startDateISO,
+              stopDateISO: e.stopDateISO,
+              indication: e.indication,
+              notes: e.notes,
+              status,
+              createdISO,
+              updatedISO: createdISO
+            };
+          });
+
+          // active first, then newest start date
+          const next = [...nextAdds, ...prev].sort((a, b) => {
+            if (a.status !== b.status) return a.status === "active" ? -1 : 1;
+            if (a.startDateISO === b.startDateISO) return (a.createdISO < b.createdISO ? 1 : -1);
+            return a.startDateISO < b.startDateISO ? 1 : -1;
+          });
+
+          return {
+            abxByResidentId: {
+              ...s.abxByResidentId,
+              [residentId]: next
+            }
+          };
+        });
+      },
+
+      stopAbx: (residentId, abxId, stopDateISO) => {
+        if (!residentId || !abxId || !stopDateISO) return;
+        const stop = stopDateISO.trim();
+        if (!stop) return;
+        set((s) => {
+          const prev = s.abxByResidentId[residentId] ?? [];
+          const next = prev.map((a) =>
+            a.id === abxId
+              ? {
+                  ...a,
+                  status: "stopped",
+                  stopDateISO: stop,
+                  updatedISO: nowISO()
+                }
+              : a
+          );
+          return {
+            abxByResidentId: {
+              ...s.abxByResidentId,
+              [residentId]: next
+            }
+          };
+        });
+      },
+
+      deleteAbx: (residentId, abxId) => {
+        if (!residentId || !abxId) return;
+        set((s) => {
+          const prev = s.abxByResidentId[residentId] ?? [];
+          const next = prev.filter((a) => a.id !== abxId);
+          return {
+            abxByResidentId: {
+              ...s.abxByResidentId,
+              [residentId]: next
+            }
+          };
+        });
+      },
+
       resetAll: () =>
-        set({ schemaVersion: SCHEMA_VERSION, residentsById: {}, censusHistory: [], vaccinesByResidentId: {} })
+        set({
+          schemaVersion: SCHEMA_VERSION,
+          residentsById: {},
+          censusHistory: [],
+          vaccinesByResidentId: {},
+          abxByResidentId: {}
+        })
     });
 
 export const useICNStore = create<ICNState>()(
@@ -128,7 +226,8 @@ export const useICNStore = create<ICNState>()(
         schemaVersion: s.schemaVersion,
         residentsById: s.residentsById,
         censusHistory: s.censusHistory,
-        vaccinesByResidentId: s.vaccinesByResidentId
+        vaccinesByResidentId: s.vaccinesByResidentId,
+        abxByResidentId: s.abxByResidentId
       })
     })
 );
