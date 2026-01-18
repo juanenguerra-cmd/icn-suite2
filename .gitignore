@@ -1,21 +1,14 @@
-# dependencies
 node_modules/
-.pnpm-store/
-
-# build output
 dist/
-
-# logs
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# OS / editor
+.pnpm-store/
 .DS_Store
-Thumbs.db
-.vscode/
 
-# env
+# local env
 .env
 .env.*
+
+# build artifacts
+*.tsbuildinfo
+
+# legacy HTML exports (keep outside repo if possible)
+legacy/
