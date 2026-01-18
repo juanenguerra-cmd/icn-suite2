@@ -1,14 +1,15 @@
 import React from "react";
+import type { ICNState } from "@/types/icn";
 import { parseCensus } from "./parseCensus";
 import { useICNStore } from "@/store/icnStore";
 
 export function CensusPage() {
-  const applyCensus = useICNStore((s) => s.applyCensus);
-  const residents = useICNStore((s) => Object.values(s.residentsById));
+  const applyCensus = useICNStore((s: ICNState) => s.applyCensus);
+  const residents = useICNStore((s: ICNState) => Object.values(s.residentsById));
   const [raw, setRaw] = React.useState("");
   const [preview, setPreview] = React.useState<ReturnType<typeof parseCensus> | null>(null);
 
-  const activeCount = residents.filter((r) => r.status === "active").length;
+  const activeCount = residents.filter((r) => r.status === "active").length; // 'r' is inferred now
 
   return (
     <div className="p-4 md:p-6 max-w-5xl mx-auto">

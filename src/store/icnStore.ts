@@ -1,3 +1,4 @@
+// src/store/icnStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { ICNState, Resident, CensusSnapshot } from "@/types/icn";
@@ -21,11 +22,12 @@ export const useICNStore = create<ICNState>()(
           schemaVersion: s.schemaVersion,
           residentsById: s.residentsById,
           censusHistory: s.censusHistory,
-          exportedISO: nowISO()
+          exportedISO: nowISO(),
         };
       },
 
-      importState: (data) => {
+      importState: (data: unknown) => {
+        // Defensive import: never crash the app on bad JSON
         try {
           const d = data as any;
           if (!d || typeof d !== "object") return;
@@ -33,7 +35,7 @@ export const useICNStore = create<ICNState>()(
           set({
             schemaVersion: typeof d.schemaVersion === "number" ? d.schemaVersion : SCHEMA_VERSION,
             residentsById: d.residentsById ?? {},
-            censusHistory: d.censusHistory ?? []
+            censusHistory: d.censusHistory ?? [],
           });
         } catch {
           // no-op
@@ -44,7 +46,7 @@ export const useICNStore = create<ICNState>()(
         const prev = get().residentsById;
         const next: Record<string, Resident> = { ...prev };
 
-        // Mark all as discharged first; flip back to active when seen in this census
+        // mark all as discharged until re-seen in this snapshot
         for (const id of Object.keys(next)) {
           next[id] = { ...next[id], status: "discharged" };
         }
@@ -54,26 +56,30 @@ export const useICNStore = create<ICNState>()(
             ...(next[r.id] ?? r),
             ...r,
             status: "active",
-            lastSeenISO: snapshot.createdISO
+            lastSeenISO: snapshot.createdISO,
           };
         }
 
         set((s) => ({
           residentsById: next,
-          censusHistory: [snapshot, ...s.censusHistory].slice(0, 100)
+          censusHistory: [snapshot, ...s.censusHistory].slice(0, 100),
         }));
       },
 
       resetAll: () =>
-        set({ schemaVersion: SCHEMA_VERSION, residentsById: {}, censusHistory: [] })
+        set({
+          schemaVersion: SCHEMA_VERSION,
+          residentsById: {},
+          censusHistory: [],
+        }),
     }),
     {
       name: "icn-suite-state-v1",
-      partialize: (s) => ({
+      partialize: (s: ICNState) => ({
         schemaVersion: s.schemaVersion,
         residentsById: s.residentsById,
-        censusHistory: s.censusHistory
-      })
+        censusHistory: s.censusHistory,
+      }),
     }
   )
 );
