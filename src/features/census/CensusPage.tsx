@@ -1,11 +1,10 @@
 import React from "react";
 import { parseCensus } from "./parseCensus";
 import { useICNStore } from "@/store/icnStore";
-import type { ICNState } from "@/types/icn";
 
 export function CensusPage() {
-  const applyCensus = useICNStore((s: ICNState) => s.applyCensus);
-  const residents = useICNStore((s: ICNState) => Object.values(s.residentsById));
+  const applyCensus = useICNStore((s) => s.applyCensus);
+  const residents = useICNStore((s) => Object.values(s.residentsById));
   const [raw, setRaw] = React.useState("");
   const [preview, setPreview] = React.useState<ReturnType<typeof parseCensus> | null>(null);
 

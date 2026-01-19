@@ -5,6 +5,7 @@ import type {
   Config,
   InfectionCase,
   Resident,
+  ResidentNote,
   VaccinationEntry
 } from '../types/core';
 import { loadLS, saveLS } from '../utils/storage';
@@ -20,16 +21,18 @@ type Action =
   | { type: 'CENSUS_RECORD_SNAPSHOT'; date: string; unitCounts: Record<string, number>; total: number };
   
 type ListAction<T> =
-  | { type: 'LIST_ADD'; list: 'vaccinations' | 'antibiotics' | 'infectionCases'; item: T }
-  | { type: 'LIST_UPDATE'; list: 'vaccinations' | 'antibiotics' | 'infectionCases'; id: string; patch: Partial<T> }
-  | { type: 'LIST_DELETE'; list: 'vaccinations' | 'antibiotics' | 'infectionCases'; id: string };
+  | { type: 'LIST_ADD'; list: 'vaccinations' | 'antibiotics' | 'infectionCases' | 'residentNotes'; item: T }
+  | { type: 'LIST_ADD_MANY'; list: 'vaccinations' | 'antibiotics' | 'infectionCases' | 'residentNotes'; items: T[] }
+  | { type: 'LIST_UPDATE'; list: 'vaccinations' | 'antibiotics' | 'infectionCases' | 'residentNotes'; id: string; patch: Partial<T> }
+  | { type: 'LIST_DELETE'; list: 'vaccinations' | 'antibiotics' | 'infectionCases' | 'residentNotes'; id: string };
 
 type DataAction =
   | { type: 'LOAD_DATA'; data: AppData }
   | { type: 'MERGE_DATA'; patch: Partial<AppData> }
   | ListAction<VaccinationEntry>
   | ListAction<AntibioticEntry>
-  | ListAction<InfectionCase>;
+  | ListAction<InfectionCase>
+  | ListAction<ResidentNote>;
 
 type AllActions = Action | DataAction;
 
@@ -67,7 +70,8 @@ function defaultData(): AppData {
     censusHistory: [],
     vaccinations: [],
     antibiotics: [],
-    infectionCases: []
+    infectionCases: [],
+    residentNotes: []
   };
 }
 
@@ -100,7 +104,8 @@ function normalizeImportedData(d: any): AppData {
     censusHistory: Array.isArray(d.censusHistory) ? d.censusHistory : [],
     vaccinations: Array.isArray(d.vaccinations) ? d.vaccinations : [],
     antibiotics: Array.isArray(d.antibiotics) ? d.antibiotics : [],
-    infectionCases: Array.isArray(d.infectionCases) ? d.infectionCases : []
+    infectionCases: Array.isArray(d.infectionCases) ? d.infectionCases : [],
+    residentNotes: Array.isArray(d.residentNotes) ? d.residentNotes : []
   };
 }
 
@@ -141,6 +146,10 @@ function reducer(state: AppData, action: AllActions): AppData {
         return [x.residentId, x.onsetDateISO, String(x.precautions || '').toLowerCase(), String(x.organism || '').toLowerCase(), String(x.syndrome || '').toLowerCase()].join('|');
       }
 
+      function dedupeKeyNotes(x: any): string {
+        return [x.residentId, x.dateISO, String(x.text || '').toLowerCase()].join('|');
+      }
+
       function mergeList<T>(listName: 'vaccinations' | 'antibiotics' | 'infectionCases'): T[] {
         const a = ((state as any)[listName] as any[]) || [];
         const b = ((incoming as any)[listName] as any[]) || [];
@@ -166,7 +175,21 @@ function reducer(state: AppData, action: AllActions): AppData {
         censusHistory: action.patch?.censusHistory ? incoming.censusHistory : state.censusHistory,
         vaccinations: mergeList('vaccinations'),
         antibiotics: mergeList('antibiotics'),
-        infectionCases: mergeList('infectionCases')
+        infectionCases: mergeList('infectionCases'),
+        residentNotes: (() => {
+          const a = (state.residentNotes as any[]) || [];
+          const b = (incoming.residentNotes as any[]) || [];
+          const seen = new Set<string>();
+          const out: any[] = [];
+          for (const item of [...b, ...a]) {
+            if (!item) continue;
+            const k = dedupeKeyNotes(item);
+            if (seen.has(k)) continue;
+            seen.add(k);
+            out.push(item);
+          }
+          return out as ResidentNote[];
+        })()
       };
     }
     case 'SET_CONFIG': {
@@ -256,6 +279,21 @@ function reducer(state: AppData, action: AllActions): AppData {
       (item as any).updatedAt = now;
       return { ...(state as any), [listName]: [item, ...list] } as AppData;
     }
+
+    case 'LIST_ADD_MANY': {
+      const now = nowISO();
+      const listName = action.list;
+      const list = ((state as any)[listName] as any[]) || [];
+      const items = (action.items || []).map((x: any) => {
+        const item = { ...x };
+        if (!item.createdAt) item.createdAt = now;
+        item.updatedAt = now;
+        return item;
+      });
+      // Prepend new items (most recent first)
+      return { ...(state as any), [listName]: [...items, ...list] } as AppData;
+    }
+
     case 'LIST_UPDATE': {
       const now = nowISO();
       const listName = action.list;
