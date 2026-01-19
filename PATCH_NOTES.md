@@ -1,19 +1,16 @@
-# Fix5.3 — ABT parsing: smarter grouping + better extraction
+# Fix5.3.1 — Collector Syntax Error Hotfix
 
-## Improvements
-- Filters out common header/footer lines from "Order Listing Report".
-- Groups ABT items into entries using resident markers like: LAST, FIRST (12345).
-- Extracts resident name even if marker is not at the start of the chunk.
-- Better drug capture using dosage-form keywords (Tablet/Capsule/Solution/etc).
-- Preview shows pack.meta when splitting logic is used.
+## Fix
+Removes a duplicated/stray code fragment inside `coerceRecords()` that caused:
+`Uncaught SyntaxError: Unexpected token ')'` (collector:437)
 
 ## Deploy
-Overwrite these files in your repo:
-- public/_redirects
+Overwrite:
 - public/collector.html
 - public/import.html
+- public/_redirects
 
-Then commit + push.
+Commit + push.
 
-## Use
-Open: /import
+## Open
+- /import

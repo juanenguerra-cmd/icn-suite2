@@ -393,7 +393,7 @@
         if(!start && dates.length) start = dates[0];
         if(!end && dates.length > 1) end = dates[1];
 
-        // Indication: look for "for <words>" up to ~6 words
+        // Indication: look for "for <words>"
         let indication = r.indication ?? r.reason ?? "";
         if(!indication && t){
           const im = t.match(/\bfor\s+([A-Za-z][A-Za-z\- ]{2,60})(?=\s{2,}|\s+\d{2}\/\d{2}\/\d{4}|$)/i);
@@ -407,31 +407,6 @@
           start,
           end,
           indication,
-          raw: r
-        };
-      });
-    }
-
-        // Try to capture drug name (common: "... Capsule 100 MG" or "Fluconazole Tablet 150 MG")
-        let antibiotic = r.antibiotic ?? r.med ?? r.drug ?? "";
-        if(!antibiotic && t){
-          const dm = t.match(/\)\s*([A-Za-z][A-Za-z0-9\- ]+?(?:Tablet|Capsule|Suspension|Solution|IV|Injection|Cream|Ointment)[^\n]*?)(?=\s+Give\s|\s+\d{2}\/\d{2}\/\d{4}|$)/i);
-          if(dm) antibiotic = dm[1].trim();
-        }
-        // Dates: pick first two MM/DD/YYYY occurrences as start/end if present
-        const dates = t.match(/\b\d{2}\/\d{2}\/\d{4}\b/g) || [];
-        let start = r.start ?? r.start_date ?? "";
-        let end = r.end ?? r.end_date ?? "";
-        if(!start && dates.length) start = dates[0];
-        if(!end && dates.length > 1) end = dates[1];
-
-        return {
-          name,
-          room: r.room ?? r.room_bed ?? "",
-          antibiotic,
-          start,
-          end,
-          indication: r.indication ?? r.reason ?? "",
           raw: r
         };
       });
