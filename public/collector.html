@@ -297,17 +297,51 @@
   }
 
   function parseLines(s){
-    let t = (s||"").trim();
+    const original = (s||"");
+    let t = original.trim();
+
     // If paste comes in as one massive line (common from PDFs), try to split on likely resident markers:
     // e.g., "LAST, FIRST (201390)" or similar.
     if(t && !/\r?\n/.test(t) && t.length > 600){
-      const parts = t.split(/(?=[A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+\s*\(\d+\))/g).map(p=>p.trim()).filter(Boolean);
+      const parts = t
+        .split(/(?=[A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+\s*\(\d+\))/g)
+        .map(p=>p.trim())
+        .filter(Boolean);
       if(parts.length > 1){
-        return { records: parts.map(text => ({ text })) , meta: { split: "resident-marker" } };
+        return { records: parts.map(text => ({ text })), meta: { split: "resident-marker-singleline" } };
       }
     }
-    const lines = (s||"").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
-    return { records: lines.map(text => ({ text })) };
+
+    // Normal multi-line paste:
+    const lines = original.split(/\r?\n/).map(x=>x.trimEnd());
+    const nonEmpty = lines.filter(l => l.trim().length);
+
+    // ABT / order listing reports often include page headers/footers; keep them out
+    const junk = /^(Facility\b|Facility Code\b|Code:\b|Date:\b|Time:\b|Order Listing Report\b|User:\b|Resident:\b|Unit:\b|Floor:\b|Status:\b|Order Status\b|Completed\b|Order Date Range\b|Medication Class\b|Page\s+\d+\s+of\s+\d+|_{3,}|-{3,})/i;
+    const clean = nonEmpty.map(l => l.trim()).filter(l => !junk.test(l));
+
+    // Group into entries by resident marker on a line: "LAST, FIRST (12345)"
+    const markerRe = /([A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+)\s*\((\d+)\)/;
+
+    const groups = [];
+    let cur = [];
+    for(const line of clean){
+      if(markerRe.test(line) && cur.length){
+        groups.push(cur.join("\n"));
+        cur = [line];
+      }else{
+        cur.push(line);
+      }
+    }
+    if(cur.length) groups.push(cur.join("\n"));
+
+    const markerGroups = groups.filter(g => markerRe.test(g));
+    if(markerGroups.length >= 2){
+      return { records: markerGroups.map(text => ({ text })), meta: { split: "resident-marker-multiline" } };
+    }
+
+    // Otherwise: treat each line as a record
+    return { records: clean.map(text => ({ text })) };
   }
 
   function coerceRecords(dataset, records){
@@ -333,13 +367,51 @@
     }
     if(dataset === "abt"){
       return records.map(r => {
-        const t = String(r.text ?? "").trim();
-        // Try to capture "LAST, FIRST (12345)"
+        const t = String(r.text ?? "").replace(/\s+/g, " ").trim();
+
+        // Resident marker can appear anywhere in the chunk
         let name = r.name ?? r.resident ?? "";
         if(!name && t){
-          const m = t.match(/^([A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+)\s*\(\d+\)/);
+          const m = t.match(/([A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+)\s*\(\d+\)/);
           if(m) name = m[1];
         }
+
+        // Drug: grab a reasonable phrase that includes a dosage form
+        let antibiotic = r.antibiotic ?? r.med ?? r.drug ?? "";
+        if(!antibiotic && t){
+          const forms = "(Tablet|Cap(?:sule)?|Oral Capsule|Solution|Suspension|Injection|IV|Cream|Ointment|Patch)";
+          const dm =
+            t.match(new RegExp("\\b([A-Za-z][A-Za-z0-9\\-\\/ ]{2,80}\\b\\s+"+forms+"\\b[^.]{0,40})", "i")) ||
+            t.match(/\)\s*([A-Za-z][A-Za-z0-9\-\/ ]{2,80})(?=\s+Give\s|\s+\d{2}\/\d{2}\/\d{4}|$)/i);
+          if(dm) antibiotic = String(dm[1]).trim();
+        }
+
+        // Dates: pick first two MM/DD/YYYY occurrences
+        const dates = (t.match(/\b\d{2}\/\d{2}\/\d{4}\b/g) || []);
+        let start = r.start ?? r.start_date ?? "";
+        let end = r.end ?? r.end_date ?? "";
+        if(!start && dates.length) start = dates[0];
+        if(!end && dates.length > 1) end = dates[1];
+
+        // Indication: look for "for <words>" up to ~6 words
+        let indication = r.indication ?? r.reason ?? "";
+        if(!indication && t){
+          const im = t.match(/\bfor\s+([A-Za-z][A-Za-z\- ]{2,60})(?=\s{2,}|\s+\d{2}\/\d{2}\/\d{4}|$)/i);
+          if(im) indication = im[1].trim();
+        }
+
+        return {
+          name,
+          room: r.room ?? r.room_bed ?? "",
+          antibiotic,
+          start,
+          end,
+          indication,
+          raw: r
+        };
+      });
+    }
+
         // Try to capture drug name (common: "... Capsule 100 MG" or "Fluconazole Tablet 150 MG")
         let antibiotic = r.antibiotic ?? r.med ?? r.drug ?? "";
         if(!antibiotic && t){
@@ -423,7 +495,7 @@
     const recs = Array.isArray(pack.records) ? pack.records : [];
     const shown = recs.slice(0,5);
     try{
-      els.preview.value = JSON.stringify(shown, null, 2);
+      els.preview.value = (pack.meta && Object.keys(pack.meta).length ? ('// Preview meta: ' + JSON.stringify(pack.meta) + '\n') : '') + JSON.stringify(shown, null, 2);
     }catch(e){
       els.preview.value = String(shown);
     }

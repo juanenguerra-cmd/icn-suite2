@@ -1,19 +1,19 @@
-# Fix5.2 — Quick Collector: record count + preview + smarter ABT parsing
+# Fix5.3 — ABT parsing: smarter grouping + better extraction
 
-## What it fixes
-- "Records:" pill now always shows a number (was blank due to id mismatch in some deployments).
-- Adds a **Preview (first 5)** box so you can confirm parsing before copying/downloading.
-- If pasted ABT data comes in as one huge line (common from PDFs), it tries to split by resident markers like:
-  `LAST, FIRST (12345)`.
+## Improvements
+- Filters out common header/footer lines from "Order Listing Report".
+- Groups ABT items into entries using resident markers like: LAST, FIRST (12345).
+- Extracts resident name even if marker is not at the start of the chunk.
+- Better drug capture using dosage-form keywords (Tablet/Capsule/Solution/etc).
+- Preview shows pack.meta when splitting logic is used.
 
 ## Deploy
-Copy into your repo (overwrite):
+Overwrite these files in your repo:
 - public/_redirects
 - public/collector.html
 - public/import.html
 
 Then commit + push.
 
-## Open
-- /import (recommended)
-- /import.html (also works)
+## Use
+Open: /import
