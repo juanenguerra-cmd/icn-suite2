@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ICN Suite — Quick Collector (Bulk Import Pack)</title>
+  <style>
+    @font-face {
+      font-family: "CameraPlainVariable";
+      src: url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root{
+      --font:"CameraPlainVariable",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      --bg:245 246 248;
+      --card:255 255 255;
+      --text:18 18 18;
+      --muted:110 118 129;
+      --border:225 228 232;
+      --shadow:0 10px 30px rgba(0,0,0,.06);
+      --radius:16px;
+      --radiusPill:9999px;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background:rgb(var(--bg));
+      color:rgb(var(--text));
+    }
+    .wrap{max-width:980px;margin:0 auto;padding:14px;}
+    .card{
+      background:rgb(var(--card));
+      border:1px solid rgb(var(--border));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px;
+    }
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+    .row > *{flex:1 1 auto;}
+    h1{font-size:18px;margin:0 0 6px;}
+    .sub{color:rgb(var(--muted));font-size:13px;margin:0 0 12px;line-height:1.35;}
+    label{display:block;font-size:12px;color:rgb(var(--muted));margin:8px 0 6px;}
+    select,textarea,input{
+      width:100%;
+      border:1px solid rgb(var(--border));
+      border-radius:12px;
+      padding:10px;
+      font:inherit;
+      background:#fff;
+      box-sizing:border-box;
+    }
+    textarea{min-height:210px;resize:vertical;}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:10px;}
+    button{
+      border:1px solid rgb(var(--border));
+      background:#fff;
+      border-radius:var(--radiusPill);
+      padding:10px 14px;
+      font:inherit;
+      cursor:pointer;
+      box-shadow:0 2px 10px rgba(0,0,0,.03);
+    }
+    button.primary{
+      background:rgba(0,0,0,.92);
+      color:#fff;
+      border-color:rgba(0,0,0,.92);
+    }
+    button:disabled{opacity:.6;cursor:not-allowed;}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px;}
+    @media(min-width:920px){.grid{grid-template-columns:1.25fr .75fr;}}
+    .pill{
+      display:inline-flex;align-items:center;gap:6px;
+      border-radius:var(--radiusPill);
+      border:1px solid rgb(var(--border));
+      padding:6px 10px;
+      font-size:12px;
+      color:rgb(var(--muted));
+      background:#fff;
+    }
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
+    .ok{color:#0b7a28;}
+    .warn{color:#8a4b00;}
+    .err{color:#a11;}
+    .small{font-size:12px;color:rgb(var(--muted));}
+    .hr{height:1px;background:rgb(var(--border));margin:12px 0;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>ICN Suite — Quick Collector</h1>
+      <p class="sub">
+        Paste CSV / JSON array / raw lines, generate an <span class="mono">icn-bulk-import-v1</span> pack, then copy or download it.
+        This page is static (<span class="mono">/import.html</span>) so you can collect data immediately without waiting for the React UI wiring.
+      </p>
+
+      <div class="grid">
+        <div>
+          <label for="dataset">Dataset</label>
+          <select id="dataset">
+            <option value="census">Census</option>
+            <option value="vaccinations">Vaccinations</option>
+            <option value="abt">ABT (Antibiotics)</option>
+            <option value="generic">Generic / Notes</option>
+          </select>
+
+          <div class="row">
+            <div>
+              <label for="format">Input format</label>
+              <select id="format">
+                <option value="auto">Auto-detect</option>
+                <option value="csv">CSV (header row)</option>
+                <option value="json">JSON array</option>
+                <option value="lines">Raw lines</option>
+              </select>
+            </div>
+            <div>
+              <label for="delimiter">CSV delimiter</label>
+              <select id="delimiter">
+                <option value="auto">Auto</option>
+                <option value=",">Comma (,)</option>
+                <option value="\t">Tab</option>
+                <option value=";">Semicolon (;)</option>
+                <option value="|">Pipe (|)</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="raw">Paste input</label>
+          <textarea id="raw" placeholder="Paste CSV / JSON array / lines here..."></textarea>
+
+          <div class="btns">
+            <button id="clear">Clear</button>
+            <button id="save">Save draft</button>
+            <button id="generate" class="primary">Generate pack</button>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="row">
+            <span class="pill" id="status">Status: <span class="mono">idle</span></span>
+            <span class="pill">Detected: <span class="mono" id="detected">—</span></span>
+            <span class="pill">Records: <span class="mono" id="count">0</span></span>
+          </div>
+
+          <p class="small">
+            iPhone tip: if “Copy” fails, long-press inside the JSON box and copy manually (Safari clipboard can be picky).
+          </p>
+        </div>
+
+        <div>
+          <label for="out">Generated Import Pack JSON</label>
+          <textarea id="out" class="mono" readonly placeholder='{"version":"icn-bulk-import-v1", ...}'></textarea>
+          <div class="btns">
+            <button id="copy">Copy JSON</button>
+            <button id="download">Download .json</button>
+          </div>
+
+          <div class="hr"></div>
+
+          <label>Quick examples</label>
+          <div class="small">
+            <div class="pill mono" style="margin-bottom:8px;display:inline-flex;white-space:normal;">
+              CSV: name,room,unit<br/>Jane Doe,2-101A,Unit 2
+            </div>
+            <div class="pill mono" style="margin-bottom:8px;display:inline-flex;white-space:normal;">
+              JSON: [{"name":"Jane Doe","room":"2-101A"}]
+            </div>
+            <div class="pill mono" style="display:inline-flex;white-space:normal;">
+              Lines: Jane Doe — 2-101A — Unit 2
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const els = {
+    dataset: document.getElementById('dataset'),
+    format: document.getElementById('format'),
+    delimiter: document.getElementById('delimiter'),
+    raw: document.getElementById('raw'),
+    out: document.getElementById('out'),
+    status: document.getElementById('status'),
+    detected: document.getElementById('detected'),
+    count: document.getElementById('count'),
+    clear: document.getElementById('clear'),
+    save: document.getElementById('save'),
+    generate: document.getElementById('generate'),
+    copy: document.getElementById('copy'),
+    download: document.getElementById('download'),
+  };
+
+  const LS_KEY = "icn_quick_collector_draft_v1";
+
+  function setStatus(kind, msg){
+    const mono = els.status.querySelector('.mono');
+    mono.textContent = msg;
+    mono.className = "mono " + (kind || "");
+  }
+
+  function tryJsonParse(s){
+    try { return { ok:true, value: JSON.parse(s) }; } catch(e){ return { ok:false, error: e }; }
+  }
+
+  function sniffFormat(s){
+    const t = (s||"").trim();
+    if(!t) return "empty";
+    if(t[0] === "[" || t[0] === "{") return "json";
+    // CSV-ish if it has newlines and commas/tabs/semicolons
+    const hasNL = /\\r?\\n/.test(t);
+    const hasSep = /,|\\t|;|\\|/.test(t);
+    if(hasNL && hasSep) return "csv";
+    return "lines";
+  }
+
+  function pickDelimiter(s){
+    const choice = els.delimiter.value;
+    if(choice !== "auto") return choice;
+    // simple heuristic: choose the most common separator in the first non-empty line
+    const lines = (s||"").split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean);
+    const first = lines[0] || "";
+    const candidates = [",","\\t",";","|"];
+    let best = ",", bestCount = -1;
+    for(const c of candidates){
+      const cnt = (first.split(c).length - 1);
+      if(cnt > bestCount){ bestCount = cnt; best = c; }
+    }
+    return best;
+  }
+
+  function parseCsv(s){
+    const delim = pickDelimiter(s);
+    const lines = (s||"").split(/\\r?\\n/).filter(l => l.trim().length);
+    if(lines.length < 2) return { records: [], warning: "CSV needs a header row + at least one data row." };
+
+    const headers = splitCsvLine(lines[0], delim).map(h => normalizeKey(h));
+    const records = [];
+    for(let i=1;i<lines.length;i++){
+      const cols = splitCsvLine(lines[i], delim);
+      const obj = {};
+      for(let j=0;j<headers.length;j++){
+        const k = headers[j] || ("col" + (j+1));
+        obj[k] = (cols[j] ?? "").trim();
+      }
+      // drop empty rows
+      const anyVal = Object.values(obj).some(v => String(v).trim().length);
+      if(anyVal) records.push(obj);
+    }
+    return { records, delimiter: delim };
+  }
+
+  // Minimal CSV splitting with quotes support
+  function splitCsvLine(line, delim){
+    const out = [];
+    let cur = "", inQ = false;
+    for(let i=0;i<line.length;i++){
+      const ch = line[i];
+      if(ch === '"'){
+        if(inQ && line[i+1] === '"'){ cur += '"'; i++; }
+        else inQ = !inQ;
+      } else if(!inQ && ch === delim){
+        out.push(cur);
+        cur = "";
+      } else {
+        cur += ch;
+      }
+    }
+    out.push(cur);
+    return out;
+  }
+
+  function normalizeKey(k){
+    return String(k || "")
+      .trim()
+      .replace(/\\s+/g, "_")
+      .replace(/[^a-zA-Z0-9_]/g, "")
+      .replace(/^_+|_+$/g, "")
+      .toLowerCase();
+  }
+
+  function parseLines(s){
+    const lines = (s||"").split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean);
+    return { records: lines.map(text => ({ text })) };
+  }
+
+  function coerceRecords(dataset, records){
+    // light normalization so your future "Apply Pack" can map consistently
+    if(dataset === "census"){
+      return records.map(r => ({
+        room: r.room ?? r.room_bed ?? r.roombed ?? r.location ?? "",
+        unit: r.unit ?? r.floor ?? r.section ?? "",
+        name: r.name ?? r.resident ?? r.resident_name ?? r.patient ?? "",
+        lon: r.lon ?? r.lontype ?? r.l_no ?? "",
+        raw: r
+      }));
+    }
+    if(dataset === "vaccinations"){
+      return records.map(r => ({
+        name: r.name ?? r.resident ?? "",
+        room: r.room ?? r.room_bed ?? "",
+        vaccine: r.vaccine ?? r.vax ?? r.type ?? "",
+        dose: r.dose ?? r.dose_no ?? r.dosenumber ?? "",
+        date: r.date ?? r.admin_date ?? r.given_date ?? "",
+        raw: r
+      }));
+    }
+    if(dataset === "abt"){
+      return records.map(r => ({
+        name: r.name ?? r.resident ?? "",
+        room: r.room ?? r.room_bed ?? "",
+        antibiotic: r.antibiotic ?? r.med ?? r.drug ?? "",
+        start: r.start ?? r.start_date ?? "",
+        end: r.end ?? r.end_date ?? "",
+        indication: r.indication ?? r.reason ?? "",
+        raw: r
+      }));
+    }
+    return records;
+  }
+
+  function buildPack(){
+    const dataset = els.dataset.value;
+    const raw = els.raw.value || "";
+    const formatChoice = els.format.value;
+
+    const sniffed = sniffFormat(raw);
+    const fmt = (formatChoice === "auto" ? sniffed : formatChoice);
+    els.detected.textContent = fmt;
+
+    if(fmt === "empty"){
+      return { ok:false, error: "No input to parse." };
+    }
+
+    let parsed = { records: [] };
+    let meta = {};
+    if(fmt === "json"){
+      const jp = tryJsonParse(raw.trim());
+      if(!jp.ok) return { ok:false, error: "Invalid JSON. Must be a JSON array (or object containing an array)." };
+      let val = jp.value;
+      if(Array.isArray(val)) parsed.records = val;
+      else if(val && typeof val === "object"){
+        // accept {records:[...]} or {data:[...]}
+        const arr = Array.isArray(val.records) ? val.records : (Array.isArray(val.data) ? val.data : null);
+        if(!arr) return { ok:false, error: "JSON must be an array, or an object with records[] or data[] array." };
+        parsed.records = arr;
+      } else {
+        return { ok:false, error: "JSON must be an array of objects." };
+      }
+    } else if(fmt === "csv"){
+      const res = parseCsv(raw);
+      parsed.records = res.records;
+      if(res.delimiter) meta.csvDelimiter = res.delimiter === "\\t" ? "TAB" : res.delimiter;
+      if(res.warning) meta.warning = res.warning;
+    } else { // lines
+      const res = parseLines(raw);
+      parsed.records = res.records;
+    }
+
+    const normalized = coerceRecords(dataset, parsed.records);
+
+    const pack = {
+      version: "icn-bulk-import-v1",
+      generatedAt: new Date().toISOString(),
+      dataset,
+      recordCount: normalized.length,
+      meta,
+      records: normalized
+    };
+
+    return { ok:true, pack };
+  }
+
+  function renderPack(pack){
+    els.out.value = JSON.stringify(pack, null, 2);
+    els.count.textContent = String(pack.recordCount ?? (pack.records ? pack.records.length : 0));
+  }
+
+  function downloadJson(text){
+    const blob = new Blob([text], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const ds = els.dataset.value || "data";
+    const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
+    a.href = url;
+    a.download = `icn-${ds}-bulk-pack-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 500);
+  }
+
+  function saveDraft(){
+    const draft = {
+      dataset: els.dataset.value,
+      format: els.format.value,
+      delimiter: els.delimiter.value,
+      raw: els.raw.value
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(draft));
+  }
+
+  function loadDraft(){
+    const jp = tryJsonParse(localStorage.getItem(LS_KEY) || "");
+    if(!jp.ok || !jp.value) return;
+    els.dataset.value = jp.value.dataset || "census";
+    els.format.value = jp.value.format || "auto";
+    els.delimiter.value = jp.value.delimiter || "auto";
+    els.raw.value = jp.value.raw || "";
+  }
+
+  els.clear.addEventListener('click', () => {
+    els.raw.value = "";
+    els.out.value = "";
+    els.detected.textContent = "—";
+    els.count.textContent = "0";
+    setStatus("", "idle");
+  });
+
+  els.save.addEventListener('click', () => {
+    saveDraft();
+    setStatus("ok", "saved");
+    setTimeout(()=>setStatus("", "idle"), 900);
+  });
+
+  els.generate.addEventListener('click', () => {
+    setStatus("", "parsing...");
+    const res = buildPack();
+    if(!res.ok){
+      setStatus("err", "error");
+      els.out.value = String(res.error || "Unknown error");
+      els.count.textContent = "0";
+      return;
+    }
+    renderPack(res.pack);
+    saveDraft();
+    setStatus("ok", "ready");
+  });
+
+  els.copy.addEventListener('click', async () => {
+    const text = els.out.value || "";
+    if(!text.trim()){ setStatus("warn", "nothing to copy"); return; }
+    try{
+      await navigator.clipboard.writeText(text);
+      setStatus("ok", "copied");
+      setTimeout(()=>setStatus("", "ready"), 900);
+    }catch(e){
+      // fallback: select text
+      els.out.focus();
+      els.out.select();
+      setStatus("warn", "select+copy");
+    }
+  });
+
+  els.download.addEventListener('click', () => {
+    const text = els.out.value || "";
+    if(!text.trim()){ setStatus("warn", "nothing to download"); return; }
+    downloadJson(text);
+    setStatus("ok", "downloaded");
+    setTimeout(()=>setStatus("", "ready"), 900);
+  });
+
+  // Auto-save raw changes lightly
+  let tmr = null;
+  els.raw.addEventListener('input', () => {
+    clearTimeout(tmr);
+    tmr = setTimeout(()=>saveDraft(), 400);
+  });
+
+  loadDraft();
+})();
+</script>
+</body>
+</html>

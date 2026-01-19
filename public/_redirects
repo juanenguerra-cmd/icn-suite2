@@ -1,2 +1,6 @@
-/import.html /import.html 200
+/import /collector.html 200
+/import/ /collector.html 200
+/import.html /collector.html 200
+/collector /collector.html 200
+/collector/ /collector.html 200
 /* /index.html 200
