@@ -381,7 +381,7 @@
         // Prefer drug text immediately after the resident marker, when present
         if(!antibiotic && t){
           const mm = t.match(/\([A-Za-z0-9\-]+\)\s+(.+?)(?=\s+Give\s|\s+\d{2}\/\d{2}\/\d{4}|$)/i);
-          if(mm) antibiotic = mm[2].trim();
+          if(mm && mm[1]) antibiotic = String(mm[1]).trim();
         }
 
         if(!antibiotic && t){

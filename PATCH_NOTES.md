@@ -1,11 +1,12 @@
-# Fix5.4.1 — ABT ReferenceError hotfix
+# Fix5.4.2 — ABT mm trim hotfix
 
 ## Error fixed
-Uncaught ReferenceError: Cannot access 'antibiotic' before initialization
+Uncaught TypeError: Cannot read properties of undefined (reading 'trim')
 
-Cause: the ABT extraction block referenced `antibiotic` before it was declared.
+Cause: ABT extraction referenced `mm[2].trim()` but the regex only has one capture group,
+so the medication text is `mm[1]`.
 
-Fix: declare `let antibiotic = ...` first, then run the "prefer drug text after (ID)" logic.
+Fix: use `mm[1]` and guard for undefined.
 
 ## Deploy
 Overwrite:
@@ -13,4 +14,4 @@ Overwrite:
 - public/import.html
 - public/_redirects
 
-Commit + push, then reload /import.
+Commit + push, reload /import.
