@@ -2,13 +2,6 @@ node_modules/
 dist/
 .pnpm-store/
 .DS_Store
-
-# local env
+*.tsbuildinfo
 .env
 .env.*
-
-# build artifacts
-*.tsbuildinfo
-
-# legacy HTML exports (keep outside repo if possible)
-legacy/

@@ -15,5 +15,6 @@
     "strict": true,
     "types": ["vite/client"]
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/pages/**", "src/store/icnStore.tsx", "dist", "node_modules"]
 }
