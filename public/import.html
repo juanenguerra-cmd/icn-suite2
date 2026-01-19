@@ -93,7 +93,7 @@
     <div class="card">
       <h1>ICN Suite — Quick Collector</h1>
       <p class="sub">
-        Paste CSV / JSON array / raw lines, generate an <span class="mono">icn-bulk-import-v1</span> pack, then copy or download it.
+        Paste CSV / JSON array / raw lines, generate an <span class="mono">icn-bulk-import-v1</span> pack, then copy/download/save it in the Pack Vault (working mode).
         This page is static (<span class="mono">/import.html</span>) so you can collect data immediately without waiting for the React UI wiring.
       </p>
 
@@ -132,10 +132,17 @@
           <label for="raw">Paste input</label>
           <textarea id="raw" placeholder="Paste CSV / JSON array / lines here..."></textarea>
 
+          <div class="row" style="margin-top:8px;">
+            <span class="pill"><input id="appendMode" type="checkbox" style="width:auto;margin:0 6px 0 0;"/>Append mode</span>
+            <span class="pill"><input id="autoVault" type="checkbox" style="width:auto;margin:0 6px 0 0;" checked/>Auto-save to Vault</span>
+          </div>
+
           <div class="btns">
             <button id="clear">Clear</button>
             <button id="save">Save draft</button>
             <button id="generate" class="primary">Generate pack</button>
+            <button id="saveVault">Save to Vault</button>
+            <button id="queue" class="primary" style="background:rgba(0,0,0,.78);border-color:rgba(0,0,0,.78);">Queue for ICN Suite</button>
           </div>
 
           <div class="hr"></div>
@@ -175,6 +182,30 @@
             <div class="pill mono" style="display:inline-flex;white-space:normal;">
               Lines: Jane Doe — 2-101A — Unit 2
             </div>
+
+          <div class="hr"></div>
+
+          <h2 style="font-size:14px;margin:0 0 8px;">Pack Vault</h2>
+          <p class="small" style="margin-top:0;">
+            Saved packs live in this device’s localStorage. Use Vault to merge/export packs while the full in-app importer is still in progress.
+          </p>
+
+          <div class="row">
+            <button id="vaultRefresh">Refresh</button>
+            <button id="vaultClear">Clear Vault</button>
+          </div>
+
+          <label>Saved packs</label>
+          <div id="vaultList" class="sip-card" style="border-radius:12px;padding:10px;max-height:220px;overflow:auto;"></div>
+
+          <div class="btns">
+            <button id="vaultMerge">Merge selected</button>
+            <button id="vaultDownload" class="primary">Download merged</button>
+          </div>
+
+          <label for="merged">Merged output (preview)</label>
+          <textarea id="merged" class="mono" readonly placeholder="Merged pack JSON will appear here..."></textarea>
+
           </div>
         </div>
       </div>
@@ -198,6 +229,16 @@
     generate: document.getElementById('generate'),
     copy: document.getElementById('copy'),
     download: document.getElementById('download'),
+    appendMode: document.getElementById('appendMode'),
+    autoVault: document.getElementById('autoVault'),
+    saveVault: document.getElementById('saveVault'),
+    queue: document.getElementById('queue'),
+    vaultList: document.getElementById('vaultList'),
+    vaultRefresh: document.getElementById('vaultRefresh'),
+    vaultClear: document.getElementById('vaultClear'),
+    vaultMerge: document.getElementById('vaultMerge'),
+    vaultDownload: document.getElementById('vaultDownload'),
+    merged: document.getElementById('merged'),
   };
 
   if(!els.count){
@@ -208,6 +249,10 @@
     els.preview = document.querySelector('#preview') || null;
   }
 
+  const VAULT_KEY = "icn_pack_vault_v1";
+  const QUEUE_KEY = "icn_import_queue_v1";
+  const SESSION_KEY = "icn_session_pack_v1";
+
   const LS_KEY = "icn_quick_collector_draft_v1";
 
   function setStatus(kind, msg){
@@ -215,6 +260,126 @@
     mono.textContent = msg;
     mono.className = "mono " + (kind || "");
   }
+
+  
+  function uid(){
+    return (crypto && crypto.randomUUID) ? crypto.randomUUID() : ("id_" + Math.random().toString(16).slice(2) + Date.now());
+  }
+
+  function readJsonLS(key, fallback){
+    try{
+      const raw = localStorage.getItem(key);
+      if(!raw) return fallback;
+      return JSON.parse(raw);
+    }catch(e){
+      return fallback;
+    }
+  }
+
+  function writeJsonLS(key, value){
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function vaultAdd(pack){
+    const vault = readJsonLS(VAULT_KEY, []);
+    vault.unshift({ id: uid(), dataset: pack.dataset, generatedAt: pack.generatedAt, recordCount: pack.recordCount, pack });
+    writeJsonLS(VAULT_KEY, vault.slice(0, 200)); // cap
+  }
+
+  function vaultRemove(id){
+    const vault = readJsonLS(VAULT_KEY, []);
+    writeJsonLS(VAULT_KEY, vault.filter(x => x.id !== id));
+  }
+
+  function renderVault(){
+    if(!els.vaultList) return;
+    const vault = readJsonLS(VAULT_KEY, []);
+    if(!vault.length){
+      els.vaultList.innerHTML = '<div class="small">No saved packs yet.</div>';
+      return;
+    }
+    els.vaultList.innerHTML = vault.map(item => {
+      const ds = item.dataset || "unknown";
+      const dt = (item.generatedAt || "").replace("T"," ").replace("Z","");
+      const rc = item.recordCount ?? (item.pack && item.pack.records ? item.pack.records.length : 0);
+      return `
+        <div class="vault-item">
+          <input type="checkbox" data-vault-check="${item.id}" />
+          <div class="vault-meta">
+            <p class="vault-title"><span class="mono">${ds}</span> — ${rc} records</p>
+            <p class="vault-sub">${dt}</p>
+          </div>
+          <div class="vault-actions">
+            <button data-vault-view="${item.id}">View</button>
+            <button data-vault-del="${item.id}">Delete</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    // wire actions
+    els.vaultList.querySelectorAll("[data-vault-view]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-vault-view");
+        const vault = readJsonLS(VAULT_KEY, []);
+        const found = vault.find(x => x.id === id);
+        if(found){
+          els.merged.value = JSON.stringify(found.pack, null, 2);
+        }
+      });
+    });
+    els.vaultList.querySelectorAll("[data-vault-del]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-vault-del");
+        vaultRemove(id);
+        renderVault();
+      });
+    });
+  }
+
+  function mergePacks(packs){
+    // Packs can be different datasets; merge by dataset into a multi-pack
+    const byDs = {};
+    for(const p of packs){
+      const ds = p.dataset || "generic";
+      if(!byDs[ds]){
+        byDs[ds] = { dataset: ds, records: [], meta: {} };
+      }
+      const recs = Array.isArray(p.records) ? p.records : [];
+      byDs[ds].records.push(...recs);
+    }
+    const datasets = Object.keys(byDs).map(ds => ({
+      dataset: ds,
+      recordCount: byDs[ds].records.length,
+      records: byDs[ds].records
+    }));
+    return {
+      version: "icn-bulk-import-v1",
+      generatedAt: new Date().toISOString(),
+      dataset: datasets.length === 1 ? datasets[0].dataset : "multi",
+      recordCount: datasets.reduce((a,d)=>a+d.recordCount,0),
+      meta: { merged: true, datasets: datasets.map(d=>({dataset:d.dataset, recordCount:d.recordCount})) },
+      records: datasets.length === 1 ? datasets[0].records : [],
+      datasets: datasets.length > 1 ? datasets : undefined
+    };
+  }
+
+  function queuePack(pack){
+    const q = readJsonLS(QUEUE_KEY, []);
+    q.push({ id: uid(), queuedAt: new Date().toISOString(), pack });
+    writeJsonLS(QUEUE_KEY, q.slice(-200));
+  }
+
+  function sessionGet(){
+    return readJsonLS(SESSION_KEY, null);
+  }
+  function sessionSet(pack){
+    writeJsonLS(SESSION_KEY, pack);
+  }
+  function sessionClear(){
+    localStorage.removeItem(SESSION_KEY);
+  }
+
 
   function tryJsonParse(s){
     try { return { ok:true, value: JSON.parse(s) }; } catch(e){ return { ok:false, error: e }; }
@@ -543,9 +708,28 @@
       els.count.textContent = "0";
       return;
     }
-    renderPack(res.pack);
-    renderPreview(res.pack);
+    let pack = res.pack;
+    // Append mode: merge into session pack
+    if(els.appendMode && els.appendMode.checked){
+      const sess = sessionGet();
+      if(sess && sess.version === pack.version){
+        const merged = mergePacks([sess, pack]);
+        pack = merged;
+      }
+      sessionSet(pack);
+    }else{
+      sessionClear();
+    }
+
+    renderPack(pack);
+    renderPreview(pack);
     saveDraft();
+
+    // Auto-save to Vault
+    if(els.autoVault && els.autoVault.checked){
+      vaultAdd(pack);
+      renderVault();
+    }
     setStatus("ok", "ready");
   });
 
@@ -579,7 +763,58 @@
     tmr = setTimeout(()=>saveDraft(), 400);
   });
 
-  loadDraft();
+
+  // Vault controls
+  if(els.vaultRefresh) els.vaultRefresh.addEventListener("click", () => renderVault());
+  if(els.vaultClear) els.vaultClear.addEventListener("click", () => {
+    localStorage.removeItem(VAULT_KEY);
+    els.merged.value = "";
+    renderVault();
+  });
+
+  if(els.vaultMerge) els.vaultMerge.addEventListener("click", () => {
+    const vault = readJsonLS(VAULT_KEY, []);
+    const checked = Array.from(document.querySelectorAll("[data-vault-check]:checked")).map(x => x.getAttribute("data-vault-check"));
+    const packs = vault.filter(v => checked.includes(v.id)).map(v => v.pack);
+    if(!packs.length){ setStatus("warn","select packs"); return; }
+    const merged = mergePacks(packs);
+    els.merged.value = JSON.stringify(merged, null, 2);
+    setStatus("ok","merged");
+    setTimeout(()=>setStatus("", "ready"), 900);
+  });
+
+  if(els.vaultDownload) els.vaultDownload.addEventListener("click", () => {
+    const text = els.merged.value || "";
+    if(!text.trim()){ setStatus("warn","nothing"); return; }
+    downloadJson(text);
+    setStatus("ok","downloaded");
+    setTimeout(()=>setStatus("", "ready"), 900);
+  });
+
+  // Manual save current output pack to Vault
+  if(els.saveVault) els.saveVault.addEventListener("click", () => {
+    const jp = tryJsonParse(els.out.value || "");
+    if(!jp.ok || !jp.value){ setStatus("warn","no pack"); return; }
+    vaultAdd(jp.value);
+    renderVault();
+    setStatus("ok","vaulted");
+    setTimeout(()=>setStatus("", "ready"), 900);
+  });
+
+  // Queue pack for later in-app import (safe, schema-agnostic)
+  if(els.queue) els.queue.addEventListener("click", () => {
+    const jp = tryJsonParse(els.out.value || "");
+    if(!jp.ok || !jp.value){ setStatus("warn","no pack"); return; }
+    queuePack(jp.value);
+    setStatus("ok","queued");
+    setTimeout(()=>setStatus("", "ready"), 900);
+  });
+
+  // Initial render
+  renderVault();
+
+
+    loadDraft();
 })();
 </script>
 </body>

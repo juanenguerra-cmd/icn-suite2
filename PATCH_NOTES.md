@@ -1,17 +1,28 @@
-# Fix5.4.2 — ABT mm trim hotfix
+# Fix6 — Working Mode (Big Jump)
 
-## Error fixed
-Uncaught TypeError: Cannot read properties of undefined (reading 'trim')
-
-Cause: ABT extraction referenced `mm[2].trim()` but the regex only has one capture group,
-so the medication text is `mm[1]`.
-
-Fix: use `mm[1]` and guard for undefined.
+## What you get
+- Quick Collector now includes a built-in **Pack Vault**:
+  - auto-save packs to vault (toggle)
+  - manual save
+  - view/delete packs
+  - merge selected packs
+  - download merged output
+- **Append mode**: keep adding paste batches into a session pack (merges automatically).
+- **Queue for ICN Suite**: stores the latest pack into localStorage queue key:
+  - `icn_import_queue_v1`
+  This is a safe handoff for your React app importer to consume later.
+- New landing page:
+  - `/working` -> Working Mode links
 
 ## Deploy
 Overwrite:
+- public/_redirects
 - public/collector.html
 - public/import.html
-- public/_redirects
+- public/working.html
 
-Commit + push, reload /import.
+Commit + push.
+
+## Open
+- /working (recommended)
+- /import
