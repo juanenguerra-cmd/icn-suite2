@@ -1,23 +1,64 @@
-import { create, type StateCreator } from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { ICNState, Resident, CensusSnapshot, VaccineRecord, AntibioticRecord } from "@/types/icn";
-import { makeId } from "@/lib/id";
 
-const SCHEMA_VERSION = 1;
+import type {
+  ICNState,
+  Resident,
+  CensusSnapshot,
+  VaccineRecord,
+  AntibioticRecord,
+  AbxStatus
+} from "@/types/icn";
+
+const SCHEMA_VERSION = 3;
 
 function nowISO() {
   return new Date().toISOString();
 }
 
-const storeCreator: StateCreator<ICNState> = (set, get) => ({
+function id(prefix: string) {
+  return `${prefix}_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;
+}
+
+function todayISO() {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+// Batch entry shapes (kept simple)
+type VaccineEntryInput = {
+  name?: string;
+  nameOther?: string;
+  dateISO?: string;
+  notes?: string;
+};
+
+type AbxEntryInput = {
+  antibiotic?: string;
+  startDateISO?: string;
+  indication?: string;
+  notes?: string;
+};
+
+export const useICNStore = create<ICNState>()(
+  persist(
+    (set, get) => ({
       schemaVersion: SCHEMA_VERSION,
+
+      // Core
       residentsById: {},
       censusHistory: [],
 
+      // Vaccines
       vaccinesByResidentId: {},
 
+      // ABT
       abxByResidentId: {},
 
+      // Export / Import
       exportState: () => {
         const s = get();
         return {
@@ -47,13 +88,23 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
         }
       },
 
+      resetAll: () =>
+        set({
+          schemaVersion: SCHEMA_VERSION,
+          residentsById: {},
+          censusHistory: [],
+          vaccinesByResidentId: {},
+          abxByResidentId: {}
+        }),
+
+      // Census
       applyCensus: (snapshot: CensusSnapshot) => {
         const prev = get().residentsById;
         const next: Record<string, Resident> = { ...prev };
 
-        // Mark all as discharged first; flip back to active when seen in this census
-        for (const id of Object.keys(next)) {
-          next[id] = { ...next[id], status: "discharged" };
+        // mark all as discharged until seen again
+        for (const rid of Object.keys(next)) {
+          next[rid] = { ...next[rid], status: "discharged" };
         }
 
         for (const r of snapshot.residents) {
@@ -65,51 +116,54 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
           };
         }
 
-        set((s) => ({
+        set((s: ICNState) => ({
           residentsById: next,
-          censusHistory: [snapshot, ...s.censusHistory].slice(0, 100)
+          censusHistory: [snapshot, ...s.censusHistory].slice(0, 120)
         }));
       },
 
-      addVaccinesBatch: (residentId, entries) => {
+      // --------------------
+      // Vaccines
+      // --------------------
+      addVaccinesBatch: (residentId: string, entries: VaccineEntryInput[]) => {
         if (!residentId) return;
-        const cleaned = (entries || [])
+
+        const cleaned = (entries ?? [])
           .map((e) => ({
-            name: e.name,
-            nameOther: e.nameOther?.trim() || undefined,
-            dateISO: (e.dateISO || "").trim(),
-            notes: e.notes?.trim() || undefined
+            name: (e.name ?? "").trim(),
+            nameOther: (e.nameOther ?? "").trim(),
+            dateISO: (e.dateISO ?? "").trim(),
+            notes: (e.notes ?? "").trim()
           }))
           .filter((e) => !!e.name && !!e.dateISO);
 
         if (cleaned.length === 0) return;
 
-        set((s) => {
+        set((s: ICNState) => {
           const prev = s.vaccinesByResidentId[residentId] ?? [];
-          const createdISO = nowISO();
-          const nextAdds: VaccineRecord[] = cleaned.map((e) => ({
-            id: makeId("vx"),
+          const adds: VaccineRecord[] = cleaned.map((e) => ({
+            id: id("vx"),
             residentId,
-            name: e.name,
-            nameOther: e.name === "Other" ? e.nameOther : undefined,
-            dateISO: e.dateISO,
-            notes: e.notes,
-            createdISO
+            name: e.name as any, // your VaccineName union lives in types/icn.ts
+            nameOther: e.name === "Other" ? e.nameOther || "Other" : undefined,
+            dateISO: e.dateISO!,
+            notes: e.notes || undefined,
+            createdISO: nowISO()
           }));
 
-          const next = [...nextAdds, ...prev].sort((a, b) => (a.dateISO < b.dateISO ? 1 : -1));
           return {
             vaccinesByResidentId: {
               ...s.vaccinesByResidentId,
-              [residentId]: next
+              [residentId]: [...adds, ...prev]
             }
           };
         });
       },
 
-      deleteVaccine: (residentId, vaccineId) => {
+      deleteVaccine: (residentId: string, vaccineId: string) => {
         if (!residentId || !vaccineId) return;
-        set((s) => {
+
+        set((s: ICNState) => {
           const prev = s.vaccinesByResidentId[residentId] ?? [];
           const next = prev.filter((v) => v.id !== vaccineId);
           return {
@@ -121,71 +175,64 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
         });
       },
 
-      addAbxBatch: (residentId, entries) => {
+      // --------------------
+      // ABT
+      // --------------------
+      addAbxBatch: (residentId: string, entries: AbxEntryInput[]) => {
         if (!residentId) return;
-        const cleaned = (entries || [])
+
+        const cleaned = (entries ?? [])
           .map((e) => ({
-            antibiotic: (e.antibiotic || "").trim(),
-            startDateISO: (e.startDateISO || "").trim(),
-            stopDateISO: (e.stopDateISO || "").trim() || undefined,
-            indication: e.indication?.trim() || undefined,
-            notes: e.notes?.trim() || undefined
+            antibiotic: (e.antibiotic ?? "").trim(),
+            startDateISO: (e.startDateISO ?? "").trim(),
+            indication: (e.indication ?? "").trim(),
+            notes: (e.notes ?? "").trim()
           }))
           .filter((e) => !!e.antibiotic && !!e.startDateISO);
 
         if (cleaned.length === 0) return;
 
-        set((s) => {
+        set((s: ICNState) => {
           const prev = s.abxByResidentId[residentId] ?? [];
-          const createdISO = nowISO();
-          const nextAdds: AntibioticRecord[] = cleaned.map((e) => {
-            const status: AntibioticRecord["status"] = e.stopDateISO ? "stopped" : "active";
-            return {
-              id: makeId("abx"),
-              residentId,
-              antibiotic: e.antibiotic,
-              startDateISO: e.startDateISO,
-              stopDateISO: e.stopDateISO,
-              indication: e.indication,
-              notes: e.notes,
-              status,
-              createdISO,
-              updatedISO: createdISO
-            };
-          });
 
-          // active first, then newest start date
-          const next = [...nextAdds, ...prev].sort((a, b) => {
-            if (a.status !== b.status) return a.status === "active" ? -1 : 1;
-            if (a.startDateISO === b.startDateISO) return (a.createdISO < b.createdISO ? 1 : -1);
-            return a.startDateISO < b.startDateISO ? 1 : -1;
-          });
+          const adds: AntibioticRecord[] = cleaned.map((e) => ({
+            id: id("abx"),
+            residentId,
+            antibiotic: e.antibiotic!,
+            startDateISO: e.startDateISO!,
+            indication: e.indication || undefined,
+            notes: e.notes || undefined,
+            status: "active" as AbxStatus,
+            createdISO: nowISO()
+          }));
 
           return {
             abxByResidentId: {
               ...s.abxByResidentId,
-              [residentId]: next
+              [residentId]: [...adds, ...prev]
             }
           };
         });
       },
 
-      stopAbx: (residentId, abxId, stopDateISO) => {
+      stopAbx: (residentId: string, abxId: string, stopDateISO: string) => {
         if (!residentId || !abxId || !stopDateISO) return;
         const stop = stopDateISO.trim();
         if (!stop) return;
-        set((s) => {
+
+        set((s: ICNState) => {
           const prev = s.abxByResidentId[residentId] ?? [];
-          const next = prev.map((a) =>
+          const next: AntibioticRecord[] = prev.map((a) =>
             a.id === abxId
               ? {
                   ...a,
-                  status: "stopped",
+                  status: "stopped" as AbxStatus,
                   stopDateISO: stop,
                   updatedISO: nowISO()
                 }
               : a
           );
+
           return {
             abxByResidentId: {
               ...s.abxByResidentId,
@@ -195,9 +242,14 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
         });
       },
 
-      deleteAbx: (residentId, abxId) => {
+      stopAbxToday: (residentId: string, abxId: string) => {
+        get().stopAbx(residentId, abxId, todayISO());
+      },
+
+      deleteAbx: (residentId: string, abxId: string) => {
         if (!residentId || !abxId) return;
-        set((s) => {
+
+        set((s: ICNState) => {
           const prev = s.abxByResidentId[residentId] ?? [];
           const next = prev.filter((a) => a.id !== abxId);
           return {
@@ -207,21 +259,10 @@ const storeCreator: StateCreator<ICNState> = (set, get) => ({
             }
           };
         });
-      },
-
-      resetAll: () =>
-        set({
-          schemaVersion: SCHEMA_VERSION,
-          residentsById: {},
-          censusHistory: [],
-          vaccinesByResidentId: {},
-          abxByResidentId: {}
-        })
-    });
-
-export const useICNStore = create<ICNState>()(
-  persist(storeCreator, {
-      name: "icn-suite-state-v1",
+      }
+    }),
+    {
+      name: "icn-suite-state-v3",
       partialize: (s: ICNState) => ({
         schemaVersion: s.schemaVersion,
         residentsById: s.residentsById,
@@ -229,5 +270,6 @@ export const useICNStore = create<ICNState>()(
         vaccinesByResidentId: s.vaccinesByResidentId,
         abxByResidentId: s.abxByResidentId
       })
-    })
+    }
+  )
 );
