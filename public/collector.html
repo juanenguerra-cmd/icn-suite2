@@ -376,14 +376,14 @@
           if(m) name = m[1];
         }
 
+        // Drug: grab a reasonable phrase that includes a dosage form
+        let antibiotic = r.antibiotic ?? r.med ?? r.drug ?? "";
         // Prefer drug text immediately after the resident marker, when present
         if(!antibiotic && t){
           const mm = t.match(/\([A-Za-z0-9\-]+\)\s+(.+?)(?=\s+Give\s|\s+\d{2}\/\d{2}\/\d{4}|$)/i);
           if(mm) antibiotic = mm[2].trim();
         }
 
-        // Drug: grab a reasonable phrase that includes a dosage form
-        let antibiotic = r.antibiotic ?? r.med ?? r.drug ?? "";
         if(!antibiotic && t){
           const forms = "(Tablet|Cap(?:sule)?|Oral Capsule|Solution|Suspension|Injection|IV|Cream|Ointment|Patch)";
           const dm =

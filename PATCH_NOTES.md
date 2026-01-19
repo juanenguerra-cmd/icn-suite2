@@ -1,21 +1,16 @@
-# Fix5.4 — ABT grouping + extraction for LON/alphanumeric IDs
+# Fix5.4.1 — ABT ReferenceError hotfix
 
-## What it fixes
-- ABT resident markers like `SPECTOR, LESLIE G (LON202033)` were not detected because the ID isn't all digits.
-  That prevented grouping and caused recordCount to inflate (each line became a record).
-- Now the collector recognizes IDs inside parentheses that are **alphanumeric** (letters+numbers, optional hyphen).
+## Error fixed
+Uncaught ReferenceError: Cannot access 'antibiotic' before initialization
 
-## Improvements
-- Proper grouping by resident marker → recordCount should match actual residents/orders (not header lines).
-- Better antibiotic extraction: prefers the medication text right after the `(ID)` marker, up to `Give` or the first date.
+Cause: the ABT extraction block referenced `antibiotic` before it was declared.
+
+Fix: declare `let antibiotic = ...` first, then run the "prefer drug text after (ID)" logic.
 
 ## Deploy
-Overwrite in repo:
+Overwrite:
 - public/collector.html
 - public/import.html
 - public/_redirects
 
-Commit + push.
-
-## Open
-- /import
+Commit + push, then reload /import.
