@@ -1,21 +1,22 @@
-# Fix6 — Working Mode (Big Jump)
+# Fix7 — Working Mode PRO (Big Jump)
 
-## What you get
-- Quick Collector now includes a built-in **Pack Vault**:
-  - auto-save packs to vault (toggle)
-  - manual save
-  - view/delete packs
-  - merge selected packs
-  - download merged output
-- **Append mode**: keep adding paste batches into a session pack (merges automatically).
-- **Queue for ICN Suite**: stores the latest pack into localStorage queue key:
-  - `icn_import_queue_v1`
-  This is a safe handoff for your React app importer to consume later.
-- New landing page:
-  - `/working` -> Working Mode links
+## What’s new
+- **Vault export/import**:
+  - Export Vault backup JSON
+  - Import Vault backups or individual icn-bulk-import-v1 packs (multi-select)
+- **CSV export**:
+  - Export merged pack (or current pack) to CSV
+  - Choose dataset (Auto/Census/Vaccinations/ABT/Generic)
+- **Executive Summary**:
+  - Generates a concise summary with dataset counts + top ABT meds + top vaccines
+- Keeps:
+  - Append mode
+  - Auto-save to Vault
+  - Merge + download merged
+  - Queue for ICN Suite
 
 ## Deploy
-Overwrite:
+Overwrite in repo:
 - public/_redirects
 - public/collector.html
 - public/import.html
@@ -24,5 +25,5 @@ Overwrite:
 Commit + push.
 
 ## Open
-- /working (recommended)
+- /working
 - /import

@@ -193,6 +193,9 @@
           <div class="row">
             <button id="vaultRefresh">Refresh</button>
             <button id="vaultClear">Clear Vault</button>
+            <button id="vaultExport" class="primary">Export Vault</button>
+            <button id="vaultImportBtn">Import Vault</button>
+            <input id="vaultImport" type="file" accept="application/json" multiple style="display:none;" />
           </div>
 
           <label>Saved packs</label>
@@ -203,8 +206,24 @@
             <button id="vaultDownload" class="primary">Download merged</button>
           </div>
 
+          <div class="row" style="margin-top:10px;">
+            <span class="pill">Export:</span>
+            <select id="csvDataset" style="max-width:220px;">
+              <option value="auto">Auto</option>
+              <option value="census">Census</option>
+              <option value="vaccinations">Vaccinations</option>
+              <option value="abt">ABT</option>
+              <option value="generic">Generic</option>
+            </select>
+            <button id="exportCsv">Export CSV</button>
+            <button id="makeSummary" class="primary">Summary</button>
+          </div>
+
           <label for="merged">Merged output (preview)</label>
           <textarea id="merged" class="mono" readonly placeholder="Merged pack JSON will appear here..."></textarea>
+
+          <label for="summary">Summary (executive)</label>
+          <textarea id="summary" class="mono" readonly placeholder="Summary will appear here..."></textarea>
 
           </div>
         </div>
@@ -238,6 +257,13 @@
     vaultClear: document.getElementById('vaultClear'),
     vaultMerge: document.getElementById('vaultMerge'),
     vaultDownload: document.getElementById('vaultDownload'),
+    vaultExport: document.getElementById('vaultExport'),
+    vaultImportBtn: document.getElementById('vaultImportBtn'),
+    vaultImport: document.getElementById('vaultImport'),
+    csvDataset: document.getElementById('csvDataset'),
+    exportCsv: document.getElementById('exportCsv'),
+    makeSummary: document.getElementById('makeSummary'),
+    summary: document.getElementById('summary'),
     merged: document.getElementById('merged'),
   };
 
@@ -336,6 +362,169 @@
       });
     });
   }
+
+  
+  function downloadText(filename, text, mime){
+    const blob = new Blob([text], {type: mime || "text/plain"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 600);
+  }
+
+  function exportVault(){
+    const vault = readJsonLS(VAULT_KEY, []);
+    const payload = {
+      version: "icn-pack-vault-backup-v1",
+      exportedAt: new Date().toISOString(),
+      count: vault.length,
+      vault
+    };
+    const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
+    downloadText(`icn-pack-vault-${stamp}.json`, JSON.stringify(payload, null, 2), "application/json");
+  }
+
+  function importVaultFromFiles(fileList){
+    const files = Array.from(fileList || []);
+    if(!files.length) return;
+    let pending = files.length;
+    const imported = [];
+    const errors = [];
+    files.forEach(f => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try{
+          const obj = JSON.parse(String(reader.result || ""));
+          if(obj && obj.version === "icn-pack-vault-backup-v1" && Array.isArray(obj.vault)){
+            imported.push(...obj.vault);
+          }else if(obj && obj.version === "icn-bulk-import-v1"){
+            imported.push({ id: uid(), dataset: obj.dataset, generatedAt: obj.generatedAt, recordCount: obj.recordCount, pack: obj });
+          }else if(Array.isArray(obj)){
+            // array of packs or vault items
+            obj.forEach(x => {
+              if(x && x.pack && x.id) imported.push(x);
+              else if(x && x.version === "icn-bulk-import-v1") imported.push({ id: uid(), dataset: x.dataset, generatedAt: x.generatedAt, recordCount: x.recordCount, pack: x });
+            });
+          }else{
+            errors.push(`${f.name}: unsupported format`);
+          }
+        }catch(e){
+          errors.push(`${f.name}: invalid JSON`);
+        }
+        pending--;
+        if(pending===0){
+          const vault = readJsonLS(VAULT_KEY, []);
+          // de-dupe by id where possible
+          const merged = [...imported, ...vault];
+          writeJsonLS(VAULT_KEY, merged.slice(0, 200));
+          renderVault();
+          if(errors.length){
+            setStatus("warn", "imported w/ warnings");
+            if(els.summary) els.summary.value = "Import warnings:\n" + errors.join("\n");
+          }else{
+            setStatus("ok", "imported");
+          }
+          setTimeout(()=>setStatus("", "ready"), 900);
+        }
+      };
+      reader.readAsText(f);
+    });
+  }
+
+  function recordsForExport(pack, datasetPref){
+    if(!pack) return { dataset: "generic", records: [] };
+    // If multi pack: choose by dataset
+    if(pack.datasets && Array.isArray(pack.datasets) && pack.datasets.length){
+      let ds = datasetPref && datasetPref !== "auto" ? datasetPref : pack.datasets[0].dataset;
+      const found = pack.datasets.find(d => d.dataset === ds) || pack.datasets[0];
+      return { dataset: found.dataset || ds || "generic", records: Array.isArray(found.records) ? found.records : [] };
+    }
+    return { dataset: pack.dataset || "generic", records: Array.isArray(pack.records) ? pack.records : [] };
+  }
+
+  function toCsv(records){
+    const recs = Array.isArray(records) ? records : [];
+    const keys = [];
+    const seen = new Set();
+    recs.forEach(r => {
+      if(r && typeof r === "object"){
+        Object.keys(r).forEach(k => {
+          if(!seen.has(k) && k !== "raw"){
+            seen.add(k);
+            keys.push(k);
+          }
+        });
+      }
+    });
+    const esc = (v) => {
+      const s = v === null || v === undefined ? "" : String(v);
+      const needs = /[",\n\r]/.test(s);
+      const out = s.replace(/"/g, '""');
+      return needs ? `"${out}"` : out;
+    };
+    const lines = [];
+    lines.push(keys.map(esc).join(","));
+    recs.forEach(r => {
+      const row = keys.map(k => esc(r && typeof r === "object" ? r[k] : ""));
+      lines.push(row.join(","));
+    });
+    return lines.join("\n");
+  }
+
+  function makeExecutiveSummary(pack){
+    if(!pack) return "";
+    const parts = [];
+    const dt = pack.generatedAt ? pack.generatedAt.replace("T"," ").replace("Z","") : "";
+    parts.push(`ICN Working Mode Summary`);
+    if(dt) parts.push(`Generated: ${dt}`);
+    if(pack.meta && pack.meta.datasets) {
+      parts.push(`Datasets:`);
+      pack.meta.datasets.forEach(d => parts.push(`- ${d.dataset}: ${d.recordCount}`));
+    } else {
+      parts.push(`Dataset: ${pack.dataset || "generic"} (${pack.recordCount || 0} records)`);
+    }
+
+    // ABT top meds
+    const abt = (pack.datasets && pack.datasets.find(d => d.dataset === "abt")) ? pack.datasets.find(d => d.dataset === "abt").records : (pack.dataset === "abt" ? pack.records : null);
+    if(Array.isArray(abt) && abt.length){
+      const counts = {};
+      abt.forEach(r => {
+        const key = String((r && r.antibiotic) || "").trim();
+        if(!key) return;
+        counts[key] = (counts[key] || 0) + 1;
+      });
+      const top = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+      if(top.length){
+        parts.push("");
+        parts.push("ABT highlights (top meds):");
+        top.forEach(([k,v]) => parts.push(`- ${k}: ${v}`));
+      }
+    }
+
+    // Vaccinations quick
+    const vx = (pack.datasets && pack.datasets.find(d => d.dataset === "vaccinations")) ? pack.datasets.find(d => d.dataset === "vaccinations").records : (pack.dataset === "vaccinations" ? pack.records : null);
+    if(Array.isArray(vx) && vx.length){
+      const vcounts = {};
+      vx.forEach(r => {
+        const key = String((r && (r.vaccine||r.type)) || "").trim();
+        if(!key) return;
+        vcounts[key] = (vcounts[key] || 0) + 1;
+      });
+      const top = Object.entries(vcounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+      if(top.length){
+        parts.push("");
+        parts.push("Vaccination highlights (top):");
+        top.forEach(([k,v]) => parts.push(`- ${k}: ${v}`));
+      }
+    }
+
+    return parts.join("\n");
+  }
+
 
   function mergePacks(packs){
     // Packs can be different datasets; merge by dataset into a multi-pack
@@ -768,9 +957,20 @@
   if(els.vaultRefresh) els.vaultRefresh.addEventListener("click", () => renderVault());
   if(els.vaultClear) els.vaultClear.addEventListener("click", () => {
     localStorage.removeItem(VAULT_KEY);
-    els.merged.value = "";
+    if(els.merged) els.merged.value = "";
+    if(els.summary) els.summary.value = "";
     renderVault();
   });
+
+  if(els.vaultExport) els.vaultExport.addEventListener("click", () => exportVault());
+  if(els.vaultImportBtn && els.vaultImport){
+    els.vaultImportBtn.addEventListener("click", () => els.vaultImport.click());
+    els.vaultImport.addEventListener("change", (e) => {
+      importVaultFromFiles(e.target.files);
+      // reset input so same file can be imported again if needed
+      e.target.value = "";
+    });
+  }
 
   if(els.vaultMerge) els.vaultMerge.addEventListener("click", () => {
     const vault = readJsonLS(VAULT_KEY, []);
