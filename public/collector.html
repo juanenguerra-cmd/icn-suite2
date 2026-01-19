@@ -146,6 +146,9 @@
             <span class="pill">Records: <span class="mono" id="count">0</span></span>
           </div>
 
+          <label for="preview" style="margin-top:10px;">Preview (first 5)</label>
+          <textarea id="preview" class="mono" readonly placeholder="Parsed records preview will appear here..."></textarea>
+
           <p class="small">
             iPhone tip: if “Copy” fails, long-press inside the JSON box and copy manually (Safari clipboard can be picky).
           </p>
@@ -189,12 +192,21 @@
     status: document.getElementById('status'),
     detected: document.getElementById('detected'),
     count: document.getElementById('count'),
+    preview: document.getElementById('preview'),
     clear: document.getElementById('clear'),
     save: document.getElementById('save'),
     generate: document.getElementById('generate'),
     copy: document.getElementById('copy'),
     download: document.getElementById('download'),
   };
+
+  if(!els.count){
+    // Backward-compat if the HTML id changed in older deploys
+    els.count = document.querySelector('#count') || document.querySelector('[data-count]') || null;
+  }
+  if(!els.preview){
+    els.preview = document.querySelector('#preview') || null;
+  }
 
   const LS_KEY = "icn_quick_collector_draft_v1";
 
@@ -285,7 +297,16 @@
   }
 
   function parseLines(s){
-    const lines = (s||"").split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean);
+    let t = (s||"").trim();
+    // If paste comes in as one massive line (common from PDFs), try to split on likely resident markers:
+    // e.g., "LAST, FIRST (201390)" or similar.
+    if(t && !/\r?\n/.test(t) && t.length > 600){
+      const parts = t.split(/(?=[A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+\s*\(\d+\))/g).map(p=>p.trim()).filter(Boolean);
+      if(parts.length > 1){
+        return { records: parts.map(text => ({ text })) , meta: { split: "resident-marker" } };
+      }
+    }
+    const lines = (s||"").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
     return { records: lines.map(text => ({ text })) };
   }
 
@@ -311,15 +332,37 @@
       }));
     }
     if(dataset === "abt"){
-      return records.map(r => ({
-        name: r.name ?? r.resident ?? "",
-        room: r.room ?? r.room_bed ?? "",
-        antibiotic: r.antibiotic ?? r.med ?? r.drug ?? "",
-        start: r.start ?? r.start_date ?? "",
-        end: r.end ?? r.end_date ?? "",
-        indication: r.indication ?? r.reason ?? "",
-        raw: r
-      }));
+      return records.map(r => {
+        const t = String(r.text ?? "").trim();
+        // Try to capture "LAST, FIRST (12345)"
+        let name = r.name ?? r.resident ?? "";
+        if(!name && t){
+          const m = t.match(/^([A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+)\s*\(\d+\)/);
+          if(m) name = m[1];
+        }
+        // Try to capture drug name (common: "... Capsule 100 MG" or "Fluconazole Tablet 150 MG")
+        let antibiotic = r.antibiotic ?? r.med ?? r.drug ?? "";
+        if(!antibiotic && t){
+          const dm = t.match(/\)\s*([A-Za-z][A-Za-z0-9\- ]+?(?:Tablet|Capsule|Suspension|Solution|IV|Injection|Cream|Ointment)[^\n]*?)(?=\s+Give\s|\s+\d{2}\/\d{2}\/\d{4}|$)/i);
+          if(dm) antibiotic = dm[1].trim();
+        }
+        // Dates: pick first two MM/DD/YYYY occurrences as start/end if present
+        const dates = t.match(/\b\d{2}\/\d{2}\/\d{4}\b/g) || [];
+        let start = r.start ?? r.start_date ?? "";
+        let end = r.end ?? r.end_date ?? "";
+        if(!start && dates.length) start = dates[0];
+        if(!end && dates.length > 1) end = dates[1];
+
+        return {
+          name,
+          room: r.room ?? r.room_bed ?? "",
+          antibiotic,
+          start,
+          end,
+          indication: r.indication ?? r.reason ?? "",
+          raw: r
+        };
+      });
     }
     return records;
   }
@@ -374,6 +417,16 @@
     };
 
     return { ok:true, pack };
+  }
+
+  function renderPreview(pack){
+    const recs = Array.isArray(pack.records) ? pack.records : [];
+    const shown = recs.slice(0,5);
+    try{
+      els.preview.value = JSON.stringify(shown, null, 2);
+    }catch(e){
+      els.preview.value = String(shown);
+    }
   }
 
   function renderPack(pack){
@@ -438,6 +491,7 @@
       return;
     }
     renderPack(res.pack);
+    renderPreview(res.pack);
     saveDraft();
     setStatus("ok", "ready");
   });
