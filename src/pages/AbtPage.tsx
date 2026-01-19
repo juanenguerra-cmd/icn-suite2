@@ -4,6 +4,7 @@ import type { AntibioticEntry, AntibioticStatus, Resident } from '../types/core'
 import { generateId } from '../utils/id';
 import { nowISO, safeDateLabel } from '../utils/time';
 import { ResidentPicker } from '../components/ResidentPicker';
+import { BulkPasteModal } from '../components/BulkPasteModal';
 
 type Props = {
   includeDischarged: boolean;
@@ -43,6 +44,8 @@ export function AbtPage({ includeDischarged }: Props) {
 
   const [search, setSearch] = useState('');
   const [activeOnly, setActiveOnly] = useState(true);
+
+  const [bulkOpen, setBulkOpen] = useState(false);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -158,9 +161,14 @@ export function AbtPage({ includeDischarged }: Props) {
           </div>
 
           <div className="row end">
-            <button className="btn primary edit-only" type="button" onClick={addEntry}>
-              Save Entry
-            </button>
+            <div className="row" style={{ gap: 8, justifyContent: 'flex-end' }}>
+              <button className="btn" type="button" onClick={() => setBulkOpen(true)}>
+                Bulk Paste Import
+              </button>
+              <button className="btn primary edit-only" type="button" onClick={addEntry}>
+                Save Entry
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -231,6 +239,17 @@ export function AbtPage({ includeDischarged }: Props) {
           </tbody>
         </table>
       </div>
+
+      <BulkPasteModal
+        open={bulkOpen}
+        onClose={() => setBulkOpen(false)}
+        kind="antibiotics"
+        residentsById={data.residentsById}
+        selectedResidentKey={selected?.id}
+        onImportMany={(items) => {
+          dispatch({ type: 'LIST_ADD_MANY', list: 'antibiotics', items } as any);
+        }}
+      />
     </div>
   );
 }

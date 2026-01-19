@@ -121,6 +121,19 @@ export type InfectionCase = {
   updatedAt?: string;
 };
 
+export type ResidentNote = {
+  id: string;
+  residentId: string;
+  residentName: string;
+  mrn?: string;
+  unit?: string;
+  room?: string;
+  dateISO: string; // YYYY-MM-DD (for daily summary)
+  text: string;
+  createdAt: string;
+  updatedAt?: string;
+};
+
 export type AppData = {
   version: string;
   config: Config;
@@ -130,4 +143,5 @@ export type AppData = {
   vaccinations: VaccinationEntry[];
   antibiotics: AntibioticEntry[];
   infectionCases: InfectionCase[];
+  residentNotes: ResidentNote[];
 };
