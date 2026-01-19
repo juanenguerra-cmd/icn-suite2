@@ -1,0 +1,63 @@
+/* ===================== SIP Theme Foundation (Fix3) =====================
+   - CameraPlainVariable font
+   - Rounded-xl surfaces
+   - Rounded-full controls/chips
+   - Sticky header + zebra tables helpers
+
+   How to apply:
+   1) Open your existing src/index.css
+   2) Paste this block near the TOP of the file (before other rules), or merge as needed.
+   3) Ensure main.tsx imports "./index.css" exactly once.
+*/
+
+@font-face {
+  font-family: "CameraPlainVariable";
+  src: url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font: "CameraPlainVariable", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+  --bg: 245 246 248;
+  --card: 255 255 255;
+  --text: 18 18 18;
+  --muted: 110 118 129;
+  --border: 225 228 232;
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+html, body {
+  font-family: var(--font);
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+}
+
+.sip-card {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  border-radius: 1rem; /* rounded-xl */
+  box-shadow: var(--shadow);
+}
+
+.sip-chip {
+  border-radius: 9999px; /* rounded-full */
+  border: 1px solid rgb(var(--border));
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.sip-table th {
+  position: sticky;
+  top: 0;
+  background: rgb(var(--card));
+  z-index: 1;
+}
+
+.sip-table tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.02);
+}
