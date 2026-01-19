@@ -1,29 +1,26 @@
-ICN Suite (icn-suite2) — Fix4 Patch
+# Fix5 — Quick Collector (Immediate Data Collection)
 
-What this patch adds
-- Fixes Cloudflare SPA fallback by supplying public/_redirects.
-- Adds a new feature module: src/features/import/ImportCenter.tsx
-  - Paste/upload CSV/JSON/raw lines
-  - Builds an "icn-bulk-import-v1" JSON pack
-  - Copy JSON to clipboard
+This patch adds a **static data collection page** you can use immediately on Cloudflare Pages:
+- **/import.html** (no React wiring needed)
+- Paste CSV / JSON array / raw lines
+- Auto-detect or force format
+- Generates **icn-bulk-import-v1** JSON pack
+- Copy JSON / Download .json
+- Saves draft in localStorage for convenience
 
-Why this is safe for immediate deployment
-- No dependency changes.
-- No store or routing changes.
-- Purely additive feature folder + redirects.
+## Files included
+- public/_redirects
+- public/import.html
 
-How to install
-1) Copy public/_redirects into your repo's public/_redirects (overwrite).
-2) Copy the folder src/features/import/ into your repo at the same path.
-3) Commit + push.
+## Apply
+1) Copy `public/import.html` into your repo at: `public/import.html`
+2) Overwrite your SPA redirects file at: `public/_redirects`
+3) Commit + push
 
-How to show it in the UI (choose one)
-A) Add a new tab/page in your existing shell and render:
-   <ImportCenter />
-   import { ImportCenter } from "@/features/import/ImportCenter";
+## Use
+After deploy, open:
+- https://<your-cloudflare-pages-domain>/import.html
 
-B) Add a button somewhere (e.g., in Config) that toggles this component.
-
-Notes
-- This build intentionally does NOT write into icnStore yet.
-  Next patch will add a schema-aware "Apply Pack" adapter that maps the pack into your store's exact types.
+### Notes
+- The first line in `_redirects` ensures Cloudflare doesn't rewrite `/import.html` to the SPA entry.
+- iPhone Safari clipboard can be strict. If Copy fails, long-press inside the JSON box and copy manually.
