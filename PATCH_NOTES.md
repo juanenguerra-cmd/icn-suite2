@@ -1,20 +1,29 @@
-ICN Suite (icn-suite2) - Fix3 Patch
+ICN Suite (icn-suite2) — Fix4 Patch
 
-What this patch does
-1) Fixes Cloudflare Pages SPA fallback parsing:
-   - Adds public/_redirects with the correct one-line rewrite rule.
-   - This prevents route refresh 404s and removes the "infinite loop" warning.
+What this patch adds
+- Fixes Cloudflare SPA fallback by supplying public/_redirects.
+- Adds a new feature module: src/features/import/ImportCenter.tsx
+  - Paste/upload CSV/JSON/raw lines
+  - Builds an "icn-bulk-import-v1" JSON pack
+  - Copy JSON to clipboard
 
-2) Adds SIP theme foundation block (as an append/merge file):
-   - src/index.css.append
-   - You must merge it into your existing src/index.css (or replace if you prefer).
+Why this is safe for immediate deployment
+- No dependency changes.
+- No store or routing changes.
+- Purely additive feature folder + redirects.
 
-How to use
-A) Copy public/_redirects into your repo at: public/_redirects
-B) Merge src/index.css.append into: src/index.css
-C) Verify main.tsx includes: import "./index.css";
-D) Commit and push.
+How to install
+1) Copy public/_redirects into your repo's public/_redirects (overwrite).
+2) Copy the folder src/features/import/ into your repo at the same path.
+3) Commit + push.
+
+How to show it in the UI (choose one)
+A) Add a new tab/page in your existing shell and render:
+   <ImportCenter />
+   import { ImportCenter } from "@/features/import/ImportCenter";
+
+B) Add a button somewhere (e.g., in Config) that toggles this component.
 
 Notes
-- This patch is safe: it does not touch routing code or the Zustand store.
-- This patch is intended to be applied on top of your current GREEN build (Fix2).
+- This build intentionally does NOT write into icnStore yet.
+  Next patch will add a schema-aware "Apply Pack" adapter that maps the pack into your store's exact types.
