@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover" />
+  <title>ICN Suite — Ops Dashboard</title>
+  <link rel="stylesheet" href="/icn-theme.css" />
+  <style>
+    body{ margin:0; }
+    .ops-shell{ min-height:100vh; display:flex; flex-direction:column; }
+    .ops-main{ flex:1 1 auto; }
+    .ops-frame{ width:100%; height: calc(100vh - 120px); border:0; border-radius: 18px; box-shadow: var(--icn-shadow); background:#fff; }
+    @media (max-width: 480px){
+      .ops-frame{ height: calc(100vh - 132px); }
+    }
+    .ops-actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .ops-actions a{ text-decoration:none; }
+    .ops-note{ font-size:12px; color: var(--icn-muted); margin: 8px 0 0; }
+    .mono{ font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; }
+  </style>
+</head>
+<body>
+  <div class="ops-shell">
+    <div class="icn-wrap">
+      <div class="icn-appbar">
+        <div class="icn-brand">
+          <div class="icn-logo" aria-hidden="true"></div>
+          <div>
+            <p class="icn-title">ICN Suite</p>
+            <p class="icn-subtitle">Ops Dashboard — single place to work</p>
+          </div>
+        </div>
+
+        <nav class="icn-tabs" id="tabs">
+          <a class="icn-tab active" data-src="/entry" href="#entry"><span class="icn-dot"></span>Entry</a>
+          <a class="icn-tab" data-src="/protex" href="#protex"><span class="icn-dot"></span>Protex</a>
+          <a class="icn-tab" data-src="/apply" href="#apply"><span class="icn-dot"></span>Apply</a>
+          <a class="icn-tab" data-src="/reports" href="#reports"><span class="icn-dot"></span>Reports</a>
+          <a class="icn-tab" data-src="/backup" href="#backup"><span class="icn-dot"></span>Backup</a>
+          <a class="icn-tab" data-src="/import" href="#collector"><span class="icn-dot"></span>Collector</a>
+          <a class="icn-tab" data-src="/working" href="#working"><span class="icn-dot"></span>Working</a>
+        </nav>
+      </div>
+
+      <div class="icn-card">
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+          <div>
+            <div class="icn-pill">Local-first • Entry/Protex → Queue → Apply → Reports</div>
+            <div class="ops-note">Tip: if you don’t see changes after deploy, add <span class="mono">?v=5</span> to bypass cache.</div>
+          </div>
+          <div class="ops-actions">
+            <a id="openNew" href="/entry" target="_blank" rel="noopener"><button class="icn-btn">Open in new tab</button></a>
+            <button id="reload" class="icn-btn primary">Reload view</button>
+          </div>
+        </div>
+
+        <div class="icn-hr"></div>
+
+        <div class="ops-main">
+          <iframe id="frame" class="ops-frame" src="/entry" loading="eager"></iframe>
+        </div>
+
+        <div class="icn-footer">Ops Dashboard is a wrapper. Data stays local in your browser.</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const tabs = document.getElementById("tabs");
+  const frame = document.getElementById("frame");
+  const openNew = document.getElementById("openNew");
+  const reload = document.getElementById("reload");
+
+  function setActive(link){
+    Array.from(tabs.querySelectorAll(".icn-tab")).forEach(a => a.classList.remove("active"));
+    link.classList.add("active");
+  }
+
+  function setSrc(src){
+    frame.src = src;
+    openNew.href = src;
+  }
+
+  function routeFromHash(){
+    const h = (location.hash || "").replace("#","");
+    const map = { entry:"/entry", protex:"/protex", apply:"/apply", reports:"/reports", backup:"/backup", collector:"/import", working:"/working" };
+    return map[h] || "/entry";
+  }
+
+  tabs.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-src]");
+    if(!a) return;
+    e.preventDefault();
+    const src = a.getAttribute("data-src");
+    setActive(a);
+    setSrc(src);
+    location.hash = (a.getAttribute("href") || "#").replace("#","");
+  });
+
+  reload.addEventListener("click", () => {
+    try{ frame.contentWindow.location.reload(); }catch(e){ frame.src = frame.src; }
+  });
+
+  const initialSrc = routeFromHash();
+  const initialLink = Array.from(tabs.querySelectorAll(".icn-tab")).find(a => a.getAttribute("data-src") === initialSrc);
+  if(initialLink) setActive(initialLink);
+  setSrc(initialSrc);
+})();
+</script>
+</body>
+</html>

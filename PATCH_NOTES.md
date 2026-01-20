@@ -1,9 +1,6 @@
-# Ops Pack v4 — Visual Big Jump
+# Ops Pack v5 — Ops Dashboard (Big Move)
 
 Adds:
-- shared theme file: public/icn-theme.css
-- app-like top navigation bar across all ops pages
-- upgraded cards/buttons/tables for a more polished look (still plain + fast)
-- keeps local-first + backup banner + backup now + settings
-
-Deploy: overwrite public/ and push.
+- /ops : a single “dashboard” page with tabs that embeds Entry/Protex/Apply/Reports/Backup/Collector
+- Updated /working to include Ops Dashboard link
+- _redirects updated for /ops
