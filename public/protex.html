@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ICN Suite — Protex Parser (ABT)</title>
+  <link rel="stylesheet" href="/icn-theme.css" />
 <style>
 @font-face{font-family:"CameraPlainVariable";src:url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap;}
 :root{--font:"CameraPlainVariable",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:#f5f6f8;--card:#fff;--border:#e1e4e8;--muted:#6e7681;--shadow:0 10px 30px rgba(0,0,0,.06);}
@@ -33,7 +34,7 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
         <div id="backupBannerMeta" style="font-size:12px;opacity:.85;margin-top:4px;"></div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <button type="button" id="backupBannerNow" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
+        <button type="button" id="backupBannerNow" class="icn-btn" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
         <a href="/backup" style="text-decoration:none;"><button type="button" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Center</button></a>
         <button type="button" id="backupBannerDismiss" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Dismiss</button>
       </div>
@@ -63,8 +64,23 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
   </div>
 </div>
 
-<div class="wrap">
-<div class="card">
+
+<div class="icn-wrap">
+  <div class="icn-appbar">
+    <div class="icn-brand">
+      <div class="icn-logo" aria-hidden="true"></div>
+      <div>
+        <p class="icn-title">ICN Suite</p>
+        <p class="icn-subtitle">Ops Mode — Local First</p>
+      </div>
+    </div>
+    <nav class="icn-tabs">
+      <a class="icn-tab" href="/working"><span class="icn-dot"></span>Working</a><a class="icn-tab" href="/entry"><span class="icn-dot"></span>Entry</a><a class="icn-tab active" href="/protex"><span class="icn-dot"></span>Protex</a><a class="icn-tab" href="/import"><span class="icn-dot"></span>Collector</a><a class="icn-tab" href="/apply"><span class="icn-dot"></span>Apply</a><a class="icn-tab" href="/reports"><span class="icn-dot"></span>Reports</a><a class="icn-tab" href="/backup"><span class="icn-dot"></span>Backup</a>
+    </nav>
+  </div>
+</div>
+<div class="icn-wrap">
+<div class="icn-card">
 <div class="row" style="justify-content:space-between;">
   <div>
     <h1>Protex Parser (ABT)</h1>
@@ -72,19 +88,19 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
   </div>
   <div class="row">
     <a href="/working" style="text-decoration:none;"><button>Working</button></a>
-    <a href="/apply" style="text-decoration:none;"><button class="primary">Apply</button></a>
+    <a href="/apply" style="text-decoration:none;"><button class="icn-btn primary">Apply</button></a>
   </div>
 </div>
 
 <div class="row">
-  <button id="parse" class="primary">Parse</button>
-  <button id="queue">Queue parsed pack</button>
-  <button id="clear">Clear</button>
-  <span class="pill">Records: <span id="count" class="mono">0</span></span>
+  <button id="parse" class="icn-btn primary">Parse</button>
+  <button id="queue" class="icn-btn">Queue parsed pack</button>
+  <button id="clear" class="icn-btn">Clear</button>
+  <span class="icn-pill">Records: <span id="count" class="mono">0</span></span>
 </div>
 
 <label style="margin-top:10px;">Paste Protex text</label>
-<textarea id="raw" placeholder="Paste here..."></textarea>
+<textarea class="icn-textarea" id="raw" placeholder="Paste here..."></textarea>
 
 <label style="margin-top:10px;">Preview (first 5)</label>
 <textarea id="preview" class="mono" readonly></textarea>

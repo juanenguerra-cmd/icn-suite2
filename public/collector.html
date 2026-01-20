@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ICN Suite — Quick Collector (Bulk Import Pack)</title>
+  <link rel="stylesheet" href="/icn-theme.css" />
   <style>
     @font-face {
       font-family: "CameraPlainVariable";
@@ -101,7 +102,7 @@
         <div id="backupBannerMeta" style="font-size:12px;opacity:.85;margin-top:4px;"></div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <button type="button" id="backupBannerNow" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
+        <button type="button" id="backupBannerNow" class="icn-btn" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
         <a href="/backup" style="text-decoration:none;"><button type="button" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Center</button></a>
         <button type="button" id="backupBannerDismiss" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Dismiss</button>
       </div>
@@ -131,8 +132,23 @@
   </div>
 </div>
 
-  <div class="wrap">
-    <div class="card">
+  
+<div class="icn-wrap">
+  <div class="icn-appbar">
+    <div class="icn-brand">
+      <div class="icn-logo" aria-hidden="true"></div>
+      <div>
+        <p class="icn-title">ICN Suite</p>
+        <p class="icn-subtitle">Ops Mode — Local First</p>
+      </div>
+    </div>
+    <nav class="icn-tabs">
+      <a class="icn-tab" href="/working"><span class="icn-dot"></span>Working</a><a class="icn-tab" href="/entry"><span class="icn-dot"></span>Entry</a><a class="icn-tab" href="/protex"><span class="icn-dot"></span>Protex</a><a class="icn-tab active" href="/import"><span class="icn-dot"></span>Collector</a><a class="icn-tab" href="/apply"><span class="icn-dot"></span>Apply</a><a class="icn-tab" href="/reports"><span class="icn-dot"></span>Reports</a><a class="icn-tab" href="/backup"><span class="icn-dot"></span>Backup</a>
+    </nav>
+  </div>
+</div>
+<div class="icn-wrap">
+    <div class="icn-card">
       <h1>ICN Suite — Quick Collector</h1>
       <p class="sub">
         Paste CSV / JSON array / raw lines, generate an <span class="mono">icn-bulk-import-v1</span> pack, then copy/download/save it in the Pack Vault (working mode).
@@ -142,7 +158,7 @@
       <div class="grid">
         <div>
           <label for="dataset">Dataset</label>
-          <select id="dataset">
+          <select class="icn-select" id="dataset">
             <option value="census">Census</option>
             <option value="vaccinations">Vaccinations</option>
             <option value="abt">ABT (Antibiotics)</option>
@@ -152,7 +168,7 @@
           <div class="row">
             <div>
               <label for="format">Input format</label>
-              <select id="format">
+              <select class="icn-select" id="format">
                 <option value="auto">Auto-detect</option>
                 <option value="csv">CSV (header row)</option>
                 <option value="json">JSON array</option>
@@ -161,7 +177,7 @@
             </div>
             <div>
               <label for="delimiter">CSV delimiter</label>
-              <select id="delimiter">
+              <select class="icn-select" id="delimiter">
                 <option value="auto">Auto</option>
                 <option value=",">Comma (,)</option>
                 <option value="\t">Tab</option>
@@ -172,27 +188,27 @@
           </div>
 
           <label for="raw">Paste input</label>
-          <textarea id="raw" placeholder="Paste CSV / JSON array / lines here..."></textarea>
+          <textarea class="icn-textarea" id="raw" placeholder="Paste CSV / JSON array / lines here..."></textarea>
 
           <div class="row" style="margin-top:8px;">
-            <span class="pill"><input id="appendMode" type="checkbox" style="width:auto;margin:0 6px 0 0;"/>Append mode</span>
-            <span class="pill"><input id="autoVault" type="checkbox" style="width:auto;margin:0 6px 0 0;" checked/>Auto-save to Vault</span>
+            <span class="icn-pill"><input class="icn-input" id="appendMode" type="checkbox" style="width:auto;margin:0 6px 0 0;"/>Append mode</span>
+            <span class="icn-pill"><input class="icn-input" id="autoVault" type="checkbox" style="width:auto;margin:0 6px 0 0;" checked/>Auto-save to Vault</span>
           </div>
 
           <div class="btns">
-            <button id="clear">Clear</button>
+            <button id="clear" class="icn-btn">Clear</button>
             <button id="save">Save draft</button>
-            <button id="generate" class="primary">Generate pack</button>
+            <button id="generate" class="icn-btn primary">Generate pack</button>
             <button id="saveVault">Save to Vault</button>
-            <button id="queue" class="primary" style="background:rgba(0,0,0,.78);border-color:rgba(0,0,0,.78);">Queue for ICN Suite</button>
+            <button id="queue" class="icn-btn primary" style="background:rgba(0,0,0,.78);border-color:rgba(0,0,0,.78);">Queue for ICN Suite</button>
           </div>
 
           <div class="hr"></div>
 
           <div class="row">
-            <span class="pill" id="status">Status: <span class="mono">idle</span></span>
-            <span class="pill">Detected: <span class="mono" id="detected">—</span></span>
-            <span class="pill">Records: <span class="mono" id="count">0</span></span>
+            <span class="icn-pill" id="status">Status: <span class="mono">idle</span></span>
+            <span class="icn-pill">Detected: <span class="mono" id="detected">—</span></span>
+            <span class="icn-pill">Records: <span class="mono" id="count">0</span></span>
           </div>
 
           <label for="preview" style="margin-top:10px;">Preview (first 5)</label>
@@ -235,9 +251,9 @@
           <div class="row">
             <button id="vaultRefresh">Refresh</button>
             <button id="vaultClear">Clear Vault</button>
-            <button id="vaultExport" class="primary">Export Vault</button>
+            <button id="vaultExport" class="icn-btn primary">Export Vault</button>
             <button id="vaultImportBtn">Import Vault</button>
-            <input id="vaultImport" type="file" accept="application/json" multiple style="display:none;" />
+            <input class="icn-input" id="vaultImport" type="file" accept="application/json" multiple style="display:none;" />
           </div>
 
           <label>Saved packs</label>
@@ -245,12 +261,12 @@
 
           <div class="btns">
             <button id="vaultMerge">Merge selected</button>
-            <button id="vaultDownload" class="primary">Download merged</button>
+            <button id="vaultDownload" class="icn-btn primary">Download merged</button>
           </div>
 
           <div class="row" style="margin-top:10px;">
-            <span class="pill">Export:</span>
-            <select id="csvDataset" style="max-width:220px;">
+            <span class="icn-pill">Export:</span>
+            <select class="icn-select" id="csvDataset" style="max-width:220px;">
               <option value="auto">Auto</option>
               <option value="census">Census</option>
               <option value="vaccinations">Vaccinations</option>
@@ -258,7 +274,7 @@
               <option value="generic">Generic</option>
             </select>
             <button id="exportCsv">Export CSV</button>
-            <button id="makeSummary" class="primary">Summary</button>
+            <button id="makeSummary" class="icn-btn primary">Summary</button>
           </div>
 
           <label for="merged">Merged output (preview)</label>

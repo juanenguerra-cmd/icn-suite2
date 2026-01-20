@@ -1,11 +1,9 @@
-# Ops Pack v3 — End-of-day Reminder + Backup Now
+# Ops Pack v4 — Visual Big Jump
 
 Adds:
-- End-of-day reminder banner (default 19:00) if no backup today (or always if never backed up)
-- Banner button: Backup Now (downloads JSON immediately)
-- /backup settings:
-  - reminder time (HH:MM)
-  - filename mode: daily or timestamp
-- Backup updates icn_last_backup_at_v1 so banner stops for the day
+- shared theme file: public/icn-theme.css
+- app-like top navigation bar across all ops pages
+- upgraded cards/buttons/tables for a more polished look (still plain + fast)
+- keeps local-first + backup banner + backup now + settings
 
 Deploy: overwrite public/ and push.

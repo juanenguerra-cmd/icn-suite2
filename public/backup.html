@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ICN Suite — Backup Center</title>
+  <link rel="stylesheet" href="/icn-theme.css" />
   <style>
     @font-face { font-family: "CameraPlainVariable"; src: url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
     :root{--font:"CameraPlainVariable",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:#f5f6f8;--card:#fff;--border:#e1e4e8;--muted:#6e7681;--shadow:0 10px 30px rgba(0,0,0,.06);}
@@ -34,7 +35,7 @@
         <div id="backupBannerMeta" style="font-size:12px;opacity:.85;margin-top:4px;"></div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <button type="button" id="backupBannerNow" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
+        <button type="button" id="backupBannerNow" class="icn-btn" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
         <a href="/backup" style="text-decoration:none;"><button type="button" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Center</button></a>
         <button type="button" id="backupBannerDismiss" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Dismiss</button>
       </div>
@@ -64,8 +65,23 @@
   </div>
 </div>
 
-  <div class="wrap">
-    <div class="card">
+  
+<div class="icn-wrap">
+  <div class="icn-appbar">
+    <div class="icn-brand">
+      <div class="icn-logo" aria-hidden="true"></div>
+      <div>
+        <p class="icn-title">ICN Suite</p>
+        <p class="icn-subtitle">Ops Mode — Local First</p>
+      </div>
+    </div>
+    <nav class="icn-tabs">
+      <a class="icn-tab" href="/working"><span class="icn-dot"></span>Working</a><a class="icn-tab" href="/entry"><span class="icn-dot"></span>Entry</a><a class="icn-tab" href="/protex"><span class="icn-dot"></span>Protex</a><a class="icn-tab" href="/import"><span class="icn-dot"></span>Collector</a><a class="icn-tab" href="/apply"><span class="icn-dot"></span>Apply</a><a class="icn-tab" href="/reports"><span class="icn-dot"></span>Reports</a><a class="icn-tab active" href="/backup"><span class="icn-dot"></span>Backup</a>
+    </nav>
+  </div>
+</div>
+<div class="icn-wrap">
+    <div class="icn-card">
       <div class="row" style="justify-content:space-between;">
         <div>
           <h1>Backup Center</h1>
@@ -78,16 +94,16 @@
       </div>
 
       <div class="row">
-        <span class="pill">Last backup: <span id="last" class="mono">—</span></span>
-        <span class="pill">Detected store key: <span id="key" class="mono">—</span></span>
+        <span class="icn-pill">Last backup: <span id="last" class="mono">—</span></span>
+        <span class="icn-pill">Detected store key: <span id="key" class="mono">—</span></span>
       </div>
 
       <div class="row" style="margin-top:12px;">
-        <button id="export" class="primary">Export backup JSON</button>
-        <button id="importBtn">Import backup JSON</button>
-        <input id="importFile" type="file" accept="application/json,.json,.txt" style="display:none;" />
+        <button id="export" class="icn-btn primary">Export backup JSON</button>
+        <button id="importBtn" class="icn-btn">Import backup JSON</button>
+        <input class="icn-input" id="importFile" type="file" accept="application/json,.json,.txt" style="display:none;" />
         <button id="copy" title="Copies JSON to clipboard">Copy JSON</button>
-        <button id="clear" class="danger" title="Clears detected store key in this browser only">Clear local data</button>
+        <button id="clear" class="icn-btn danger" title="Clears detected store key in this browser only">Clear local data</button>
       </div>
 
       <p class="sub" style="margin-top:10px;">
@@ -98,23 +114,23 @@
       <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
         <h2 style="font-size:14px;margin:0 0 8px;">Reminder & Filename Settings</h2>
         <div class="row">
-          <span class="pill">Reminder time: <span id="timeLabel" class="mono">—</span></span>
-          <span class="pill">Filename mode: <span id="modeLabel" class="mono">—</span></span>
+          <span class="icn-pill">Reminder time: <span id="timeLabel" class="mono">—</span></span>
+          <span class="icn-pill">Filename mode: <span id="modeLabel" class="mono">—</span></span>
         </div>
         <div class="row" style="margin-top:10px;">
           <div style="flex:1 1 220px;min-width:220px;">
             <label style="font-size:12px;color:var(--muted);">End-of-day reminder time (HH:MM)</label>
-            <input id="time" placeholder="19:00" />
+            <input class="icn-input" id="time" placeholder="19:00" />
           </div>
           <div style="flex:1 1 220px;min-width:220px;">
             <label style="font-size:12px;color:var(--muted);">Backup filename mode</label>
-            <select id="mode">
+            <select class="icn-select" id="mode">
               <option value="daily">daily (icn-backup-YYYY-MM-DD.json)</option>
               <option value="timestamp">timestamp (icn-backup-YYYY-MM-DD-HH-MM-SS.json)</option>
             </select>
           </div>
           <div style="flex:0 0 auto;align-self:flex-end;">
-            <button id="saveSettings" class="primary">Save settings</button>
+            <button id="saveSettings" class="icn-btn primary">Save settings</button>
           </div>
         </div>
         <p class="sub" style="margin-top:8px;">

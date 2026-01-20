@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ICN Suite — Apply to Tracker (Ops)</title>
+  <link rel="stylesheet" href="/icn-theme.css" />
 <style>
 @font-face{font-family:"CameraPlainVariable";src:url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap;}
 :root{--font:"CameraPlainVariable",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:245 246 248;--card:255 255 255;--text:18 18 18;--muted:110 118 129;--border:225 228 232;--shadow:0 10px 30px rgba(0,0,0,.06);--radius:16px;--pill:9999px;}
@@ -46,7 +47,7 @@ textarea{min-height:160px;resize:vertical;}
         <div id="backupBannerMeta" style="font-size:12px;opacity:.85;margin-top:4px;"></div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <button type="button" id="backupBannerNow" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
+        <button type="button" id="backupBannerNow" class="icn-btn" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
         <a href="/backup" style="text-decoration:none;"><button type="button" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Center</button></a>
         <button type="button" id="backupBannerDismiss" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Dismiss</button>
       </div>
@@ -76,8 +77,23 @@ textarea{min-height:160px;resize:vertical;}
   </div>
 </div>
 
-<div class="wrap">
-<div class="card">
+
+<div class="icn-wrap">
+  <div class="icn-appbar">
+    <div class="icn-brand">
+      <div class="icn-logo" aria-hidden="true"></div>
+      <div>
+        <p class="icn-title">ICN Suite</p>
+        <p class="icn-subtitle">Ops Mode — Local First</p>
+      </div>
+    </div>
+    <nav class="icn-tabs">
+      <a class="icn-tab" href="/working"><span class="icn-dot"></span>Working</a><a class="icn-tab" href="/entry"><span class="icn-dot"></span>Entry</a><a class="icn-tab" href="/protex"><span class="icn-dot"></span>Protex</a><a class="icn-tab" href="/import"><span class="icn-dot"></span>Collector</a><a class="icn-tab active" href="/apply"><span class="icn-dot"></span>Apply</a><a class="icn-tab" href="/reports"><span class="icn-dot"></span>Reports</a><a class="icn-tab" href="/backup"><span class="icn-dot"></span>Backup</a>
+    </nav>
+  </div>
+</div>
+<div class="icn-wrap">
+<div class="icn-card">
 <div class="row" style="justify-content:space-between;">
   <div>
     <h1>Apply to Tracker (Ops)</h1>
@@ -85,13 +101,13 @@ textarea{min-height:160px;resize:vertical;}
   </div>
   <div class="row">
     <a href="/working" style="text-decoration:none;"><button>Working</button></a>
-    <a href="/reports" style="text-decoration:none;"><button class="primary">Reports</button></a>
+    <a href="/reports" style="text-decoration:none;"><button class="icn-btn primary">Reports</button></a>
   </div>
 </div>
 
 <div class="row">
-  <span class="pill">Queue key: <span class="mono">icn_import_queue_v1</span></span>
-  <span class="pill">Backup: <span class="mono">icn_state_backup_*</span></span>
+  <span class="icn-pill">Queue key: <span class="mono">icn_import_queue_v1</span></span>
+  <span class="icn-pill">Backup: <span class="mono">icn_state_backup_*</span></span>
 </div>
 
 <div class="hr"></div>
@@ -99,11 +115,11 @@ textarea{min-height:160px;resize:vertical;}
 <div class="grid">
   <div>
     <div class="row">
-      <button id="refresh">Refresh</button>
-      <button id="selectAll">Select all</button>
-      <button id="selectNone">Select none</button>
-      <button id="apply" class="primary">Apply selected → Tracker</button>
-      <button id="clearQueue" class="danger">Clear queue</button>
+      <button id="refresh" class="icn-btn">Refresh</button>
+      <button id="selectAll" class="icn-btn">Select all</button>
+      <button id="selectNone" class="icn-btn">Select none</button>
+      <button id="apply" class="icn-btn primary">Apply selected → Tracker</button>
+      <button id="clearQueue" class="icn-btn danger">Clear queue</button>
     </div>
 
     <label style="margin-top:10px;">Queued packs</label>
@@ -112,9 +128,9 @@ textarea{min-height:160px;resize:vertical;}
     <div class="hr"></div>
 
     <div class="row">
-      <button id="pickFiles">Apply JSON file(s)</button>
-      <input id="files" type="file" accept="application/json,.json,.txt" multiple style="display:none;" />
-      <button id="downloadBackup">Download latest backup</button>
+      <button id="pickFiles" class="icn-btn">Apply JSON file(s)</button>
+      <input class="icn-input" id="files" type="file" accept="application/json,.json,.txt" multiple style="display:none;" />
+      <button id="downloadBackup" class="icn-btn">Download latest backup</button>
     </div>
 
     <div class="hr"></div>
@@ -134,7 +150,7 @@ textarea{min-height:160px;resize:vertical;}
     <label>Paste pack JSON</label>
     <textarea id="paste" class="mono" placeholder='{"version":"icn-bulk-import-v1", ...}'></textarea>
     <div class="row" style="margin-top:10px;">
-      <button id="applyPaste" class="primary">Apply pasted pack</button>
+      <button id="applyPaste" class="icn-btn primary">Apply pasted pack</button>
     </div>
   </div>
 </div>

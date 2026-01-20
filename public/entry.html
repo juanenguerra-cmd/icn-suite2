@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ICN Suite — Manual Entry (Ops)</title>
+  <link rel="stylesheet" href="/icn-theme.css" />
 <style>
 @font-face{font-family:"CameraPlainVariable";src:url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap;}
 :root{--font:"CameraPlainVariable",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:#f5f6f8;--card:#fff;--border:#e1e4e8;--muted:#6e7681;--shadow:0 10px 30px rgba(0,0,0,.06);}
@@ -35,7 +36,7 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
         <div id="backupBannerMeta" style="font-size:12px;opacity:.85;margin-top:4px;"></div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <button type="button" id="backupBannerNow" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
+        <button type="button" id="backupBannerNow" class="icn-btn" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
         <a href="/backup" style="text-decoration:none;"><button type="button" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Center</button></a>
         <button type="button" id="backupBannerDismiss" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Dismiss</button>
       </div>
@@ -65,8 +66,23 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
   </div>
 </div>
 
-<div class="wrap">
-<div class="card">
+
+<div class="icn-wrap">
+  <div class="icn-appbar">
+    <div class="icn-brand">
+      <div class="icn-logo" aria-hidden="true"></div>
+      <div>
+        <p class="icn-title">ICN Suite</p>
+        <p class="icn-subtitle">Ops Mode — Local First</p>
+      </div>
+    </div>
+    <nav class="icn-tabs">
+      <a class="icn-tab" href="/working"><span class="icn-dot"></span>Working</a><a class="icn-tab active" href="/entry"><span class="icn-dot"></span>Entry</a><a class="icn-tab" href="/protex"><span class="icn-dot"></span>Protex</a><a class="icn-tab" href="/import"><span class="icn-dot"></span>Collector</a><a class="icn-tab" href="/apply"><span class="icn-dot"></span>Apply</a><a class="icn-tab" href="/reports"><span class="icn-dot"></span>Reports</a><a class="icn-tab" href="/backup"><span class="icn-dot"></span>Backup</a>
+    </nav>
+  </div>
+</div>
+<div class="icn-wrap">
+<div class="icn-card">
 <div class="row" style="justify-content:space-between;">
   <div>
     <h1>Manual Entry (Ops)</h1>
@@ -74,61 +90,61 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
   </div>
   <div class="row">
     <a href="/working" style="text-decoration:none;"><button>Working</button></a>
-    <a href="/apply" style="text-decoration:none;"><button class="primary">Apply</button></a>
+    <a href="/apply" style="text-decoration:none;"><button class="icn-btn primary">Apply</button></a>
   </div>
 </div>
 
 <label>Entry type</label>
-<select id="type">
+<select class="icn-select" id="type">
   <option value="abt">ABT course</option>
   <option value="vaccinations">Vaccination event</option>
   <option value="ip">IP case</option>
 </select>
 
 <div class="grid" style="margin-top:10px;">
-  <div><label>Resident Name</label><input id="name" placeholder="LAST, FIRST" /></div>
-  <div><label>MRN</label><input id="mrn" placeholder="200382" /></div>
+  <div><label>Resident Name</label><input class="icn-input" id="name" placeholder="LAST, FIRST" /></div>
+  <div><label>MRN</label><input class="icn-input" id="mrn" placeholder="200382" /></div>
 </div>
 
 <div class="grid" style="margin-top:10px;">
-  <div><label>Room</label><input id="room" placeholder="250-A" /></div>
-  <div><label>Unit</label><input id="unit" placeholder="2" /></div>
+  <div><label>Room</label><input class="icn-input" id="room" placeholder="250-A" /></div>
+  <div><label>Unit</label><input class="icn-input" id="unit" placeholder="2" /></div>
 </div>
 
 <div id="abtFields" style="margin-top:10px;">
-  <label>Antibiotic</label><input id="antibiotic" placeholder="Vancomycin" />
+  <label>Antibiotic</label><input class="icn-input" id="antibiotic" placeholder="Vancomycin" />
   <div class="grid" style="margin-top:10px;">
-    <div><label>Route</label><input id="route" placeholder="PO/IV" /></div>
-    <div><label>Start</label><input id="start" placeholder="2026-01-19" /></div>
+    <div><label>Route</label><input class="icn-input" id="route" placeholder="PO/IV" /></div>
+    <div><label>Start</label><input class="icn-input" id="start" placeholder="2026-01-19" /></div>
   </div>
   <div class="grid" style="margin-top:10px;">
-    <div><label>End</label><input id="end" placeholder="2026-01-25" /></div>
-    <div><label>Indication</label><input id="indication" placeholder="UTI" /></div>
+    <div><label>End</label><input class="icn-input" id="end" placeholder="2026-01-25" /></div>
+    <div><label>Indication</label><input class="icn-input" id="indication" placeholder="UTI" /></div>
   </div>
-  <label style="margin-top:10px;">Notes</label><textarea id="notes"></textarea>
+  <label style="margin-top:10px;">Notes</label><textarea class="icn-textarea" id="notes"></textarea>
 </div>
 
 <div id="vaxFields" style="display:none;margin-top:10px;">
-  <label>Vaccine Type</label><input id="vaccineType" placeholder="Influenza" />
+  <label>Vaccine Type</label><input class="icn-input" id="vaccineType" placeholder="Influenza" />
   <div class="grid" style="margin-top:10px;">
-    <div><label>Status</label><input id="vaxStatus" placeholder="Vaccinated (Complete)" /></div>
-    <div><label>Date</label><input id="vaxDate" placeholder="2026-01-19" /></div>
+    <div><label>Status</label><input class="icn-input" id="vaxStatus" placeholder="Vaccinated (Complete)" /></div>
+    <div><label>Date</label><input class="icn-input" id="vaxDate" placeholder="2026-01-19" /></div>
   </div>
-  <label style="margin-top:10px;">Notes</label><textarea id="vaxNotes"></textarea>
+  <label style="margin-top:10px;">Notes</label><textarea class="icn-textarea" id="vaxNotes"></textarea>
 </div>
 
 <div id="ipFields" style="display:none;margin-top:10px;">
-  <label>Status</label><input id="ipStatus" placeholder="ACTIVE" value="ACTIVE" />
+  <label>Status</label><input class="icn-input" id="ipStatus" placeholder="ACTIVE" value="ACTIVE" />
   <div class="grid" style="margin-top:10px;">
-    <div><label>Onset Date</label><input id="onsetDate" placeholder="2026-01-19" /></div>
-    <div><label>Precaution</label><input id="precautionType" placeholder="Contact" /></div>
+    <div><label>Onset Date</label><input class="icn-input" id="onsetDate" placeholder="2026-01-19" /></div>
+    <div><label>Precaution</label><input class="icn-input" id="precautionType" placeholder="Contact" /></div>
   </div>
-  <label style="margin-top:10px;">Isolation</label><input id="isolationType" placeholder="Enhanced Barrier" />
-  <label style="margin-top:10px;">Notes</label><textarea id="ipNotes"></textarea>
+  <label style="margin-top:10px;">Isolation</label><input class="icn-input" id="isolationType" placeholder="Enhanced Barrier" />
+  <label style="margin-top:10px;">Notes</label><textarea class="icn-textarea" id="ipNotes"></textarea>
 </div>
 
 <div class="row" style="margin-top:12px;justify-content:flex-end;">
-  <button id="queue" class="primary">Queue pack</button>
+  <button id="queue" class="icn-btn primary">Queue pack</button>
 </div>
 
 <label style="margin-top:12px;">Generated pack JSON</label>
