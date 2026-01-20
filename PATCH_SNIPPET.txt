@@ -1,0 +1,8 @@
+// Replace this line (inside normalizePack):
+// return pack.datasets.map((d) => ({ dataset: String(d.dataset || "generic"), records: Array.isArray(d.records) ? d.records : [] }));
+
+// With this:
+return pack.datasets.map((d: any) => ({
+  dataset: String(d?.dataset || "generic"),
+  records: Array.isArray(d?.records) ? d.records : [],
+}));
