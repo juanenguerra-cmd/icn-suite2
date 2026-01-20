@@ -55,12 +55,10 @@ export default function ReportsPage() {
     }
   }, []);
 
-  React.useEffect(() => {
-    refresh();
-  }, [refresh]);
+  React.useEffect(() => { refresh(); }, [refresh]);
 
   const abtRows = React.useMemo(() => {
-    return abtActive.slice(0, 500).map((r) => ({
+    return abtActive.slice(0, 500).map((r: any) => ({
       resident: r?.residentName || r?.name || "",
       room: r?.room || r?.roomNumber || "",
       unit: r?.unit || "",
@@ -73,7 +71,7 @@ export default function ReportsPage() {
   }, [abtActive]);
 
   const ipRows = React.useMemo(() => {
-    return ipActive.slice(0, 500).map((r) => ({
+    return ipActive.slice(0, 500).map((r: any) => ({
       resident: r?.residentName || r?.name || "",
       room: r?.room || "",
       unit: r?.unit || "",
@@ -86,7 +84,7 @@ export default function ReportsPage() {
 
   const vaxCounts = React.useMemo(() => {
     const m: Record<string, number> = {};
-    vaxAll.forEach((r) => {
+    vaxAll.forEach((r: any) => {
       const k = String(r?.vaccineType || r?.vaccine || "").trim();
       if (!k) return;
       m[k] = (m[k] || 0) + 1;
@@ -139,7 +137,7 @@ export default function ReportsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {abtRows.slice(0, 200).map((r, i) => (
+                  {abtRows.slice(0, 200).map((r: any, i: number) => (
                     <tr key={i} className={i % 2 ? "bg-slate-50" : ""}>
                       <td className="p-2 border-b">{r.resident}</td>
                       <td className="p-2 border-b">{r.room}</td>
@@ -161,7 +159,7 @@ export default function ReportsPage() {
             <div className="rounded-xl border p-3 text-sm">
               {top.length ? (
                 <ul className="list-disc pl-5">
-                  {top.slice(0, 10).map(([k, v]) => (
+                  {top.slice(0, 10).map(([k, v]: [string, number]) => (
                     <li key={k}><span className="font-mono">{k}</span> — {v}</li>
                   ))}
                 </ul>
@@ -187,7 +185,7 @@ export default function ReportsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {ipRows.slice(0, 200).map((r, i) => (
+                  {ipRows.slice(0, 200).map((r: any, i: number) => (
                     <tr key={i} className={i % 2 ? "bg-slate-50" : ""}>
                       <td className="p-2 border-b">{r.resident}</td>
                       <td className="p-2 border-b">{r.room}</td>
@@ -215,7 +213,7 @@ export default function ReportsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {vaxCounts.map(([k, v], i) => (
+                  {vaxCounts.map(([k, v]: [string, number], i: number) => (
                     <tr key={k} className={i % 2 ? "bg-slate-50" : ""}>
                       <td className="p-2 border-b">{k}</td>
                       <td className="p-2 border-b">{v}</td>

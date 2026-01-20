@@ -2,6 +2,8 @@
 // Stage 7.2 — Import Tab (local-first)
 // Strict TS-safe (noImplicitAny): all callback params are typed.
 
+import { createBackup, detectPersistKey, ensure, getPersistState, toISODate, writePersistState } from "../shared/persist";
+
 export type IcnBulkPackV1 =
   | {
       version: "icn-bulk-import-v1";
@@ -13,11 +15,7 @@ export type IcnBulkPackV1 =
     }
   | any;
 
-export type PersistKeyInfo = { key: string; wrapped: boolean; score: number };
-
 const QUEUE_KEY = "icn_import_queue_v1";
-const LATEST_BACKUP_KEY = "icn_latest_backup_key_v1";
-const BACKUP_PREFIX = "icn_state_backup_";
 
 export function readQueue(): any[] {
   try {
@@ -47,112 +45,6 @@ export function parseMaybeJsonText(text: string): any | null {
     } catch {}
   }
   return null;
-}
-
-function scoreState(state: any): number {
-  if (!state || typeof state !== "object") return 0;
-  let s = 0;
-
-  if (state.modules && typeof state.modules === "object") s += 5;
-  if (Array.isArray(state.modules?.abt?.courses)) s += 5;
-  if (Array.isArray(state.modules?.vaccinations?.records)) s += 5;
-  if (Array.isArray(state.modules?.ip?.cases)) s += 5;
-
-  if (Array.isArray(state.abt) || Array.isArray(state.antibiotics)) s += 3;
-  if (Array.isArray(state.vaccinations) || Array.isArray(state.vax)) s += 3;
-  if (Array.isArray(state.ipCases) || Array.isArray(state.ip) || Array.isArray(state.cases)) s += 3;
-
-  if (state.residentsById && typeof state.residentsById === "object" && !Array.isArray(state.residentsById)) s += 2;
-
-  return s;
-}
-
-export function detectPersistKey(): PersistKeyInfo | null {
-  const keys = Object.keys(localStorage);
-  let best: PersistKeyInfo | null = null;
-
-  for (const k of keys) {
-    const raw = localStorage.getItem(k);
-    if (!raw || raw.length < 20) continue;
-    if (raw[0] !== "{" && raw[0] !== "[") continue;
-
-    try {
-      const obj = JSON.parse(raw);
-      const wrapped = !!obj?.state;
-      const state = wrapped ? obj.state : obj;
-      const sc = scoreState(state);
-      if (sc <= 0) continue;
-
-      if (!best || sc > best.score) best = { key: k, wrapped, score: sc };
-    } catch {}
-  }
-
-  return best;
-}
-
-export function getPersistState(info: PersistKeyInfo): { raw: string; obj: any; state: any } {
-  const raw = localStorage.getItem(info.key) || "";
-  let obj: any = {};
-  try {
-    obj = raw ? JSON.parse(raw) : {};
-  } catch {
-    obj = {};
-  }
-  const state = info.wrapped ? (obj?.state ?? {}) : obj;
-  return { raw, obj, state };
-}
-
-export function writePersistState(info: PersistKeyInfo, obj: any, state: any) {
-  if (info.wrapped) {
-    obj.state = state;
-    localStorage.setItem(info.key, JSON.stringify(obj));
-  } else {
-    localStorage.setItem(info.key, JSON.stringify(state));
-  }
-}
-
-export function createBackup(beforeRaw: string): string {
-  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
-  const bkey = BACKUP_PREFIX + stamp;
-  localStorage.setItem(bkey, beforeRaw || "");
-  localStorage.setItem(LATEST_BACKUP_KEY, bkey);
-  return bkey;
-}
-
-export function latestBackupKey(): string {
-  return localStorage.getItem(LATEST_BACKUP_KEY) || "";
-}
-
-function ensure(obj: any, path: string, def: any) {
-  const parts = path.split(".");
-  let cur = obj;
-  for (let i = 0; i < parts.length; i++) {
-    const p = parts[i]!;
-    if (i === parts.length - 1) {
-      if (cur[p] === undefined) cur[p] = def;
-      return cur[p];
-    }
-    if (cur[p] === undefined || cur[p] === null || typeof cur[p] !== "object") cur[p] = {};
-    cur = cur[p];
-  }
-}
-
-function toISODate(s: any): string {
-  if (!s) return "";
-  const t = String(s).trim();
-  if (!t) return "";
-  if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
-
-  const m = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if (m) {
-    const mm = String(parseInt(m[1]!, 10)).padStart(2, "0");
-    const dd = String(parseInt(m[2]!, 10)).padStart(2, "0");
-    return `${m[3]}-${mm}-${dd}`;
-  }
-
-  const m2 = t.match(/^(\d{4}-\d{2}-\d{2})T/);
-  if (m2) return m2[1]!;
-  return t;
 }
 
 function normalizeResidentId(r: any): string {
@@ -271,7 +163,6 @@ function ipKey(r: any): string {
   );
 }
 
-// Strict typing here prevents TS7006
 type DatasetPart = { dataset?: string; records?: unknown[] };
 
 export function normalizePack(pack: IcnBulkPackV1): { dataset: string; records: any[] }[] | null {
@@ -306,7 +197,6 @@ export function applyPacksToPersist(packs: IcnBulkPackV1[]): ApplyResult {
   const { raw, obj, state } = getPersistState(info);
   const backupKey = createBackup(raw);
 
-  // Ensure canonical paths
   ensure(state, "modules", {});
   ensure(state, "modules.abt", {});
   ensure(state, "modules.abt.courses", []);
@@ -323,7 +213,6 @@ export function applyPacksToPersist(packs: IcnBulkPackV1[]): ApplyResult {
   const ipArr = state.modules.ip.cases as any[];
   const residentsById = state.residentsById as Record<string, any>;
 
-  // Typed callback params (no TS7006)
   const seenABT = new Set(abtArr.map((x: any) => abtKey(mapABT(x))));
   const seenVAX = new Set(vaxArr.map((x: any) => vaxKey(mapVAX(x))));
   const seenIP = new Set(ipArr.map((x: any) => ipKey(mapIP(x))));
@@ -360,10 +249,7 @@ export function applyPacksToPersist(packs: IcnBulkPackV1[]): ApplyResult {
       for (const r of recs) {
         const rr = mapABT(r);
         const k = abtKey(rr);
-        if (seenABT.has(k)) {
-          dropped++;
-          continue;
-        }
+        if (seenABT.has(k)) { dropped++; continue; }
         seenABT.add(k);
         abtArr.push(rr);
         add++;
@@ -377,10 +263,7 @@ export function applyPacksToPersist(packs: IcnBulkPackV1[]): ApplyResult {
       for (const r of recs) {
         const rr = mapVAX(r);
         const k = vaxKey(rr);
-        if (seenVAX.has(k)) {
-          dropped++;
-          continue;
-        }
+        if (seenVAX.has(k)) { dropped++; continue; }
         seenVAX.add(k);
         vaxArr.push(rr);
         add++;
@@ -394,10 +277,7 @@ export function applyPacksToPersist(packs: IcnBulkPackV1[]): ApplyResult {
       for (const r of recs) {
         const rr = mapIP(r);
         const k = ipKey(rr);
-        if (seenIP.has(k)) {
-          dropped++;
-          continue;
-        }
+        if (seenIP.has(k)) { dropped++; continue; }
         seenIP.add(k);
         ipArr.push(rr);
         add++;
@@ -406,7 +286,6 @@ export function applyPacksToPersist(packs: IcnBulkPackV1[]): ApplyResult {
       continue;
     }
 
-    // Unknown dataset -> store under state.imports
     ensure(state, "imports", []);
     if (Array.isArray(state.imports)) {
       state.imports.push({ dataset: ds, importedAt: new Date().toISOString(), records: recs });
@@ -415,6 +294,5 @@ export function applyPacksToPersist(packs: IcnBulkPackV1[]): ApplyResult {
   }
 
   writePersistState(info, obj, state);
-
   return { applied, dropped, backupKey, persistKey: info.key };
 }

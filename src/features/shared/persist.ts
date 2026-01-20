@@ -1,5 +1,6 @@
 // src/features/shared/persist.ts
 // Shared persisted-state helpers (local-first, key-agnostic)
+// Build: 2026-01-20T21:13:41Z
 
 export type PersistKeyInfo = { key: string; wrapped: boolean; score: number };
 

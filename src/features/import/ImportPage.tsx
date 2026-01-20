@@ -24,18 +24,14 @@ export default function ImportPage() {
     setLog((l) => `Loaded ${q.length} queued pack(s).\n` + l);
   }, []);
 
-  React.useEffect(() => {
-    refresh();
-  }, [refresh]);
+  React.useEffect(() => { refresh(); }, [refresh]);
 
   function selectAll() {
     const m: Record<string, boolean> = {};
     queue.forEach((q) => (m[q.id] = true));
     setSelected(m);
   }
-  function selectNone() {
-    setSelected({});
-  }
+  function selectNone() { setSelected({}); }
 
   function showPreview(item: QueueItem) {
     const pk = item.pack as any;
@@ -52,27 +48,21 @@ export default function ImportPage() {
 
   function applySelected() {
     const packs = queue.filter((q) => selected[q.id]).map((q) => q.pack);
-    if (!packs.length) {
-      setLog((l) => `No queue items selected.\n` + l);
-      return;
-    }
+    if (!packs.length) { setLog((l) => `No queue items selected.\n` + l); return; }
     try {
       const res = applyPacksToPersist(packs);
       const remaining = queue.filter((q) => !selected[q.id]);
       writeQueue(remaining);
       setSelected({});
       setQueue(remaining);
-      setLog((l) => {
-        const lines = [
-          `APPLIED OK`,
-          `Persist key: ${res.persistKey}`,
-          `Backup key: ${res.backupKey}`,
-          `Dedup dropped: ${res.dropped}`,
-          ...res.applied.map((a) => `- ${a.dataset}: +${a.added}`),
-          ``,
-        ];
-        return lines.join("\n") + l;
-      });
+      setLog((l) => [
+        `APPLIED OK`,
+        `Persist key: ${res.persistKey}`,
+        `Backup key: ${res.backupKey}`,
+        `Dedup dropped: ${res.dropped}`,
+        ...res.applied.map((a) => `- ${a.dataset}: +${a.added}`),
+        ``,
+      ].join("\n") + l);
     } catch (e: any) {
       setLog((l) => `ERROR: ${e?.message || String(e)}\n` + l);
     }
@@ -80,23 +70,17 @@ export default function ImportPage() {
 
   function applyPasted() {
     const obj = parseMaybeJsonText(paste);
-    if (!obj) {
-      setLog((l) => `Paste is not valid JSON.\n` + l);
-      return;
-    }
+    if (!obj) { setLog((l) => `Paste is not valid JSON.\n` + l); return; }
     try {
       const res = applyPacksToPersist([obj]);
-      setLog((l) => {
-        const lines = [
-          `APPLIED PASTE OK`,
-          `Persist key: ${res.persistKey}`,
-          `Backup key: ${res.backupKey}`,
-          `Dedup dropped: ${res.dropped}`,
-          ...res.applied.map((a) => `- ${a.dataset}: +${a.added}`),
-          ``,
-        ];
-        return lines.join("\n") + l;
-      });
+      setLog((l) => [
+        `APPLIED PASTE OK`,
+        `Persist key: ${res.persistKey}`,
+        `Backup key: ${res.backupKey}`,
+        `Dedup dropped: ${res.dropped}`,
+        ...res.applied.map((a) => `- ${a.dataset}: +${a.added}`),
+        ``,
+      ].join("\n") + l);
     } catch (e: any) {
       setLog((l) => `ERROR: ${e?.message || String(e)}\n` + l);
     }
@@ -114,17 +98,14 @@ export default function ImportPage() {
     if (!packs.length) return;
     try {
       const res = applyPacksToPersist(packs);
-      setLog((l) => {
-        const lines = [
-          `APPLIED FILES OK (${packs.length})`,
-          `Persist key: ${res.persistKey}`,
-          `Backup key: ${res.backupKey}`,
-          `Dedup dropped: ${res.dropped}`,
-          ...res.applied.map((a) => `- ${a.dataset}: +${a.added}`),
-          ``,
-        ];
-        return lines.join("\n") + l;
-      });
+      setLog((l) => [
+        `APPLIED FILES OK (${packs.length})`,
+        `Persist key: ${res.persistKey}`,
+        `Backup key: ${res.backupKey}`,
+        `Dedup dropped: ${res.dropped}`,
+        ...res.applied.map((a) => `- ${a.dataset}: +${a.added}`),
+        ``,
+      ].join("\n") + l);
     } catch (e: any) {
       setLog((l) => `ERROR: ${e?.message || String(e)}\n` + l);
     }
@@ -136,9 +117,7 @@ export default function ImportPage() {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h1 className="text-lg font-semibold">Import</h1>
-            <p className="text-sm text-slate-600">
-              Applies queued packs (or pasted/uploaded JSON) into canonical modules with backup + dedup.
-            </p>
+            <p className="text-sm text-slate-600">Apply queued packs (or pasted/uploaded JSON) with backup + dedup.</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button className="rounded-full border px-4 py-2 text-sm" onClick={refresh}>Refresh</button>
@@ -155,10 +134,10 @@ export default function ImportPage() {
 
         <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
-            <div className="text-sm font-semibold mb-2">Queued packs ({queue.length})</div>
+            <div className="text-sm font-semibold mb-2">Queued packs</div>
             <div className="rounded-xl border bg-white max-h-[420px] overflow-auto p-2">
               {queue.length === 0 ? (
-                <div className="text-sm text-slate-500 p-2">Queue is empty. Use Ops Pro Entry/Protex/Collector to queue packs.</div>
+                <div className="text-sm text-slate-500 p-2">Queue is empty. Use Ops Pro to queue packs.</div>
               ) : (
                 queue.map((q) => {
                   const ds = (q.pack as any)?.dataset ?? ((q.pack as any)?.datasets ? "multi" : "unknown");
@@ -172,9 +151,7 @@ export default function ImportPage() {
                         onChange={(e) => setSelected((s) => ({ ...s, [q.id]: e.target.checked }))}
                       />
                       <div className="flex-1">
-                        <div className="text-xs">
-                          <span className="font-mono">{String(ds)}</span> — {rc} record(s)
-                        </div>
+                        <div className="text-xs"><span className="font-mono">{String(ds)}</span> — {rc} record(s)</div>
                         <div className="text-[11px] text-slate-500">{fmt(q.queuedAt)}</div>
                       </div>
                       <button className="rounded-full border px-3 py-1 text-xs" onClick={() => showPreview(q)}>Preview</button>
@@ -187,15 +164,7 @@ export default function ImportPage() {
             <div className="mt-3 flex flex-wrap gap-2">
               <button className="rounded-full border px-4 py-2 text-sm" onClick={() => fileRef.current?.click()}>Apply JSON file(s)</button>
               <input ref={fileRef} type="file" className="hidden" multiple accept="application/json,.json,.txt" onChange={(e) => handleFiles(e.target.files)} />
-              <button
-                className="rounded-full border px-4 py-2 text-sm"
-                onClick={() => {
-                  writeQueue([]);
-                  setQueue([]);
-                  setSelected({});
-                  setLog((l) => `Queue cleared.\n` + l);
-                }}
-              >
+              <button className="rounded-full border px-4 py-2 text-sm" onClick={() => { writeQueue([]); setQueue([]); setSelected({}); setLog((l) => `Queue cleared.\n` + l); }}>
                 Clear queue
               </button>
             </div>

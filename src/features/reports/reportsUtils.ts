@@ -11,19 +11,19 @@ export type ReportSnapshot = {
 };
 
 function activeABT(records: any[], today: string) {
-  return records.filter((r) => {
+  return records.filter((r: any) => {
     const end = toISODate(r?.end || r?.endDate || "");
     return !end || end >= today;
   });
 }
 
 function activeIP(cases: any[]) {
-  return cases.filter((c) => String(c?.status || c?.caseStatus || "ACTIVE").toUpperCase() === "ACTIVE");
+  return cases.filter((c: any) => String(c?.status || c?.caseStatus || "ACTIVE").toUpperCase() === "ACTIVE");
 }
 
 function groupCount(items: any[], keyFn: (x: any) => string) {
   const m: Record<string, number> = {};
-  items.forEach((x) => {
+  items.forEach((x: any) => {
     const k = keyFn(x);
     if (!k) return;
     m[k] = (m[k] || 0) + 1;
@@ -69,7 +69,7 @@ export function buildSnapshot(): ReportSnapshot {
 
   const abtA = activeABT(abt, today);
   const ipA = activeIP(ip);
-  const top = groupCount(abtA, (r) => String(r?.antibiotic || r?.med || r?.drug || "").trim()).slice(0, 10);
+  const top = groupCount(abtA, (r: any) => String(r?.antibiotic || r?.med || r?.drug || "").trim()).slice(0, 10);
 
   return { persistKey: info.key, abtActive: abtA, ipActive: ipA, vaxAll: vax, today, topAntibiotics: top };
 }
