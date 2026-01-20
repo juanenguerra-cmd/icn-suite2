@@ -1,283 +1,227 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ICN Suite — Reports (Production)</title>
-  <style>
-    @font-face { font-family: "CameraPlainVariable"; src: url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
-    :root{--font:"CameraPlainVariable",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:#f5f6f8;--card:#fff;--border:#e1e4e8;--muted:#6e7681;--shadow:0 10px 30px rgba(0,0,0,.06);}
-    body{margin:0;background:var(--bg);font-family:var(--font);color:#121212;}
-    .wrap{max-width:1100px;margin:0 auto;padding:14px;}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px;}
-    h1{font-size:18px;margin:0 0 6px;}
-    .sub{color:var(--muted);font-size:13px;margin:0 0 12px;line-height:1.35;}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-    button{border:1px solid var(--border);background:#fff;border-radius:9999px;padding:10px 14px;font:inherit;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);}
-    button.primary{background:#121212;color:#fff;border-color:#121212;}
-    .pill{display:inline-flex;align-items:center;gap:6px;border-radius:9999px;border:1px solid var(--border);padding:6px 10px;font-size:12px;color:var(--muted);background:#fff;}
-    table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid var(--border);border-radius:14px;background:#fff;}
-    th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px;vertical-align:top;}
-    th{position:sticky;top:0;background:#fff;z-index:1;}
-    tr:nth-child(even) td{background:rgba(0,0,0,.02);}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
-    textarea{width:100%;min-height:120px;border:1px solid var(--border);border-radius:12px;padding:10px;background:#fff;box-sizing:border-box;font:inherit;}
-    .grid{display:grid;grid-template-columns:1fr;gap:12px;}
-    @media(min-width:980px){.grid{grid-template-columns:1fr 1fr;}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ICN Suite — Reports (Ops)</title>
+<style>
+@font-face{font-family:"CameraPlainVariable";src:url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap;}
+:root{--font:"CameraPlainVariable",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:#f5f6f8;--card:#fff;--border:#e1e4e8;--muted:#6e7681;--shadow:0 10px 30px rgba(0,0,0,.06);}
+body{margin:0;background:var(--bg);font-family:var(--font);color:#121212;}
+.wrap{max-width:1100px;margin:0 auto;padding:14px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px;}
+h1{font-size:18px;margin:0 0 6px;}
+.sub{color:var(--muted);font-size:13px;margin:0 0 12px;line-height:1.35;}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+button{border:1px solid var(--border);background:#fff;border-radius:9999px;padding:10px 14px;font:inherit;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+button.primary{background:#121212;color:#fff;border-color:#121212;}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:9999px;border:1px solid var(--border);padding:6px 10px;font-size:12px;color:var(--muted);background:#fff;}
+table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid var(--border);border-radius:14px;background:#fff;}
+th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px;vertical-align:top;}
+th{position:sticky;top:0;background:#fff;z-index:1;}
+tr:nth-child(even) td{background:rgba(0,0,0,.02);}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
+textarea{width:100%;min-height:120px;border:1px solid var(--border);border-radius:12px;padding:10px;background:#fff;box-sizing:border-box;font:inherit;}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;}
+@media(min-width:980px){.grid{grid-template-columns:1fr 1fr;}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="row" style="justify-content:space-between;">
-        <div>
-          <h1>Reports (Production)</h1>
-          <p class="sub">Reads your tracker localStorage and generates quick operational reports (ABT/VAX/IP).</p>
-        </div>
-        <div class="row">
-          <a href="/working" style="text-decoration:none;"><button>Working</button></a>
-          <a href="/import" style="text-decoration:none;"><button>Collector</button></a>
-          <a href="/apply" style="text-decoration:none;"><button class="primary">Apply</button></a>
-        </div>
-      </div>
-
-      <div class="row">
-        <button id="refresh" class="primary">Refresh data</button>
-        <button id="print">Print</button>
-        <button id="downloadCsv">Download CSV (ABT Active)</button>
-      </div>
-
-      <div class="row" style="margin-top:10px;">
-        <span class="pill">Today: <span id="today" class="mono"></span></span>
-        <span class="pill">Detected store key: <span id="storeKey" class="mono">—</span></span>
-      </div>
-
-      <div class="grid" style="margin-top:12px;">
-        <div>
-          <h2 style="font-size:14px;margin:0 0 8px;">ABT Active</h2>
-          <div id="abt"></div>
-        </div>
-        <div>
-          <h2 style="font-size:14px;margin:0 0 8px;">IP Active Cases</h2>
-          <div id="ip"></div>
-        </div>
-      </div>
-
-      <div style="margin-top:12px;">
-        <h2 style="font-size:14px;margin:0 0 8px;">Vaccinations Snapshot</h2>
-        <div id="vax"></div>
-      </div>
-
-      <div style="margin-top:12px;">
-        <h2 style="font-size:14px;margin:0 0 8px;">Executive Summary</h2>
-        <textarea id="summary" class="mono" readonly></textarea>
-      </div>
-    </div>
+<div class="wrap">
+<div class="card">
+<div class="row" style="justify-content:space-between;">
+  <div>
+    <h1>Reports (Ops)</h1>
+    <p class="sub">Plain operational reports using your tracker localStorage.</p>
   </div>
+  <div class="row">
+    <a href="/working" style="text-decoration:none;"><button>Working</button></a>
+    <a href="/entry" style="text-decoration:none;"><button>Entry</button></a>
+    <a href="/apply" style="text-decoration:none;"><button class="primary">Apply</button></a>
+  </div>
+</div>
+
+<div class="row">
+  <button id="refresh" class="primary">Refresh</button>
+  <button id="print">Print</button>
+  <button id="downloadCsv">Download CSV (ABT Active)</button>
+</div>
+
+<div class="row" style="margin-top:10px;">
+  <span class="pill">Today: <span id="today" class="mono"></span></span>
+  <span class="pill">Store key: <span id="storeKey" class="mono">—</span></span>
+</div>
+
+<div class="grid" style="margin-top:12px;">
+  <div>
+    <h2 style="font-size:14px;margin:0 0 8px;">ABT Active</h2>
+    <div id="abt"></div>
+  </div>
+  <div>
+    <h2 style="font-size:14px;margin:0 0 8px;">IP Active Cases</h2>
+    <div id="ip"></div>
+  </div>
+</div>
+
+<div style="margin-top:12px;">
+  <h2 style="font-size:14px;margin:0 0 8px;">Vaccinations Snapshot</h2>
+  <div id="vax"></div>
+</div>
+
+<div style="margin-top:12px;">
+  <h2 style="font-size:14px;margin:0 0 8px;">Executive Summary</h2>
+  <textarea id="summary" class="mono" readonly></textarea>
+</div>
+</div>
+</div>
 
 <script>
 (function(){
-  const els = {
-    refresh: document.getElementById("refresh"),
-    print: document.getElementById("print"),
-    downloadCsv: document.getElementById("downloadCsv"),
-    today: document.getElementById("today"),
-    storeKey: document.getElementById("storeKey"),
-    abt: document.getElementById("abt"),
-    ip: document.getElementById("ip"),
-    vax: document.getElementById("vax"),
-    summary: document.getElementById("summary")
-  };
+  const els={refresh:document.getElementById("refresh"),print:document.getElementById("print"),downloadCsv:document.getElementById("downloadCsv"),today:document.getElementById("today"),storeKey:document.getElementById("storeKey"),abt:document.getElementById("abt"),ip:document.getElementById("ip"),vax:document.getElementById("vax"),summary:document.getElementById("summary")};
 
   function toISODate(s){
     if(!s) return "";
-    const t = String(s).trim();
+    const t=String(s).trim();
     if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
-    const m = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    const m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
     if(m){
-      const mm = String(parseInt(m[1],10)).padStart(2,"0");
-      const dd = String(parseInt(m[2],10)).padStart(2,"0");
+      const mm=String(parseInt(m[1],10)).padStart(2,"0");
+      const dd=String(parseInt(m[2],10)).padStart(2,"0");
       return `${m[3]}-${mm}-${dd}`;
     }
-    const m2 = t.match(/^(\d{4}-\d{2}-\d{2})T/);
+    const m2=t.match(/^(\d{4}-\d{2}-\d{2})T/);
     if(m2) return m2[1];
     return t;
   }
 
   function detectKey(){
-    const keys = Object.keys(localStorage);
+    const keys=Object.keys(localStorage);
     for(const k of keys){
-      const raw = localStorage.getItem(k);
-      if(!raw || raw.length < 20) continue;
-      if(raw[0] !== "{") continue;
+      const raw=localStorage.getItem(k);
+      if(!raw||raw.length<20) continue;
+      if(raw[0]!=="{") continue;
       try{
-        const obj = JSON.parse(raw);
-        const state = obj && obj.state ? obj.state : obj;
-        if(state && typeof state === "object"){
-          const has = (state.modules && typeof state.modules === "object") ||
-                      Array.isArray(state.abt) || Array.isArray(state.antibiotics) ||
-                      (state.modules && state.modules.abt && Array.isArray(state.modules.abt.courses)) ||
-                      Array.isArray(state.vaccinations) ||
-                      (state.modules && state.modules.vaccinations && Array.isArray(state.modules.vaccinations.records)) ||
-                      Array.isArray(state.ipCases) ||
-                      (state.modules && state.modules.ip && Array.isArray(state.modules.ip.cases));
-          if(has) return { key:k, wrapped: !!obj.state };
+        const obj=JSON.parse(raw);
+        const state=obj&&obj.state?obj.state:obj;
+        if(state&&typeof state==="object"){
+          const has=(state.modules&&typeof state.modules==="object")||
+                    (state.modules&&state.modules.abt&&Array.isArray(state.modules.abt.courses))||
+                    (state.modules&&state.modules.vaccinations&&Array.isArray(state.modules.vaccinations.records))||
+                    (state.modules&&state.modules.ip&&Array.isArray(state.modules.ip.cases))||
+                    Array.isArray(state.abt)||Array.isArray(state.antibiotics)||Array.isArray(state.vaccinations)||Array.isArray(state.ipCases);
+          if(has) return {key:k,wrapped:!!obj.state};
         }
       }catch(e){}
     }
     return null;
   }
 
-  function getRef(state, path){
-    const parts = path.split(".");
-    let cur = state;
+  function getRef(state,path){
+    const parts=path.split(".");
+    let cur=state;
     for(const p of parts){
-      if(!cur || typeof cur !== "object") return null;
-      cur = cur[p];
+      if(!cur||typeof cur!=="object") return null;
+      cur=cur[p];
     }
     return cur;
   }
 
   function pickArrays(state){
-    const abt = getRef(state,"modules.abt.courses") || state.abt || state.antibiotics || [];
-    const vax = getRef(state,"modules.vaccinations.records") || getRef(state,"modules.vax.records") || state.vaccinations || state.vax || [];
-    const ip  = getRef(state,"modules.ip.cases") || state.ipCases || state.ip || [];
-    return { abt: Array.isArray(abt)?abt:[], vax: Array.isArray(vax)?vax:[], ip: Array.isArray(ip)?ip:[] };
+    const abt=getRef(state,"modules.abt.courses")||state.abt||state.antibiotics||[];
+    const vax=getRef(state,"modules.vaccinations.records")||getRef(state,"modules.vax.records")||state.vaccinations||state.vax||[];
+    const ip=getRef(state,"modules.ip.cases")||state.ipCases||state.ip||[];
+    return {abt:Array.isArray(abt)?abt:[],vax:Array.isArray(vax)?vax:[],ip:Array.isArray(ip)?ip:[]};
   }
 
-  function activeABT(records, today){
-    return records.filter(r => {
-      const end = toISODate(r.end || r.endDate || "");
-      return !end || end >= today;
-    });
-  }
+  function activeABT(records,today){return records.filter(r=>{const end=toISODate(r.end||r.endDate||"");return !end||end>=today;});}
+  function activeIP(cases){return cases.filter(c=>String(c.status||c.caseStatus||"ACTIVE").toUpperCase()==="ACTIVE");}
 
-  function activeIP(cases){
-    return cases.filter(c => String(c.status || c.caseStatus || "ACTIVE").toUpperCase() === "ACTIVE");
-  }
-
-  function groupCount(items, keyFn){
-    const m = {};
-    items.forEach(x => {
-      const k = keyFn(x);
-      if(!k) return;
-      m[k] = (m[k] || 0) + 1;
-    });
+  function groupCount(items,keyFn){
+    const m={};
+    items.forEach(x=>{const k=keyFn(x);if(!k) return;m[k]=(m[k]||0)+1;});
     return Object.entries(m).sort((a,b)=>b[1]-a[1]);
   }
 
-  function renderTable(container, cols, rows){
-    if(!rows.length){
-      container.innerHTML = '<div class="pill">No records</div>';
-      return;
-    }
-    const thead = cols.map(c => `<th>${c}</th>`).join("");
-    const body = rows.map(r => `<tr>${cols.map(c => `<td>${r[c] ?? ""}</td>`).join("")}</tr>`).join("");
-    container.innerHTML = `<table><thead><tr>${thead}</tr></thead><tbody>${body}</tbody></table>`;
+  function renderTable(container,cols,rows){
+    if(!rows.length){container.innerHTML='<div class="pill">No records</div>';return;}
+    const thead=cols.map(c=>`<th>${c}</th>`).join("");
+    const body=rows.map(r=>`<tr>${cols.map(c=>`<td>${r[c]??""}</td>`).join("")}</tr>`).join("");
+    container.innerHTML=`<table><thead><tr>${thead}</tr></thead><tbody>${body}</tbody></table>`;
   }
 
-  function downloadText(filename, text, mime){
-    const blob = new Blob([text], {type: mime || "text/plain"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url), 600);
+  function downloadText(filename,text,mime){
+    const blob=new Blob([text],{type:mime||"text/plain"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;a.download=filename;
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),600);
   }
 
   function toCsv(rows){
-    const keys = Object.keys(rows[0]||{});
-    const esc = (v) => {
-      const s = v === null || v === undefined ? "" : String(v);
-      const needs = /[",\n\r]/.test(s);
-      const out = s.replace(/"/g,'""');
-      return needs ? `"${out}"` : out;
-    };
-    const lines = [];
+    const keys=Object.keys(rows[0]||{});
+    const esc=(v)=>{const s=v===null||v===undefined?"":String(v);const needs=/[",\n\r]/.test(s);const out=s.replace(/"/g,'""');return needs?`"${out}"`:out;};
+    const lines=[];
     lines.push(keys.map(esc).join(","));
-    rows.forEach(r => lines.push(keys.map(k => esc(r[k])).join(",")));
+    rows.forEach(r=>lines.push(keys.map(k=>esc(r[k])).join(",")));
     return lines.join("\n");
   }
 
   function refresh(){
-    const today = new Date().toISOString().slice(0,10);
-    els.today.textContent = today;
+    const today=new Date().toISOString().slice(0,10);
+    els.today.textContent=today;
 
-    const det = detectKey();
+    const det=detectKey();
     if(!det){
-      els.storeKey.textContent = "NOT FOUND";
-      els.summary.value = "Open the tracker app once, then refresh this page.";
-      els.abt.innerHTML = "";
-      els.ip.innerHTML = "";
-      els.vax.innerHTML = "";
+      els.storeKey.textContent="NOT FOUND";
+      els.summary.value="Open the tracker app once, then refresh this page.";
+      els.abt.innerHTML="";els.ip.innerHTML="";els.vax.innerHTML="";
       return;
     }
-    els.storeKey.textContent = det.key;
+    els.storeKey.textContent=det.key;
 
-    const raw = localStorage.getItem(det.key);
-    const obj = JSON.parse(raw);
-    const state = det.wrapped ? obj.state : obj;
+    const raw=localStorage.getItem(det.key);
+    const obj=JSON.parse(raw);
+    const state=det.wrapped?obj.state:obj;
 
-    const { abt, vax, ip } = pickArrays(state);
-    const abtA = activeABT(abt, today);
-    const ipA = activeIP(ip);
+    const {abt,vax,ip}=pickArrays(state);
+    const abtA=activeABT(abt,today);
+    const ipA=activeIP(ip);
 
-    const abtRows = abtA.slice(0,200).map(r => ({
-      resident: r.residentName || r.name || "",
-      mrn: r.mrn || "",
-      room: r.room || "",
-      unit: r.unit || "",
-      antibiotic: r.antibiotic || "",
-      route: r.route || "",
-      start: toISODate(r.start || r.startDate || ""),
-      end: toISODate(r.end || r.endDate || ""),
-      indication: r.indication || "",
-    }));
-    renderTable(els.abt, ["resident","room","unit","antibiotic","route","start","end","indication"], abtRows);
+    const abtRows=abtA.slice(0,300).map(r=>({resident:r.residentName||r.name||"",room:r.room||"",unit:r.unit||"",antibiotic:r.antibiotic||"",route:r.route||"",start:toISODate(r.start||r.startDate||""),end:toISODate(r.end||r.endDate||""),indication:r.indication||""}));
+    renderTable(els.abt,["resident","room","unit","antibiotic","route","start","end","indication"],abtRows);
 
-    const ipRows = ipA.slice(0,200).map(r => ({
-      resident: r.residentName || r.name || "",
-      mrn: r.mrn || "",
-      room: r.room || "",
-      unit: r.unit || "",
-      precaution: r.precautionType || "",
-      isolation: r.isolationType || "",
-      onset: toISODate(r.onsetDate || ""),
-      status: r.status || r.caseStatus || "ACTIVE",
-    }));
-    renderTable(els.ip, ["resident","room","unit","precaution","isolation","onset","status"], ipRows);
+    const ipRows=ipA.slice(0,300).map(r=>({resident:r.residentName||r.name||"",room:r.room||"",unit:r.unit||"",precaution:r.precautionType||"",isolation:r.isolationType||"",onset:toISODate(r.onsetDate||""),status:r.status||r.caseStatus||"ACTIVE"}));
+    renderTable(els.ip,["resident","room","unit","precaution","isolation","onset","status"],ipRows);
 
-    const vaxCounts = groupCount(vax, r => (r.vaccineType || r.vaccine || "").trim());
-    const vaxRows = vaxCounts.slice(0,15).map(([k,v]) => ({ vaccineType: k, count: v }));
-    renderTable(els.vax, ["vaccineType","count"], vaxRows);
+    const vaxCounts=groupCount(vax,r=>String(r.vaccineType||r.vaccine||"").trim());
+    const vaxRows=vaxCounts.slice(0,20).map(([k,v])=>({vaccineType:k,count:v}));
+    renderTable(els.vax,["vaccineType","count"],vaxRows);
 
-    const topMeds = groupCount(abtA, r => (r.antibiotic||"").trim()).slice(0,10);
-    const lines = [];
-    lines.push("ICN Production Summary");
+    const topMeds=groupCount(abtA,r=>String(r.antibiotic||"").trim()).slice(0,12);
+    const lines=[];
+    lines.push("ICN Ops Summary");
     lines.push(`Date: ${today}`);
     lines.push("");
     lines.push(`ABT active courses: ${abtA.length}`);
     if(topMeds.length){
       lines.push("Top antibiotics:");
-      topMeds.forEach(([k,v]) => lines.push(`- ${k}: ${v}`));
+      topMeds.forEach(([k,v])=>lines.push(`- ${k}: ${v}`));
     }
     lines.push("");
     lines.push(`IP active cases: ${ipA.length}`);
     lines.push(`Vaccination records total: ${vax.length}`);
-    els.summary.value = lines.join("\n");
+    els.summary.value=lines.join("\n");
 
-    els.downloadCsv.onclick = () => {
+    els.downloadCsv.onclick=()=>{
       if(!abtRows.length) return;
-      const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
-      downloadText(`icn-abt-active-${stamp}.csv`, toCsv(abtRows), "text/csv");
+      const stamp=new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
+      downloadText(`icn-abt-active-${stamp}.csv`,toCsv(abtRows),"text/csv");
     };
   }
 
-  els.refresh.addEventListener("click", refresh);
-  els.print.addEventListener("click", () => window.print());
+  els.refresh.addEventListener("click",refresh);
+  els.print.addEventListener("click",()=>window.print());
   refresh();
 })();
 </script>

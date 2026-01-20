@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ICN Suite — Production</title>
+  <title>ICN Suite — Ops Mode</title>
   <style>
     @font-face { font-family: "CameraPlainVariable"; src: url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
     :root{--font:"CameraPlainVariable",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:#f5f6f8;--card:#fff;--border:#e1e4e8;--muted:#6e7681;--shadow:0 10px 30px rgba(0,0,0,.06);}
     body{margin:0;padding:18px;background:var(--bg);font-family:var(--font);color:#121212;}
-    .card{max-width:920px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:16px;}
+    .card{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:16px;}
     h1{font-size:18px;margin:0 0 8px;}
     p{margin:0 0 12px;color:var(--muted);line-height:1.35;}
     .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
@@ -20,21 +20,26 @@
 </head>
 <body>
   <div class="card">
-    <h1>ICN Suite — Production Working Mode</h1>
-    <p>This is the production pipeline: <b>Collect → Review → Queue → Apply → Reports</b>.</p>
+    <h1>ICN Suite — Ops Mode (Plain but Functional)</h1>
+    <p>Use this when you need the capabilities now: enter ABT/VAX/IP, parse Protex text, apply with dedup, generate reports.</p>
 
     <div class="row">
-      <a class="primary" href="/import">1) Quick Collector</a>
-      <a href="/apply">2) Apply Queue → Tracker</a>
-      <a href="/reports">3) Reports</a>
+      <a class="primary" href="/entry">Manual Entry (ABT/VAX/IP)</a>
+      <a href="/protex">Protex Parser (ABT)</a>
+      <a href="/import">Collector + Vault</a>
+      <a href="/apply">Apply → Tracker (dedup + backup)</a>
+      <a href="/reports">Reports</a>
     </div>
 
-    <p class="mono" style="margin-top:12px;">Keys: icn_import_queue_v1 (queue), icn_pack_vault_v1 (vault), icn_state_backup_* (backups)</p>
+    <p class="mono" style="margin-top:12px;">
+      Keys: icn_import_queue_v1 (queue), icn_pack_vault_v1 (vault), icn_state_backup_* (backups)
+    </p>
 
     <ul>
-      <li>Collector supports CSV/JSON/lines, Pack Vault, merge/export, queue.</li>
-      <li>Apply supports file upload, schema mapping (ABT/IP/VAX/Residents), and dedup vs existing tracker data.</li>
-      <li>Reports reads tracker localStorage and generates quick production outputs.</li>
+      <li>Enter data: /entry (creates packs and queues them)</li>
+      <li>Parse Protex ABT text: /protex (creates ABT packs and queues them)</li>
+      <li>Apply into the tracker with schema mapping + dedup: /apply</li>
+      <li>Generate operational reports: /reports</li>
     </ul>
   </div>
 </body>

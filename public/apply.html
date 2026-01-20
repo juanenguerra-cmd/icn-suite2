@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ICN Suite — Apply to Tracker (Ops)</title>
+<style>
+@font-face{font-family:"CameraPlainVariable";src:url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap;}
+:root{--font:"CameraPlainVariable",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:245 246 248;--card:255 255 255;--text:18 18 18;--muted:110 118 129;--border:225 228 232;--shadow:0 10px 30px rgba(0,0,0,.06);--radius:16px;--pill:9999px;}
+body{margin:0;font-family:var(--font);background:rgb(var(--bg));color:rgb(var(--text));}
+.wrap{max-width:1040px;margin:0 auto;padding:14px;}
+.card{background:rgb(var(--card));border:1px solid rgb(var(--border));border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;}
+h1{font-size:18px;margin:0 0 6px;}
+.sub{color:rgb(var(--muted));font-size:13px;margin:0 0 12px;line-height:1.35;}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:var(--pill);border:1px solid rgb(var(--border));padding:6px 10px;font-size:12px;color:rgb(var(--muted));background:#fff;}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
+button{border:1px solid rgb(var(--border));background:#fff;border-radius:var(--pill);padding:10px 14px;font:inherit;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+button.primary{background:rgba(0,0,0,.92);color:#fff;border-color:rgba(0,0,0,.92);}
+button.danger{background:#b00020;color:#fff;border-color:#b00020;}
+textarea,input{width:100%;border:1px solid rgb(var(--border));border-radius:12px;padding:10px;font:inherit;background:#fff;box-sizing:border-box;}
+textarea{min-height:160px;resize:vertical;}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;}
+@media(min-width:980px){.grid{grid-template-columns:1.05fr .95fr;}}
+.list{border:1px solid rgb(var(--border));border-radius:12px;padding:10px;background:#fff;max-height:340px;overflow:auto;}
+.item{display:flex;gap:10px;align-items:flex-start;padding:8px;border:1px solid rgb(var(--border));border-radius:12px;margin-bottom:8px;background:#fff;}
+.meta{flex:1 1 auto;}
+.title{font-size:12px;margin:0 0 2px;}
+.sub2{font-size:11px;color:rgb(var(--muted));margin:0;}
+.actions{display:flex;flex-direction:column;gap:6px;}
+.actions button{padding:7px 10px;font-size:12px;}
+.small{font-size:12px;color:rgb(var(--muted));}
+.hr{height:1px;background:rgb(var(--border));margin:12px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<div class="row" style="justify-content:space-between;">
+  <div>
+    <h1>Apply to Tracker (Ops)</h1>
+    <p class="sub">Applies queued packs into your tracker localStorage with schema mapping + dedup. Backup is created before write.</p>
+  </div>
+  <div class="row">
+    <a href="/working" style="text-decoration:none;"><button>Working</button></a>
+    <a href="/reports" style="text-decoration:none;"><button class="primary">Reports</button></a>
+  </div>
+</div>
+
+<div class="row">
+  <span class="pill">Queue key: <span class="mono">icn_import_queue_v1</span></span>
+  <span class="pill">Backup: <span class="mono">icn_state_backup_*</span></span>
+</div>
+
+<div class="hr"></div>
+
+<div class="grid">
+  <div>
+    <div class="row">
+      <button id="refresh">Refresh</button>
+      <button id="selectAll">Select all</button>
+      <button id="selectNone">Select none</button>
+      <button id="apply" class="primary">Apply selected → Tracker</button>
+      <button id="clearQueue" class="danger">Clear queue</button>
+    </div>
+
+    <label style="margin-top:10px;">Queued packs</label>
+    <div id="queueList" class="list"></div>
+
+    <div class="hr"></div>
+
+    <div class="row">
+      <button id="pickFiles">Apply JSON file(s)</button>
+      <input id="files" type="file" accept="application/json,.json,.txt" multiple style="display:none;" />
+      <button id="downloadBackup">Download latest backup</button>
+    </div>
+
+    <div class="hr"></div>
+    <label>Logs</label>
+    <textarea id="log" class="mono" readonly></textarea>
+  </div>
+
+  <div>
+    <label>Detected tracker storage</label>
+    <textarea id="detected" class="mono" readonly></textarea>
+
+    <label style="margin-top:10px;">Preview (first 5)</label>
+    <textarea id="preview" class="mono" readonly></textarea>
+
+    <div class="hr"></div>
+
+    <label>Paste pack JSON</label>
+    <textarea id="paste" class="mono" placeholder='{"version":"icn-bulk-import-v1", ...}'></textarea>
+    <div class="row" style="margin-top:10px;">
+      <button id="applyPaste" class="primary">Apply pasted pack</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<script>
+(function(){
+  const QUEUE_KEY="icn_import_queue_v1";
+  const BACKUP_PREFIX="icn_state_backup_";
+  const LATEST_BACKUP_KEY="icn_latest_backup_key_v1";
+
+  const els={
+    refresh:document.getElementById("refresh"),
+    selectAll:document.getElementById("selectAll"),
+    selectNone:document.getElementById("selectNone"),
+    apply:document.getElementById("apply"),
+    clearQueue:document.getElementById("clearQueue"),
+    queueList:document.getElementById("queueList"),
+    log:document.getElementById("log"),
+    detected:document.getElementById("detected"),
+    preview:document.getElementById("preview"),
+    paste:document.getElementById("paste"),
+    applyPaste:document.getElementById("applyPaste"),
+    downloadBackup:document.getElementById("downloadBackup"),
+    pickFiles:document.getElementById("pickFiles"),
+    files:document.getElementById("files"),
+  };
+
+  function ts(){return new Date().toISOString().replace("T"," ").replace("Z","");}
+  function log(line){els.log.value=`[${ts()}] ${line}\n`+(els.log.value||"");}
+
+  function readJson(key,fallback){try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):fallback;}catch(e){return fallback;}}
+  function writeJson(key,val){localStorage.setItem(key,JSON.stringify(val));}
+
+  function downloadText(filename,text,mime){
+    const blob=new Blob([text],{type:mime||"text/plain"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;a.download=filename;
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),600);
+  }
+
+  function parseMaybeJsonText(text){
+    const t=(text||"").trim();
+    if(!t) return null;
+    try{return JSON.parse(t);}catch(e){}
+    const i1=t.indexOf("{"), i2=t.lastIndexOf("}");
+    if(i1!==-1 && i2!==-1 && i2>i1){
+      try{return JSON.parse(t.slice(i1,i2+1));}catch(e){}
+    }
+    return null;
+  }
+
+  function detectZustandPersistKey(){
+    const keys=Object.keys(localStorage);
+    for(const k of keys){
+      const raw=localStorage.getItem(k);
+      if(!raw||raw.length<20) continue;
+      if(raw[0]!=="{") continue;
+      try{
+        const obj=JSON.parse(raw);
+        const state=obj&&obj.state?obj.state:obj;
+        if(state&&typeof state==="object"){
+          const has=(state.modules&&typeof state.modules==="object")||
+                    (state.residentsById&&typeof state.residentsById==="object")||
+                    (state.modules&&state.modules.abt&&Array.isArray(state.modules.abt.courses))||
+                    (state.modules&&state.modules.vaccinations&&Array.isArray(state.modules.vaccinations.records))||
+                    (state.modules&&state.modules.ip&&Array.isArray(state.modules.ip.cases))||
+                    Array.isArray(state.abt)||Array.isArray(state.vaccinations)||Array.isArray(state.ipCases);
+          if(has) return {key:k,wrapped:!!obj.state};
+        }
+      }catch(e){}
+    }
+    return null;
+  }
+
+  function setDetected(info){els.detected.value=info?JSON.stringify(info,null,2):"Not found";}
+  function doDetect(){
+    const cand=detectZustandPersistKey();
+    if(!cand){setDetected(null);log("Tracker storage key not detected yet. Open the tracker once, then retry.");return null;}
+    setDetected(cand);log(`Detected tracker key: ${cand.key}`);return cand;
+  }
+
+  function backupKey(){
+    const stamp=new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
+    return BACKUP_PREFIX+stamp;
+  }
+
+  function toISODate(s){
+    if(!s) return "";
+    const t=String(s).trim();
+    if(!t) return "";
+    if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+    const m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m){
+      const mm=String(parseInt(m[1],10)).padStart(2,"0");
+      const dd=String(parseInt(m[2],10)).padStart(2,"0");
+      return `${m[3]}-${mm}-${dd}`;
+    }
+    const m2=t.match(/^(\d{4}-\d{2}-\d{2})T/);
+    if(m2) return m2[1];
+    return t;
+  }
+
+  function normalizeResidentId(obj){
+    const rid=obj.residentId||obj.patientId||obj.id||"";
+    const mrn=obj.mrn||obj.MRN||"";
+    if(String(rid).startsWith("MRN-")) return String(rid);
+    if(mrn) return "MRN-"+String(mrn).trim();
+    return String(rid||"");
+  }
+
+  function mapABT(r){
+    return {
+      id:r.id||"",
+      residentId:normalizeResidentId(r),
+      residentName:r.residentName||r.name||r.patientName||"",
+      mrn:r.mrn||(String(r.residentId||"").startsWith("MRN-")?String(r.residentId).replace("MRN-",""):"")||"",
+      unit:r.unit||"",
+      room:r.room||r.roomNumber||"",
+      dob:toISODate(r.dob||r.dateOfBirth||""),
+      antibiotic:r.antibiotic||r.med||r.drug||"",
+      klass:r.klass||r.class||"Auto",
+      route:r.route||"",
+      start:toISODate(r.start||r.startDate||""),
+      end:toISODate(r.end||r.endDate||""),
+      indication:r.indication||"",
+      infectionSource:r.infectionSource||"",
+      notes:r.notes||"",
+      raw:r
+    };
+  }
+  function mapVAX(r){
+    return {
+      id:r.id||"",
+      residentId:normalizeResidentId(r),
+      patientName:r.patientName||r.name||r.residentName||"",
+      mrn:r.mrn||"",
+      roomNumber:r.roomNumber||r.room||"",
+      unit:r.unit||"",
+      dateOfBirth:toISODate(r.dateOfBirth||r.dob||""),
+      patientStatus:r.patientStatus||"",
+      vaccineType:r.vaccineType||r.vaccine||"",
+      status:r.status||r.vaxStatus||"",
+      date:toISODate(r.date||""),
+      notes:r.notes||"",
+      raw:r
+    };
+  }
+  function mapIP(r){
+    return {
+      id:r.id||"",
+      residentId:normalizeResidentId(r),
+      residentName:r.residentName||r.name||"",
+      mrn:r.mrn||"",
+      room:r.room||"",
+      unit:r.unit||"",
+      dob:toISODate(r.dob||""),
+      status:r.status||r.caseStatus||"ACTIVE",
+      censusStatus:r.censusStatus||"",
+      onsetDate:toISODate(r.onsetDate||""),
+      resolutionDate:toISODate(r.resolutionDate||""),
+      precautionType:r.precautionType||"",
+      isolationType:r.isolationType||"",
+      requiredPPE:r.requiredPPE||"",
+      sourceCondition:r.sourceCondition||r.source||r.condition||"",
+      nhsnPathogenCode:r.nhsnPathogenCode||r.nhsnCode||"",
+      pathogen:r.pathogen||"",
+      staffAssignments48hPreOnset:Array.isArray(r.staffAssignments48hPreOnset)?r.staffAssignments48hPreOnset:(Array.isArray(r.staffAssignments)?r.staffAssignments:[]),
+      closeContacts:Array.isArray(r.closeContacts)?r.closeContacts:[],
+      raw:r
+    };
+  }
+  function mapResident(r){
+    const rid=r.residentId||normalizeResidentId(r);
+    return {residentId:rid,mrn:r.mrn||(String(rid).startsWith("MRN-")?String(rid).replace("MRN-",""):""),name:r.name||r.residentName||r.patientName||"",room:r.room||r.roomNumber||"",unit:r.unit||"",dob:toISODate(r.dob||r.dateOfBirth||""),raw:r};
+  }
+
+  function abtKey(r){if(r.id) return "id:"+r.id;return "abt:"+[r.residentId||r.mrn||"",r.antibiotic||"",r.route||"",r.start||"",r.end||""].map(x=>String(x).trim().toUpperCase()).join("|");}
+  function vaxKey(r){if(r.id) return "id:"+r.id;return "vax:"+[r.mrn||"",r.vaccineType||"",r.date||"",r.status||""].map(x=>String(x).trim().toUpperCase()).join("|");}
+  function ipKey(r){if(r.id) return "id:"+r.id;return "ip:"+[r.mrn||r.residentId||"",r.precautionType||"",r.isolationType||"",r.onsetDate||"",r.resolutionDate||"",r.status||""].map(x=>String(x).trim().toUpperCase()).join("|");}
+
+  function getRef(state,path){
+    const parts=path.split(".");
+    let cur=state;
+    for(const p of parts){if(!cur||typeof cur!=="object") return null;cur=cur[p];}
+    return cur;
+  }
+  function ensurePath(state,path,def){
+    const parts=path.split(".");
+    let cur=state;
+    for(let i=0;i<parts.length;i++){
+      const p=parts[i];
+      if(i===parts.length-1){if(cur[p]===undefined) cur[p]=def;return cur[p];}
+      if(cur[p]===undefined||cur[p]===null||typeof cur[p]!=="object") cur[p]={};
+      cur=cur[p];
+    }
+    return null;
+  }
+
+  function findABTArray(state){for(const p of ["modules.abt.courses","abt","antibiotics","abx","abtCourses"]){const v=getRef(state,p);if(Array.isArray(v)) return p;}return null;}
+  function findVAXArray(state){for(const p of ["modules.vaccinations.records","modules.vax.records","vaccinations","vax","vaccineLogs"]){const v=getRef(state,p);if(Array.isArray(v)) return p;}return null;}
+  function findIPArray(state){for(const p of ["modules.ip.cases","ipCases","ip","cases"]){const v=getRef(state,p);if(Array.isArray(v)) return p;}return null;}
+  function findResidentsById(state){for(const p of ["residentsById","modules.census.residentsById","modules.residentsById"]){const v=getRef(state,p);if(v&&typeof v==="object"&&!Array.isArray(v)) return p;}return null;}
+
+  function normalizePack(pack){
+    if(!pack||pack.version!=="icn-bulk-import-v1") return null;
+    if(pack.datasets&&Array.isArray(pack.datasets)) return pack.datasets.map(d=>({dataset:(d.dataset||"generic"),records:Array.isArray(d.records)?d.records:[]}));
+    return [{dataset:pack.dataset||"generic",records:Array.isArray(pack.records)?pack.records:[]}];
+  }
+
+  function loadState(cand){
+    const raw=localStorage.getItem(cand.key);
+    let obj=null;try{obj=raw?JSON.parse(raw):null;}catch(e){obj=null;}
+    let state=(cand.wrapped&&obj&&obj.state)?obj.state:(obj&&typeof obj==="object"?obj:{});
+    if(!state||typeof state!=="object") state={};
+    return {raw,obj,state};
+  }
+  function writeBack(cand,obj,state){
+    if(cand.wrapped&&obj&&obj.state){obj.state=state;localStorage.setItem(cand.key,JSON.stringify(obj));}
+    else localStorage.setItem(cand.key,JSON.stringify(state));
+  }
+
+  function applyPartsToState(state,parts){
+    if(!Array.isArray(state.imports)) state.imports=[];
+    const abtPath=findABTArray(state);
+    const vaxPath=findVAXArray(state);
+    const ipPath=findIPArray(state);
+    const resPath=findResidentsById(state);
+
+    const existingABT=abtPath?getRef(state,abtPath):null;
+    const existingVAX=vaxPath?getRef(state,vaxPath):null;
+    const existingIP=ipPath?getRef(state,ipPath):null;
+
+    const seenABT=new Set(Array.isArray(existingABT)?existingABT.map(x=>abtKey(mapABT(x))):[]);
+    const seenVAX=new Set(Array.isArray(existingVAX)?existingVAX.map(x=>vaxKey(mapVAX(x))):[]);
+    const seenIP=new Set(Array.isArray(existingIP)?existingIP.map(x=>ipKey(mapIP(x))):[]);
+
+    const applied=[];
+    let dropped=0;
+
+    for(const p of parts){
+      const ds=String(p.dataset||"generic").toLowerCase();
+      const recs=Array.isArray(p.records)?p.records:[];
+
+      if(ds==="residents"){
+        const tgt=resPath||"residentsById";
+        const map=ensurePath(state,tgt,{});
+        let add=0;
+        for(const r of recs){
+          const rr=mapResident(r);
+          const key=rr.residentId||("MRN-"+(rr.mrn||""));
+          if(key&&!map[key]){map[key]=rr;add++;}
+        }
+        applied.push({dataset:"residents",into:tgt,count:add});
+        continue;
+      }
+
+      if(ds==="abt"){
+        if(!abtPath){state.imports.push({dataset:"abt",importedAt:new Date().toISOString(),records:recs});applied.push({dataset:"abt",into:"imports",count:recs.length,note:"fallback"});continue;}
+        const arr=getRef(state,abtPath);
+        let add=0;
+        for(const r of recs){
+          const rr=mapABT(r);
+          const k=abtKey(rr);
+          if(seenABT.has(k)){dropped++;continue;}
+          seenABT.add(k);
+          arr.push(rr);
+          add++;
+        }
+        applied.push({dataset:"abt",into:abtPath,count:add});
+        continue;
+      }
+
+      if(ds==="vaccinations"||ds==="vax"){
+        if(!vaxPath){state.imports.push({dataset:"vaccinations",importedAt:new Date().toISOString(),records:recs});applied.push({dataset:"vaccinations",into:"imports",count:recs.length,note:"fallback"});continue;}
+        const arr=getRef(state,vaxPath);
+        let add=0;
+        for(const r of recs){
+          const rr=mapVAX(r);
+          const k=vaxKey(rr);
+          if(seenVAX.has(k)){dropped++;continue;}
+          seenVAX.add(k);
+          arr.push(rr);
+          add++;
+        }
+        applied.push({dataset:"vaccinations",into:vaxPath,count:add});
+        continue;
+      }
+
+      if(ds==="ip"){
+        if(!ipPath){state.imports.push({dataset:"ip",importedAt:new Date().toISOString(),records:recs});applied.push({dataset:"ip",into:"imports",count:recs.length,note:"fallback"});continue;}
+        const arr=getRef(state,ipPath);
+        let add=0;
+        for(const r of recs){
+          const rr=mapIP(r);
+          const k=ipKey(rr);
+          if(seenIP.has(k)){dropped++;continue;}
+          seenIP.add(k);
+          arr.push(rr);
+          add++;
+        }
+        applied.push({dataset:"ip",into:ipPath,count:add});
+        continue;
+      }
+
+      if(recs.length){
+        state.imports.push({dataset:ds,importedAt:new Date().toISOString(),records:recs});
+        applied.push({dataset:ds,into:"imports",count:recs.length,note:"unknown"});
+      }
+    }
+
+    return {applied,dropped};
+  }
+
+  function applyPackObject(pack){
+    const cand=doDetect();
+    if(!cand) return;
+    const parts=normalizePack(pack);
+    if(!parts){log("Not a valid icn-bulk-import-v1 pack.");return;}
+
+    const before=localStorage.getItem(cand.key);
+    const bkey=backupKey();
+    localStorage.setItem(bkey,before||"");
+    localStorage.setItem(LATEST_BACKUP_KEY,bkey);
+    log(`Backup created: ${bkey}`);
+
+    const loaded=loadState(cand);
+    const res=applyPartsToState(loaded.state,parts);
+    writeBack(cand,loaded.obj,loaded.state);
+
+    const addTotal=res.applied.reduce((a,x)=>a+x.count,0);
+    log(`Applied ${addTotal} records. Dedup dropped: ${res.dropped}.`);
+    res.applied.forEach(a=>log(`- ${a.dataset} → ${a.into}: +${a.count}${a.note? " ("+a.note+")":""}`));
+    log("Done. Open/refresh your tracker.");
+  }
+
+  function getQueue(){const q=readJson(QUEUE_KEY,[]);return Array.isArray(q)?q:[];}
+
+  function renderQueue(){
+    const q=getQueue();
+    if(!q.length){els.queueList.innerHTML='<div class="small">Queue is empty. Use /entry or /import to queue packs.</div>';els.preview.value="";return;}
+    els.queueList.innerHTML=q.map(item=>{
+      const ds=(item.pack&&item.pack.dataset)||(item.pack&&item.pack.datasets?"multi":"unknown");
+      const dt=(item.queuedAt||"").replace("T"," ").replace("Z","");
+      const rc=(item.pack&&(item.pack.recordCount||(item.pack.records?item.pack.records.length:0)))||0;
+      return `<div class="item">
+        <input type="checkbox" data-q-check="${item.id}" />
+        <div class="meta">
+          <p class="title"><span class="mono">${ds}</span> — ${rc} records</p>
+          <p class="sub2">${dt}</p>
+        </div>
+        <div class="actions"><button data-q-view="${item.id}">Preview</button></div>
+      </div>`;
+    }).join("");
+
+    els.queueList.querySelectorAll("[data-q-view]").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        const id=btn.getAttribute("data-q-view");
+        const found=getQueue().find(x=>x.id===id);
+        if(found&&found.pack){
+          const parts=normalizePack(found.pack)||[];
+          const sample=[];
+          parts.forEach(p=>(p.records||[]).slice(0,3).forEach(r=>sample.push({dataset:p.dataset,...r})));
+          els.preview.value=JSON.stringify(sample.slice(0,5),null,2);
+        }
+      });
+    });
+  }
+
+  function applySelectedFromQueue(){
+    const q=getQueue();
+    const checked=Array.from(document.querySelectorAll("[data-q-check]:checked")).map(x=>x.getAttribute("data-q-check"));
+    const selected=q.filter(x=>checked.includes(x.id));
+    if(!selected.length){log("No queue items selected.");return;}
+    const partsAll=[];
+    selected.forEach(item=>(normalizePack(item.pack)||[]).forEach(p=>partsAll.push(p)));
+    applyPackObject({version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"multi",datasets:partsAll.map(p=>({dataset:p.dataset,records:p.records})),records:[]});
+    writeJson(QUEUE_KEY,q.filter(x=>!checked.includes(x.id)));
+    renderQueue();
+  }
+
+  function clearQueue(){writeJson(QUEUE_KEY,[]);renderQueue();log("Queue cleared.");}
+
+  function downloadLatestBackup(){
+    const k=localStorage.getItem(LATEST_BACKUP_KEY);
+    if(!k){log("No backup key found yet.");return;}
+    const raw=localStorage.getItem(k);
+    if(raw===null){log("Backup key missing.");return;}
+    downloadText(k+".json",raw,"application/json");
+    log("Downloaded latest backup.");
+  }
+
+  function handleFiles(fileList){
+    const files=Array.from(fileList||[]);
+    if(!files.length) return;
+    let pending=files.length;
+    const packs=[];
+    files.forEach(file=>{
+      const reader=new FileReader();
+      reader.onload=()=>{
+        const obj=parseMaybeJsonText(String(reader.result||""));
+        if(obj){packs.push(obj);log(`Loaded file: ${file.name}`);}
+        else log(`Could not parse JSON: ${file.name}`);
+        pending--;
+        if(pending===0){
+          if(packs.length===1) applyPackObject(packs[0]);
+          else if(packs.length>1){
+            const partsAll=[];
+            packs.forEach(pk=>(normalizePack(pk)||[]).forEach(p=>partsAll.push(p)));
+            applyPackObject({version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"multi",datasets:partsAll.map(p=>({dataset:p.dataset,records:p.records})),records:[]});
+          }
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  els.refresh.addEventListener("click",()=>{renderQueue();doDetect();});
+  els.selectAll.addEventListener("click",()=>document.querySelectorAll("[data-q-check]").forEach(x=>x.checked=true));
+  els.selectNone.addEventListener("click",()=>document.querySelectorAll("[data-q-check]").forEach(x=>x.checked=false));
+  els.apply.addEventListener("click",()=>applySelectedFromQueue());
+  els.clearQueue.addEventListener("click",()=>clearQueue());
+  els.applyPaste.addEventListener("click",()=>{
+    const obj=parseMaybeJsonText(els.paste.value||"");
+    if(!obj){log("Paste is not valid JSON.");return;}
+    applyPackObject(obj);
+  });
+  els.downloadBackup.addEventListener("click",()=>downloadLatestBackup());
+  els.pickFiles.addEventListener("click",()=>els.files.click());
+  els.files.addEventListener("change",(e)=>handleFiles(e.target.files));
+
+  renderQueue();
+  doDetect();
+})();
+</script>
+</body>
+</html>

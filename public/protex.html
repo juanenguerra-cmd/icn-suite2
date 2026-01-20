@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ICN Suite — Protex Parser (ABT)</title>
+<style>
+@font-face{font-family:"CameraPlainVariable";src:url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap;}
+:root{--font:"CameraPlainVariable",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:#f5f6f8;--card:#fff;--border:#e1e4e8;--muted:#6e7681;--shadow:0 10px 30px rgba(0,0,0,.06);}
+body{margin:0;background:var(--bg);font-family:var(--font);color:#121212;}
+.wrap{max-width:1020px;margin:0 auto;padding:14px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px;}
+h1{font-size:18px;margin:0 0 6px;}
+.sub{color:var(--muted);font-size:13px;margin:0 0 12px;line-height:1.35;}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+textarea{width:100%;min-height:220px;border:1px solid var(--border);border-radius:12px;padding:10px;box-sizing:border-box;background:#fff;font:inherit;resize:vertical;}
+button{border:1px solid var(--border);background:#fff;border-radius:9999px;padding:10px 14px;font:inherit;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+button.primary{background:#121212;color:#fff;border-color:#121212;}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:9999px;border:1px solid var(--border);padding:6px 10px;font-size:12px;color:var(--muted);background:#fff;}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<div class="row" style="justify-content:space-between;">
+  <div>
+    <h1>Protex Parser (ABT)</h1>
+    <p class="sub">Paste Protex antibiotic/med listing text. Splits by resident markers like <span class="mono">LAST, FIRST (LON12345)</span>.</p>
+  </div>
+  <div class="row">
+    <a href="/working" style="text-decoration:none;"><button>Working</button></a>
+    <a href="/apply" style="text-decoration:none;"><button class="primary">Apply</button></a>
+  </div>
+</div>
+
+<div class="row">
+  <button id="parse" class="primary">Parse</button>
+  <button id="queue">Queue parsed pack</button>
+  <button id="clear">Clear</button>
+  <span class="pill">Records: <span id="count" class="mono">0</span></span>
+</div>
+
+<label style="margin-top:10px;">Paste Protex text</label>
+<textarea id="raw" placeholder="Paste here..."></textarea>
+
+<label style="margin-top:10px;">Preview (first 5)</label>
+<textarea id="preview" class="mono" readonly></textarea>
+
+<label style="margin-top:10px;">Generated pack</label>
+<textarea id="out" class="mono" readonly></textarea>
+</div>
+</div>
+
+<script>
+(function(){
+  const QUEUE_KEY="icn_import_queue_v1";
+  const els={parse:document.getElementById("parse"),queue:document.getElementById("queue"),clear:document.getElementById("clear"),raw:document.getElementById("raw"),preview:document.getElementById("preview"),out:document.getElementById("out"),count:document.getElementById("count")};
+  function uid(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():("id_"+Math.random().toString(16).slice(2)+Date.now());}
+  function toISODate(s){
+    if(!s) return "";
+    const t=String(s).trim();
+    if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+    const m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m){const mm=String(parseInt(m[1],10)).padStart(2,"0");const dd=String(parseInt(m[2],10)).padStart(2,"0");return `${m[3]}-${mm}-${dd}`;}
+    return t;
+  }
+  function readQueue(){try{const q=JSON.parse(localStorage.getItem(QUEUE_KEY)||"[]");return Array.isArray(q)?q:[]}catch(e){return[]}}
+  function writeQueue(q){localStorage.setItem(QUEUE_KEY,JSON.stringify(q));}
+
+  function parseABT(text){
+    const original=(text||"").trim();
+    if(!original) return [];
+    const marker=/([A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+)\s*\(([A-Za-z0-9\-]+)\)/g;
+
+    let chunks=[];
+    if(!/\r?\n/.test(original) && original.length>600){
+      chunks=original.split(/(?=[A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+\s*\([A-Za-z0-9\-]+\))/g).map(x=>x.trim()).filter(Boolean);
+    }else{
+      const lines=original.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+      let cur=[];
+      for(const line of lines){
+        if(marker.test(line) && cur.length){
+          chunks.push(cur.join(" "));
+          cur=[line];
+        }else{
+          cur.push(line);
+        }
+        marker.lastIndex=0;
+      }
+      if(cur.length) chunks.push(cur.join(" "));
+      chunks=chunks.filter(c=>marker.test(c));
+    }
+
+    const items=[];
+    for(const ch of chunks){
+      const m=ch.match(/([A-Z][A-Z\-\' ]+,\s*[A-Z][A-Z\-\' ]+)\s*\(([A-Za-z0-9\-]+)\)/);
+      if(!m) continue;
+      const name=m[1].trim();
+      const id=m[2].trim();
+      let antibiotic="";
+      const mm=ch.match(/\([A-Za-z0-9\-]+\)\s+(.+?)(?=\s+Give\s|\s+\d{1,2}\/\d{1,2}\/\d{4}|$)/i);
+      if(mm && mm[1]) antibiotic=String(mm[1]).trim();
+      const dates=ch.match(/\b\d{1,2}\/\d{1,2}\/\d{4}\b/g)||[];
+      const start=dates.length?toISODate(dates[0]):"";
+      const end=dates.length>1?toISODate(dates[1]):"";
+      items.push({id:uid(),residentId:"MRN-"+id,mrn:id,residentName:name,antibiotic,klass:"Auto",route:"",start,end,indication:"",infectionSource:"",notes:"",rawText:ch});
+    }
+    return items;
+  }
+
+  function buildPack(records){
+    return {version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"abt",recordCount:records.length,records};
+  }
+
+  els.parse.addEventListener("click",()=>{
+    const recs=parseABT(els.raw.value||"");
+    els.count.textContent=String(recs.length);
+    els.preview.value=JSON.stringify(recs.slice(0,5),null,2);
+    els.out.value=JSON.stringify(buildPack(recs),null,2);
+  });
+
+  els.queue.addEventListener("click",()=>{
+    if(!els.out.value.trim()) return;
+    let pack; try{pack=JSON.parse(els.out.value);}catch(e){return;}
+    const q=readQueue();
+    q.push({id:uid(),queuedAt:new Date().toISOString(),pack});
+    writeQueue(q);
+    alert("Queued ABT pack. Go to /apply.");
+  });
+
+  els.clear.addEventListener("click",()=>{
+    els.raw.value="";els.preview.value="";els.out.value="";els.count.textContent="0";
+  });
+})();
+</script>
+</body>
+</html>

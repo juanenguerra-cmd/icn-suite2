@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ICN Suite — Manual Entry (Ops)</title>
+<style>
+@font-face{font-family:"CameraPlainVariable";src:url("https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap;}
+:root{--font:"CameraPlainVariable",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;--bg:#f5f6f8;--card:#fff;--border:#e1e4e8;--muted:#6e7681;--shadow:0 10px 30px rgba(0,0,0,.06);}
+body{margin:0;background:var(--bg);font-family:var(--font);color:#121212;}
+.wrap{max-width:980px;margin:0 auto;padding:14px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:14px;}
+h1{font-size:18px;margin:0 0 6px;}
+.sub{color:var(--muted);font-size:13px;margin:0 0 12px;line-height:1.35;}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+input,select,textarea{width:100%;border:1px solid var(--border);border-radius:12px;padding:10px;box-sizing:border-box;background:#fff;font:inherit;}
+textarea{min-height:100px;resize:vertical;}
+button{border:1px solid var(--border);background:#fff;border-radius:9999px;padding:10px 14px;font:inherit;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+button.primary{background:#121212;color:#fff;border-color:#121212;}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr;}}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<div class="row" style="justify-content:space-between;">
+  <div>
+    <h1>Manual Entry (Ops)</h1>
+    <p class="sub">Enter ABT / VAX / IP quickly. This creates a pack and queues it. Then apply on /apply.</p>
+  </div>
+  <div class="row">
+    <a href="/working" style="text-decoration:none;"><button>Working</button></a>
+    <a href="/apply" style="text-decoration:none;"><button class="primary">Apply</button></a>
+  </div>
+</div>
+
+<label>Entry type</label>
+<select id="type">
+  <option value="abt">ABT course</option>
+  <option value="vaccinations">Vaccination event</option>
+  <option value="ip">IP case</option>
+</select>
+
+<div class="grid" style="margin-top:10px;">
+  <div><label>Resident Name</label><input id="name" placeholder="LAST, FIRST" /></div>
+  <div><label>MRN</label><input id="mrn" placeholder="200382" /></div>
+</div>
+
+<div class="grid" style="margin-top:10px;">
+  <div><label>Room</label><input id="room" placeholder="250-A" /></div>
+  <div><label>Unit</label><input id="unit" placeholder="2" /></div>
+</div>
+
+<div id="abtFields" style="margin-top:10px;">
+  <label>Antibiotic</label><input id="antibiotic" placeholder="Vancomycin" />
+  <div class="grid" style="margin-top:10px;">
+    <div><label>Route</label><input id="route" placeholder="PO/IV" /></div>
+    <div><label>Start</label><input id="start" placeholder="2026-01-19" /></div>
+  </div>
+  <div class="grid" style="margin-top:10px;">
+    <div><label>End</label><input id="end" placeholder="2026-01-25" /></div>
+    <div><label>Indication</label><input id="indication" placeholder="UTI" /></div>
+  </div>
+  <label style="margin-top:10px;">Notes</label><textarea id="notes"></textarea>
+</div>
+
+<div id="vaxFields" style="display:none;margin-top:10px;">
+  <label>Vaccine Type</label><input id="vaccineType" placeholder="Influenza" />
+  <div class="grid" style="margin-top:10px;">
+    <div><label>Status</label><input id="vaxStatus" placeholder="Vaccinated (Complete)" /></div>
+    <div><label>Date</label><input id="vaxDate" placeholder="2026-01-19" /></div>
+  </div>
+  <label style="margin-top:10px;">Notes</label><textarea id="vaxNotes"></textarea>
+</div>
+
+<div id="ipFields" style="display:none;margin-top:10px;">
+  <label>Status</label><input id="ipStatus" placeholder="ACTIVE" value="ACTIVE" />
+  <div class="grid" style="margin-top:10px;">
+    <div><label>Onset Date</label><input id="onsetDate" placeholder="2026-01-19" /></div>
+    <div><label>Precaution</label><input id="precautionType" placeholder="Contact" /></div>
+  </div>
+  <label style="margin-top:10px;">Isolation</label><input id="isolationType" placeholder="Enhanced Barrier" />
+  <label style="margin-top:10px;">Notes</label><textarea id="ipNotes"></textarea>
+</div>
+
+<div class="row" style="margin-top:12px;justify-content:flex-end;">
+  <button id="queue" class="primary">Queue pack</button>
+</div>
+
+<label style="margin-top:12px;">Generated pack JSON</label>
+<textarea id="out" class="mono" readonly></textarea>
+
+</div>
+</div>
+
+<script>
+(function(){
+  const QUEUE_KEY="icn_import_queue_v1";
+  const els={type:document.getElementById("type"),name:document.getElementById("name"),mrn:document.getElementById("mrn"),room:document.getElementById("room"),unit:document.getElementById("unit"),
+    abtFields:document.getElementById("abtFields"),antibiotic:document.getElementById("antibiotic"),route:document.getElementById("route"),start:document.getElementById("start"),end:document.getElementById("end"),indication:document.getElementById("indication"),notes:document.getElementById("notes"),
+    vaxFields:document.getElementById("vaxFields"),vaccineType:document.getElementById("vaccineType"),vaxStatus:document.getElementById("vaxStatus"),vaxDate:document.getElementById("vaxDate"),vaxNotes:document.getElementById("vaxNotes"),
+    ipFields:document.getElementById("ipFields"),ipStatus:document.getElementById("ipStatus"),onsetDate:document.getElementById("onsetDate"),precautionType:document.getElementById("precautionType"),isolationType:document.getElementById("isolationType"),ipNotes:document.getElementById("ipNotes"),
+    queue:document.getElementById("queue"),out:document.getElementById("out")};
+
+  function uid(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():("id_"+Math.random().toString(16).slice(2)+Date.now());}
+  function toISODate(s){
+    if(!s) return "";
+    const t=String(s).trim();
+    if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+    const m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m){const mm=String(parseInt(m[1],10)).padStart(2,"0");const dd=String(parseInt(m[2],10)).padStart(2,"0");return `${m[3]}-${mm}-${dd}`;}
+    return t;
+  }
+  function readQueue(){try{const q=JSON.parse(localStorage.getItem(QUEUE_KEY)||"[]");return Array.isArray(q)?q:[]}catch(e){return[]}}
+  function writeQueue(q){localStorage.setItem(QUEUE_KEY,JSON.stringify(q));}
+
+  function setVisible(){
+    const t=els.type.value;
+    els.abtFields.style.display=(t==="abt")?"":"none";
+    els.vaxFields.style.display=(t==="vaccinations")?"":"none";
+    els.ipFields.style.display=(t==="ip")?"":"none";
+  }
+  els.type.addEventListener("change",setVisible);
+  setVisible();
+
+  function buildPack(){
+    const type=els.type.value;
+    const mrn=(els.mrn.value||"").trim();
+    const residentId=mrn?("MRN-"+mrn):"";
+    const base={id:uid(),residentId,mrn,room:(els.room.value||"").trim(),unit:(els.unit.value||"").trim()};
+
+    if(type==="abt"){
+      const rec={...base,residentName:(els.name.value||"").trim(),antibiotic:(els.antibiotic.value||"").trim(),route:(els.route.value||"").trim(),
+        start:toISODate(els.start.value||""),end:toISODate(els.end.value||""),indication:(els.indication.value||"").trim(),notes:(els.notes.value||"").trim(),klass:"Auto"};
+      return {version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"abt",recordCount:1,records:[rec]};
+    }
+    if(type==="vaccinations"){
+      const rec={...base,patientName:(els.name.value||"").trim(),vaccineType:(els.vaccineType.value||"").trim(),status:(els.vaxStatus.value||"").trim(),
+        date:toISODate(els.vaxDate.value||""),notes:(els.vaxNotes.value||"").trim()};
+      return {version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"vaccinations",recordCount:1,records:[rec]};
+    }
+    const rec={...base,residentName:(els.name.value||"").trim(),status:(els.ipStatus.value||"ACTIVE").trim(),onsetDate:toISODate(els.onsetDate.value||""),
+      precautionType:(els.precautionType.value||"").trim(),isolationType:(els.isolationType.value||"").trim(),notes:(els.ipNotes.value||"").trim()};
+    return {version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"ip",recordCount:1,records:[rec]};
+  }
+
+  els.queue.addEventListener("click",()=>{
+    const pack=buildPack();
+    els.out.value=JSON.stringify(pack,null,2);
+    const q=readQueue();
+    q.push({id:uid(),queuedAt:new Date().toISOString(),pack});
+    writeQueue(q);
+    alert("Queued. Go to /apply to import into tracker.");
+  });
+})();
+</script>
+</body>
+</html>

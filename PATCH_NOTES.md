@@ -1,15 +1,11 @@
-# Fix9 — Full Production Pipeline (static)
+# ICN Suite — Ops Production Pack (Plain UI)
 
 Routes:
-- /working  : landing page
-- /import   : Quick Collector
-- /apply    : Apply to Tracker (schema map + dedup + file upload)
-- /reports  : Reports (ABT active, IP active, Vax snapshot + executive summary)
+- /working : landing
+- /entry   : manual entry ABT/VAX/IP -> queues packs
+- /protex  : Protex parser (ABT) -> queues pack
+- /import  : collector + vault (general)
+- /apply   : apply queued or uploaded packs to tracker with schema mapping + dedup + backup
+- /reports : plain operational reports
 
-Deploy overwrite:
-- public/_redirects
-- public/working.html
-- public/collector.html
-- public/import.html
-- public/bridge.html
-- public/reports.html
+Deploy: copy all files under /public into your repo public/ and commit + push.
