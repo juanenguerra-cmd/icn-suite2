@@ -1,13 +1,7 @@
 // src/features/import/ImportPage.tsx
 import * as React from "react";
-import {
-  applyPacksToPersist,
-  latestBackupKey,
-  parseMaybeJsonText,
-  readQueue,
-  writeQueue,
-  type IcnBulkPackV1,
-} from "./importUtils";
+import { latestBackupKey } from "../shared/persist";
+import { applyPacksToPersist, parseMaybeJsonText, readQueue, writeQueue, type IcnBulkPackV1 } from "./importUtils";
 
 type QueueItem = { id: string; queuedAt?: string; pack: IcnBulkPackV1 };
 
