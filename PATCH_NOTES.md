@@ -1,13 +1,11 @@
-# Ops Pack v2 — Backup Banner + Backup Center
+# Ops Pack v3 — End-of-day Reminder + Backup Now
 
 Adds:
-- Sticky backup reminder banner on all pages (shows if last backup > 7 days or never)
-- /backup page: export/import/copy/clear local state
-- _redirects updated for /backup
+- End-of-day reminder banner (default 19:00) if no backup today (or always if never backed up)
+- Banner button: Backup Now (downloads JSON immediately)
+- /backup settings:
+  - reminder time (HH:MM)
+  - filename mode: daily or timestamp
+- Backup updates icn_last_backup_at_v1 so banner stops for the day
 
-Keys:
-- icn_last_backup_at_v1
-- icn_backup_banner_dismissed_v1
-
-Deploy:
-Overwrite public/ folder contents in your repo and push.
+Deploy: overwrite public/ and push.

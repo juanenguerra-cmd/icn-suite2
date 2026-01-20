@@ -28,6 +28,29 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
   <div style="background:#fff3cd;border:1px solid #ffeeba;color:#856404;border-radius:12px;padding:10px;margin:10px 0;box-shadow:0 6px 20px rgba(0,0,0,.06);">
     <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;justify-content:space-between;">
       <div style="min-width:240px;flex:1 1 auto;">
+        <div style="font-weight:700;margin-bottom:4px;">End-of-day backup reminder</div>
+        <div id="backupBannerMsg" style="font-size:13px;line-height:1.35;">
+          Your data is local per browser. Export a backup JSON at the end of the day.
+        </div>
+        <div id="backupBannerMeta" style="font-size:12px;opacity:.85;margin-top:4px;"></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <button type="button" id="backupBannerNow" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
+        <a href="/backup" style="text-decoration:none;"><button type="button" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Center</button></a>
+        <button type="button" id="backupBannerDismiss" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Dismiss</button>
+      </div>
+    </div>
+    <div style="font-size:12px;opacity:.8;margin-top:8px;">
+      Note: most browsers won’t silently overwrite existing files. Use the same daily filename and replace if prompted, or keep timestamped backups.
+    </div>
+  </div>
+</div>
+
+
+<div id="backupBanner" style="display:none;position:sticky;top:0;z-index:9999;">
+  <div style="background:#fff3cd;border:1px solid #ffeeba;color:#856404;border-radius:12px;padding:10px;margin:10px 0;box-shadow:0 6px 20px rgba(0,0,0,.06);">
+    <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;justify-content:space-between;">
+      <div style="min-width:240px;flex:1 1 auto;">
         <div style="font-weight:700;margin-bottom:4px;">Backup reminder</div>
         <div id="backupBannerMsg" style="font-size:13px;line-height:1.35;">
           Your data is stored locally per browser. Export a backup JSON regularly.
@@ -114,102 +137,104 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
 </div>
 </div>
 
-<script>
-(function(){
-  const QUEUE_KEY="icn_import_queue_v1";
-  const els={type:document.getElementById("type"),name:document.getElementById("name"),mrn:document.getElementById("mrn"),room:document.getElementById("room"),unit:document.getElementById("unit"),
-    abtFields:document.getElementById("abtFields"),antibiotic:document.getElementById("antibiotic"),route:document.getElementById("route"),start:document.getElementById("start"),end:document.getElementById("end"),indication:document.getElementById("indication"),notes:document.getElementById("notes"),
-    vaxFields:document.getElementById("vaxFields"),vaccineType:document.getElementById("vaccineType"),vaxStatus:document.getElementById("vaxStatus"),vaxDate:document.getElementById("vaxDate"),vaxNotes:document.getElementById("vaxNotes"),
-    ipFields:document.getElementById("ipFields"),ipStatus:document.getElementById("ipStatus"),onsetDate:document.getElementById("onsetDate"),precautionType:document.getElementById("precautionType"),isolationType:document.getElementById("isolationType"),ipNotes:document.getElementById("ipNotes"),
-    queue:document.getElementById("queue"),out:document.getElementById("out")};
 
-  function uid(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():("id_"+Math.random().toString(16).slice(2)+Date.now());}
-  function toISODate(s){
-    if(!s) return "";
-    const t=String(s).trim();
-    if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
-    const m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-    if(m){const mm=String(parseInt(m[1],10)).padStart(2,"0");const dd=String(parseInt(m[2],10)).padStart(2,"0");return `${m[3]}-${mm}-${dd}`;}
-    return t;
-  }
-  function readQueue(){try{const q=JSON.parse(localStorage.getItem(QUEUE_KEY)||"[]");return Array.isArray(q)?q:[]}catch(e){return[]}}
-  function writeQueue(q){localStorage.setItem(QUEUE_KEY,JSON.stringify(q));}
 
-  function setVisible(){
-    const t=els.type.value;
-    els.abtFields.style.display=(t==="abt")?"":"none";
-    els.vaxFields.style.display=(t==="vaccinations")?"":"none";
-    els.ipFields.style.display=(t==="ip")?"":"none";
-  }
-  els.type.addEventListener("change",setVisible);
-  setVisible();
-
-  function buildPack(){
-    const type=els.type.value;
-    const mrn=(els.mrn.value||"").trim();
-    const residentId=mrn?("MRN-"+mrn):"";
-    const base={id:uid(),residentId,mrn,room:(els.room.value||"").trim(),unit:(els.unit.value||"").trim()};
-
-    if(type==="abt"){
-      const rec={...base,residentName:(els.name.value||"").trim(),antibiotic:(els.antibiotic.value||"").trim(),route:(els.route.value||"").trim(),
-        start:toISODate(els.start.value||""),end:toISODate(els.end.value||""),indication:(els.indication.value||"").trim(),notes:(els.notes.value||"").trim(),klass:"Auto"};
-      return {version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"abt",recordCount:1,records:[rec]};
-    }
-    if(type==="vaccinations"){
-      const rec={...base,patientName:(els.name.value||"").trim(),vaccineType:(els.vaccineType.value||"").trim(),status:(els.vaxStatus.value||"").trim(),
-        date:toISODate(els.vaxDate.value||""),notes:(els.vaxNotes.value||"").trim()};
-      return {version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"vaccinations",recordCount:1,records:[rec]};
-    }
-    const rec={...base,residentName:(els.name.value||"").trim(),status:(els.ipStatus.value||"ACTIVE").trim(),onsetDate:toISODate(els.onsetDate.value||""),
-      precautionType:(els.precautionType.value||"").trim(),isolationType:(els.isolationType.value||"").trim(),notes:(els.ipNotes.value||"").trim()};
-    return {version:"icn-bulk-import-v1",generatedAt:new Date().toISOString(),dataset:"ip",recordCount:1,records:[rec]};
-  }
-
-  els.queue.addEventListener("click",()=>{
-    const pack=buildPack();
-    els.out.value=JSON.stringify(pack,null,2);
-    const q=readQueue();
-    q.push({id:uid(),queuedAt:new Date().toISOString(),pack});
-    writeQueue(q);
-    alert("Queued. Go to /apply to import into tracker.");
-  });
-})();
-</script>
 
 <script>
 (function(){
   const LAST_BACKUP_AT_KEY = "icn_last_backup_at_v1";
-  const DISMISS_KEY = "icn_backup_banner_dismissed_v1";
-  const DISMISS_DAYS = 1;          // show again after 1 day if dismissed
-  const REMIND_DAYS = 7;           // show reminder if last backup older than 7 days
+  const DISMISS_KEY = "icn_backup_banner_dismissed_at_v1";
+  const TIME_KEY = "icn_backup_time_hhmm_v1";            // default 19:00
+  const MODE_KEY = "icn_backup_filename_mode_v1";        // "daily" | "timestamp"
+
   const banner = document.getElementById("backupBanner");
   const msg = document.getElementById("backupBannerMsg");
   const meta = document.getElementById("backupBannerMeta");
   const dismissBtn = document.getElementById("backupBannerDismiss");
+  const backupNowBtn = document.getElementById("backupBannerNow");
 
-  function daysBetween(aIso, bIso){
-    try{
-      const a = new Date(aIso).getTime();
-      const b = new Date(bIso).getTime();
-      if(!isFinite(a) || !isFinite(b)) return null;
-      return Math.floor(Math.abs(b - a) / (1000*60*60*24));
-    }catch(e){ return null; }
+  function todayISO(){ return new Date().toISOString().slice(0,10); }
+  function nowHHMM(){
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2,"0");
+    const mm = String(d.getMinutes()).padStart(2,"0");
+    return `${hh}:${mm}`;
+  }
+  function isSameDay(isoA, isoB){
+    if(!isoA || !isoB) return false;
+    return isoA.slice(0,10) === isoB.slice(0,10);
+  }
+  function compareHHMM(a,b){
+    return a.replace(":","") >= b.replace(":","");
+  }
+
+  function detectKey(){
+    const keys = Object.keys(localStorage);
+    for(const k of keys){
+      const raw = localStorage.getItem(k);
+      if(!raw || raw.length < 20) continue;
+      if(raw[0] !== "{") continue;
+      try{
+        const obj = JSON.parse(raw);
+        const state = obj && obj.state ? obj.state : obj;
+        if(state && typeof state === "object"){
+          const has = (state.modules && typeof state.modules === "object") ||
+                      (state.residentsById && typeof state.residentsById === "object") ||
+                      Array.isArray(state.abt) || Array.isArray(state.vaccinations) || Array.isArray(state.ipCases) ||
+                      (state.modules && state.modules.abt && Array.isArray(state.modules.abt.courses)) ||
+                      (state.modules && state.modules.vaccinations && Array.isArray(state.modules.vaccinations.records)) ||
+                      (state.modules && state.modules.ip && Array.isArray(state.modules.ip.cases));
+          if(has) return k;
+        }
+      }catch(e){}
+    }
+    return null;
+  }
+
+  function downloadText(filename, text, mime){
+    const blob = new Blob([text], {type: mime || "text/plain"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 600);
+  }
+
+  function filenameFor(mode){
+    const d = new Date();
+    const ymd = d.toISOString().slice(0,10);
+    if(mode === "timestamp"){
+      const stamp = d.toISOString().slice(0,19).replace(/[:T]/g,"-");
+      return `icn-backup-${stamp}.json`;
+    }
+    return `icn-backup-${ymd}.json`;
+  }
+
+  function doBackupNow(){
+    const key = detectKey();
+    if(!key){
+      alert("Store key not detected. Open your tracker once, then retry.");
+      return;
+    }
+    const raw = localStorage.getItem(key) || "";
+    const mode = localStorage.getItem(MODE_KEY) || "daily";
+    downloadText(filenameFor(mode), raw, "application/json");
+    localStorage.setItem(LAST_BACKUP_AT_KEY, new Date().toISOString());
+    render();
   }
 
   function shouldShow(){
-    const now = new Date().toISOString();
     const last = localStorage.getItem(LAST_BACKUP_AT_KEY) || "";
     const dismissedAt = localStorage.getItem(DISMISS_KEY) || "";
+    const backupTime = localStorage.getItem(TIME_KEY) || "19:00";
 
-    if(dismissedAt){
-      const d = daysBetween(dismissedAt, now);
-      if(d !== null && d < DISMISS_DAYS) return false;
-    }
-
+    if(dismissedAt && isSameDay(dismissedAt, new Date().toISOString())) return false;
     if(!last) return true;
-    const age = daysBetween(last, now);
-    if(age === null) return true;
-    return age >= REMIND_DAYS;
+    if(isSameDay(last, new Date().toISOString())) return false;
+    return compareHHMM(nowHHMM(), backupTime);
   }
 
   function render(){
@@ -219,14 +244,15 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
       return;
     }
     const last = localStorage.getItem(LAST_BACKUP_AT_KEY) || "";
+    const backupTime = localStorage.getItem(TIME_KEY) || "19:00";
+    const mode = localStorage.getItem(MODE_KEY) || "daily";
+
     if(!last){
-      msg.textContent = "No recent backup found. Data is local per browser, so export a JSON backup now.";
-      meta.textContent = "Last backup: NEVER";
+      msg.textContent = "No backup found. Please export a backup now.";
+      meta.textContent = `Last backup: NEVER • Reminder time: ${backupTime} • Filename: ${mode}`;
     }else{
-      const now = new Date().toISOString();
-      const age = daysBetween(last, now);
-      msg.textContent = "Your data is local per browser/profile. Export a JSON backup so you can restore/sync across browsers/devices.";
-      meta.textContent = "Last backup: " + last.replace("T"," ").replace("Z","") + (age !== null ? (" ("+age+"d ago)") : "");
+      msg.textContent = "No backup recorded today. Please export now to protect/sync your local data.";
+      meta.textContent = `Last backup: ${last.replace("T"," ").replace("Z","")} • Reminder time: ${backupTime} • Filename: ${mode}`;
     }
     banner.style.display = "";
   }
@@ -236,6 +262,9 @@ button.primary{background:#121212;color:#fff;border-color:#121212;}
       localStorage.setItem(DISMISS_KEY, new Date().toISOString());
       if(banner) banner.style.display = "none";
     });
+  }
+  if(backupNowBtn){
+    backupNowBtn.addEventListener("click", doBackupNow);
   }
 
   render();

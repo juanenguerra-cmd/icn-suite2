@@ -27,6 +27,29 @@
   <div style="background:#fff3cd;border:1px solid #ffeeba;color:#856404;border-radius:12px;padding:10px;margin:10px 0;box-shadow:0 6px 20px rgba(0,0,0,.06);">
     <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;justify-content:space-between;">
       <div style="min-width:240px;flex:1 1 auto;">
+        <div style="font-weight:700;margin-bottom:4px;">End-of-day backup reminder</div>
+        <div id="backupBannerMsg" style="font-size:13px;line-height:1.35;">
+          Your data is local per browser. Export a backup JSON at the end of the day.
+        </div>
+        <div id="backupBannerMeta" style="font-size:12px;opacity:.85;margin-top:4px;"></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <button type="button" id="backupBannerNow" style="border:1px solid #e1e4e8;background:#121212;color:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Now</button>
+        <a href="/backup" style="text-decoration:none;"><button type="button" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Backup Center</button></a>
+        <button type="button" id="backupBannerDismiss" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Dismiss</button>
+      </div>
+    </div>
+    <div style="font-size:12px;opacity:.8;margin-top:8px;">
+      Note: most browsers won’t silently overwrite existing files. Use the same daily filename and replace if prompted, or keep timestamped backups.
+    </div>
+  </div>
+</div>
+
+
+<div id="backupBanner" style="display:none;position:sticky;top:0;z-index:9999;">
+  <div style="background:#fff3cd;border:1px solid #ffeeba;color:#856404;border-radius:12px;padding:10px;margin:10px 0;box-shadow:0 6px 20px rgba(0,0,0,.06);">
+    <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;justify-content:space-between;">
+      <div style="min-width:240px;flex:1 1 auto;">
         <div style="font-weight:700;margin-bottom:4px;">Backup reminder</div>
         <div id="backupBannerMsg" style="font-size:13px;line-height:1.35;">
           Your data is stored locally per browser. Export a backup JSON regularly.
@@ -71,25 +94,69 @@
         Recommended workflow to sync browsers: Export on Browser A → Import on Browser B.
       </p>
 
+      
+      <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
+        <h2 style="font-size:14px;margin:0 0 8px;">Reminder & Filename Settings</h2>
+        <div class="row">
+          <span class="pill">Reminder time: <span id="timeLabel" class="mono">—</span></span>
+          <span class="pill">Filename mode: <span id="modeLabel" class="mono">—</span></span>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <div style="flex:1 1 220px;min-width:220px;">
+            <label style="font-size:12px;color:var(--muted);">End-of-day reminder time (HH:MM)</label>
+            <input id="time" placeholder="19:00" />
+          </div>
+          <div style="flex:1 1 220px;min-width:220px;">
+            <label style="font-size:12px;color:var(--muted);">Backup filename mode</label>
+            <select id="mode">
+              <option value="daily">daily (icn-backup-YYYY-MM-DD.json)</option>
+              <option value="timestamp">timestamp (icn-backup-YYYY-MM-DD-HH-MM-SS.json)</option>
+            </select>
+          </div>
+          <div style="flex:0 0 auto;align-self:flex-end;">
+            <button id="saveSettings" class="primary">Save settings</button>
+          </div>
+        </div>
+        <p class="sub" style="margin-top:8px;">
+          Daily filename helps you replace the same-day file if prompted. Timestamp avoids duplicates.
+        </p>
+      </div>
+
       <label>Backup JSON preview</label>
       <textarea id="preview" class="mono" readonly></textarea>
     </div>
   </div>
 
+
+
+
 <script>
 (function(){
   const LAST_BACKUP_AT_KEY = "icn_last_backup_at_v1";
+  const DISMISS_KEY = "icn_backup_banner_dismissed_at_v1";
+  const TIME_KEY = "icn_backup_time_hhmm_v1";            // default 19:00
+  const MODE_KEY = "icn_backup_filename_mode_v1";        // "daily" | "timestamp"
 
-  const els = {
-    last: document.getElementById("last"),
-    key: document.getElementById("key"),
-    export: document.getElementById("export"),
-    importBtn: document.getElementById("importBtn"),
-    importFile: document.getElementById("importFile"),
-    copy: document.getElementById("copy"),
-    clear: document.getElementById("clear"),
-    preview: document.getElementById("preview"),
-  };
+  const banner = document.getElementById("backupBanner");
+  const msg = document.getElementById("backupBannerMsg");
+  const meta = document.getElementById("backupBannerMeta");
+  const dismissBtn = document.getElementById("backupBannerDismiss");
+  const backupNowBtn = document.getElementById("backupBannerNow");
+
+  function todayISO(){ return new Date().toISOString().slice(0,10); }
+  function nowHHMM(){
+    const d = new Date();
+    const hh = String(d.getHours()).padStart(2,"0");
+    const mm = String(d.getMinutes()).padStart(2,"0");
+    return `${hh}:${mm}`;
+  }
+  function isSameDay(isoA, isoB){
+    if(!isoA || !isoB) return false;
+    return isoA.slice(0,10) === isoB.slice(0,10);
+  }
+  function compareHHMM(a,b){
+    return a.replace(":","") >= b.replace(":","");
+  }
 
   function detectKey(){
     const keys = Object.keys(localStorage);
@@ -126,117 +193,38 @@
     setTimeout(()=>URL.revokeObjectURL(url), 600);
   }
 
-  function parseMaybeJsonText(text){
-    const t = (text||"").trim();
-    if(!t) return null;
-    try{ return JSON.parse(t); }catch(e){}
-    const i1 = t.indexOf("{");
-    const i2 = t.lastIndexOf("}");
-    if(i1 !== -1 && i2 !== -1 && i2 > i1){
-      try{ return JSON.parse(t.slice(i1, i2+1)); }catch(e){}
+  function filenameFor(mode){
+    const d = new Date();
+    const ymd = d.toISOString().slice(0,10);
+    if(mode === "timestamp"){
+      const stamp = d.toISOString().slice(0,19).replace(/[:T]/g,"-");
+      return `icn-backup-${stamp}.json`;
     }
-    return null;
+    return `icn-backup-${ymd}.json`;
   }
 
-  function refresh(){
-    const last = localStorage.getItem(LAST_BACKUP_AT_KEY) || "";
-    els.last.textContent = last ? last.replace("T"," ").replace("Z","") : "NEVER";
-    const k = detectKey();
-    els.key.textContent = k || "NOT FOUND";
-    if(k){
-      const raw = localStorage.getItem(k) || "";
-      els.preview.value = raw;
-    }else{
-      els.preview.value = "Open your tracker once so its localStorage key exists, then come back here.";
+  function doBackupNow(){
+    const key = detectKey();
+    if(!key){
+      alert("Store key not detected. Open your tracker once, then retry.");
+      return;
     }
-  }
-
-  els.export.addEventListener("click", () => {
-    const k = detectKey();
-    if(!k){ alert("Store key not detected. Open your tracker once, then retry."); return; }
-    const raw = localStorage.getItem(k) || "";
-    const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
-    downloadText(`icn-local-backup-${stamp}.json`, raw, "application/json");
+    const raw = localStorage.getItem(key) || "";
+    const mode = localStorage.getItem(MODE_KEY) || "daily";
+    downloadText(filenameFor(mode), raw, "application/json");
     localStorage.setItem(LAST_BACKUP_AT_KEY, new Date().toISOString());
-    refresh();
-  });
-
-  els.importBtn.addEventListener("click", () => els.importFile.click());
-  els.importFile.addEventListener("change", (e) => {
-    const f = e.target.files && e.target.files[0];
-    if(!f) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const obj = parseMaybeJsonText(String(reader.result || ""));
-      if(!obj){ alert("Could not parse JSON from file."); return; }
-      const k = detectKey() || "icn_suite_state_v1";
-      localStorage.setItem(k, JSON.stringify(obj));
-      localStorage.setItem(LAST_BACKUP_AT_KEY, new Date().toISOString());
-      refresh();
-      alert("Imported into this browser. Refresh/open the tracker.");
-    };
-    reader.readAsText(f);
-  });
-
-  els.copy.addEventListener("click", async () => {
-    const text = els.preview.value || "";
-    if(!text.trim()){ alert("Nothing to copy."); return; }
-    try{
-      await navigator.clipboard.writeText(text);
-      alert("Copied.");
-    }catch(e){
-      els.preview.focus(); els.preview.select();
-      alert("Select + copy (clipboard blocked).");
-    }
-  });
-
-  els.clear.addEventListener("click", () => {
-    const k = detectKey();
-    if(!k){ alert("No store key detected."); return; }
-    if(!confirm("This will clear local data in THIS browser only. Continue?")) return;
-    localStorage.removeItem(k);
-    refresh();
-    alert("Cleared. Open tracker to reinitialize.");
-  });
-
-  refresh();
-})();
-</script>
-
-<script>
-(function(){
-  const LAST_BACKUP_AT_KEY = "icn_last_backup_at_v1";
-  const DISMISS_KEY = "icn_backup_banner_dismissed_v1";
-  const DISMISS_DAYS = 1;          // show again after 1 day if dismissed
-  const REMIND_DAYS = 7;           // show reminder if last backup older than 7 days
-  const banner = document.getElementById("backupBanner");
-  const msg = document.getElementById("backupBannerMsg");
-  const meta = document.getElementById("backupBannerMeta");
-  const dismissBtn = document.getElementById("backupBannerDismiss");
-
-  function daysBetween(aIso, bIso){
-    try{
-      const a = new Date(aIso).getTime();
-      const b = new Date(bIso).getTime();
-      if(!isFinite(a) || !isFinite(b)) return null;
-      return Math.floor(Math.abs(b - a) / (1000*60*60*24));
-    }catch(e){ return null; }
+    render();
   }
 
   function shouldShow(){
-    const now = new Date().toISOString();
     const last = localStorage.getItem(LAST_BACKUP_AT_KEY) || "";
     const dismissedAt = localStorage.getItem(DISMISS_KEY) || "";
+    const backupTime = localStorage.getItem(TIME_KEY) || "19:00";
 
-    if(dismissedAt){
-      const d = daysBetween(dismissedAt, now);
-      if(d !== null && d < DISMISS_DAYS) return false;
-    }
-
+    if(dismissedAt && isSameDay(dismissedAt, new Date().toISOString())) return false;
     if(!last) return true;
-    const age = daysBetween(last, now);
-    if(age === null) return true;
-    return age >= REMIND_DAYS;
+    if(isSameDay(last, new Date().toISOString())) return false;
+    return compareHHMM(nowHHMM(), backupTime);
   }
 
   function render(){
@@ -246,14 +234,15 @@
       return;
     }
     const last = localStorage.getItem(LAST_BACKUP_AT_KEY) || "";
+    const backupTime = localStorage.getItem(TIME_KEY) || "19:00";
+    const mode = localStorage.getItem(MODE_KEY) || "daily";
+
     if(!last){
-      msg.textContent = "No recent backup found. Data is local per browser, so export a JSON backup now.";
-      meta.textContent = "Last backup: NEVER";
+      msg.textContent = "No backup found. Please export a backup now.";
+      meta.textContent = `Last backup: NEVER • Reminder time: ${backupTime} • Filename: ${mode}`;
     }else{
-      const now = new Date().toISOString();
-      const age = daysBetween(last, now);
-      msg.textContent = "Your data is local per browser/profile. Export a JSON backup so you can restore/sync across browsers/devices.";
-      meta.textContent = "Last backup: " + last.replace("T"," ").replace("Z","") + (age !== null ? (" ("+age+"d ago)") : "");
+      msg.textContent = "No backup recorded today. Please export now to protect/sync your local data.";
+      meta.textContent = `Last backup: ${last.replace("T"," ").replace("Z","")} • Reminder time: ${backupTime} • Filename: ${mode}`;
     }
     banner.style.display = "";
   }
@@ -263,6 +252,9 @@
       localStorage.setItem(DISMISS_KEY, new Date().toISOString());
       if(banner) banner.style.display = "none";
     });
+  }
+  if(backupNowBtn){
+    backupNowBtn.addEventListener("click", doBackupNow);
   }
 
   render();
