@@ -1,29 +1,15 @@
-# Fix7 — Working Mode PRO (Big Jump)
+# Fix9 — Full Production Pipeline (static)
 
-## What’s new
-- **Vault export/import**:
-  - Export Vault backup JSON
-  - Import Vault backups or individual icn-bulk-import-v1 packs (multi-select)
-- **CSV export**:
-  - Export merged pack (or current pack) to CSV
-  - Choose dataset (Auto/Census/Vaccinations/ABT/Generic)
-- **Executive Summary**:
-  - Generates a concise summary with dataset counts + top ABT meds + top vaccines
-- Keeps:
-  - Append mode
-  - Auto-save to Vault
-  - Merge + download merged
-  - Queue for ICN Suite
+Routes:
+- /working  : landing page
+- /import   : Quick Collector
+- /apply    : Apply to Tracker (schema map + dedup + file upload)
+- /reports  : Reports (ABT active, IP active, Vax snapshot + executive summary)
 
-## Deploy
-Overwrite in repo:
+Deploy overwrite:
 - public/_redirects
+- public/working.html
 - public/collector.html
 - public/import.html
-- public/working.html
-
-Commit + push.
-
-## Open
-- /working
-- /import
+- public/bridge.html
+- public/reports.html

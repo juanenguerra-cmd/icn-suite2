@@ -3,4 +3,10 @@
 /import /collector.html 200
 /import/ /collector.html 200
 /import.html /collector.html 200
+/apply /bridge.html 200
+/apply/ /bridge.html 200
+/apply.html /bridge.html 200
+/reports /reports.html 200
+/reports/ /reports.html 200
+/reports.html /reports.html 200
 /* /index.html 200
