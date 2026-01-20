@@ -1,11 +1,13 @@
-# ICN Suite — Ops Production Pack (Plain UI)
+# Ops Pack v2 — Backup Banner + Backup Center
 
-Routes:
-- /working : landing
-- /entry   : manual entry ABT/VAX/IP -> queues packs
-- /protex  : Protex parser (ABT) -> queues pack
-- /import  : collector + vault (general)
-- /apply   : apply queued or uploaded packs to tracker with schema mapping + dedup + backup
-- /reports : plain operational reports
+Adds:
+- Sticky backup reminder banner on all pages (shows if last backup > 7 days or never)
+- /backup page: export/import/copy/clear local state
+- _redirects updated for /backup
 
-Deploy: copy all files under /public into your repo public/ and commit + push.
+Keys:
+- icn_last_backup_at_v1
+- icn_backup_banner_dismissed_v1
+
+Deploy:
+Overwrite public/ folder contents in your repo and push.

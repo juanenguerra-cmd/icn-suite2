@@ -11,4 +11,6 @@
 /apply/ /apply.html 200
 /reports /reports.html 200
 /reports/ /reports.html 200
+/backup /backup.html 200
+/backup/ /backup.html 200
 /* /index.html 200

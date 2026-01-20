@@ -89,6 +89,25 @@
   </style>
 </head>
 <body>
+
+<div id="backupBanner" style="display:none;position:sticky;top:0;z-index:9999;">
+  <div style="background:#fff3cd;border:1px solid #ffeeba;color:#856404;border-radius:12px;padding:10px;margin:10px 0;box-shadow:0 6px 20px rgba(0,0,0,.06);">
+    <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;justify-content:space-between;">
+      <div style="min-width:240px;flex:1 1 auto;">
+        <div style="font-weight:700;margin-bottom:4px;">Backup reminder</div>
+        <div id="backupBannerMsg" style="font-size:13px;line-height:1.35;">
+          Your data is stored locally per browser. Export a backup JSON regularly.
+        </div>
+        <div id="backupBannerMeta" style="font-size:12px;opacity:.85;margin-top:4px;"></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <a href="/backup" style="text-decoration:none;"><button type="button" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Open Backup Center</button></a>
+        <button type="button" id="backupBannerDismiss" style="border:1px solid #e1e4e8;background:#fff;border-radius:9999px;padding:10px 14px;cursor:pointer;">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <div class="wrap">
     <div class="card">
       <h1>ICN Suite — Quick Collector</h1>
@@ -1017,5 +1036,72 @@
     loadDraft();
 })();
 </script>
+
+<script>
+(function(){
+  const LAST_BACKUP_AT_KEY = "icn_last_backup_at_v1";
+  const DISMISS_KEY = "icn_backup_banner_dismissed_v1";
+  const DISMISS_DAYS = 1;          // show again after 1 day if dismissed
+  const REMIND_DAYS = 7;           // show reminder if last backup older than 7 days
+  const banner = document.getElementById("backupBanner");
+  const msg = document.getElementById("backupBannerMsg");
+  const meta = document.getElementById("backupBannerMeta");
+  const dismissBtn = document.getElementById("backupBannerDismiss");
+
+  function daysBetween(aIso, bIso){
+    try{
+      const a = new Date(aIso).getTime();
+      const b = new Date(bIso).getTime();
+      if(!isFinite(a) || !isFinite(b)) return null;
+      return Math.floor(Math.abs(b - a) / (1000*60*60*24));
+    }catch(e){ return null; }
+  }
+
+  function shouldShow(){
+    const now = new Date().toISOString();
+    const last = localStorage.getItem(LAST_BACKUP_AT_KEY) || "";
+    const dismissedAt = localStorage.getItem(DISMISS_KEY) || "";
+
+    if(dismissedAt){
+      const d = daysBetween(dismissedAt, now);
+      if(d !== null && d < DISMISS_DAYS) return false;
+    }
+
+    if(!last) return true;
+    const age = daysBetween(last, now);
+    if(age === null) return true;
+    return age >= REMIND_DAYS;
+  }
+
+  function render(){
+    if(!banner) return;
+    if(!shouldShow()){
+      banner.style.display = "none";
+      return;
+    }
+    const last = localStorage.getItem(LAST_BACKUP_AT_KEY) || "";
+    if(!last){
+      msg.textContent = "No recent backup found. Data is local per browser, so export a JSON backup now.";
+      meta.textContent = "Last backup: NEVER";
+    }else{
+      const now = new Date().toISOString();
+      const age = daysBetween(last, now);
+      msg.textContent = "Your data is local per browser/profile. Export a JSON backup so you can restore/sync across browsers/devices.";
+      meta.textContent = "Last backup: " + last.replace("T"," ").replace("Z","") + (age !== null ? (" ("+age+"d ago)") : "");
+    }
+    banner.style.display = "";
+  }
+
+  if(dismissBtn){
+    dismissBtn.addEventListener("click", () => {
+      localStorage.setItem(DISMISS_KEY, new Date().toISOString());
+      if(banner) banner.style.display = "none";
+    });
+  }
+
+  render();
+})();
+</script>
+
 </body>
 </html>
