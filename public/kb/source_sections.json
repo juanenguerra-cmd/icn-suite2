@@ -1,0 +1,4862 @@
+{
+  "sections": [
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_000",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "assessment",
+        "vitals",
+        "change of condition",
+        "documentation"
+      ],
+      "tags": [
+        "change of condition",
+        "assessment",
+        "vitals",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_001",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Ensure documentation is timely and objective.",
+      "keywords": [
+        "outbreak",
+        "cdc",
+        "fever",
+        "specimen"
+      ],
+      "tags": [
+        "infection",
+        "outbreak",
+        "cdc",
+        "fever",
+        "specimen"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_002",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Ensure documentation is timely and objective.",
+      "keywords": [
+        "fall",
+        "head strike",
+        "monitoring",
+        "incident"
+      ],
+      "tags": [
+        "falls",
+        "fall",
+        "head strike",
+        "monitoring",
+        "incident"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_003",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Ensure documentation is timely and objective.",
+      "keywords": [
+        "investigation",
+        "survey",
+        "ftag",
+        "policy"
+      ],
+      "tags": [
+        "regulatory",
+        "investigation",
+        "survey",
+        "ftag",
+        "policy"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_004",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Maintain infection control practices throughout.",
+      "keywords": [
+        "standard precautions",
+        "respiratory hygiene",
+        "contact",
+        "hand hygiene"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "respiratory hygiene",
+        "contact",
+        "hand hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_005",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Compare findings to baseline and note any change.",
+      "keywords": [
+        "nysdoh",
+        "isolation",
+        "reporting",
+        "communicable"
+      ],
+      "tags": [
+        "nys",
+        "nysdoh",
+        "isolation",
+        "reporting",
+        "communicable"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_006",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "sbar",
+        "baseline",
+        "provider",
+        "assessment"
+      ],
+      "tags": [
+        "change of condition",
+        "sbar",
+        "baseline",
+        "provider",
+        "assessment"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_007",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Compare findings to baseline and note any change.",
+      "keywords": [
+        "infection",
+        "cdc",
+        "specimen",
+        "monitoring"
+      ],
+      "tags": [
+        "infection",
+        "cdc",
+        "specimen",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_008",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Ensure documentation is timely and objective.",
+      "keywords": [
+        "anticoagulant",
+        "monitoring",
+        "fall",
+        "incident"
+      ],
+      "tags": [
+        "falls",
+        "anticoagulant",
+        "monitoring",
+        "fall",
+        "incident"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_009",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Compare findings to baseline and note any change.",
+      "keywords": [
+        "survey",
+        "documentation",
+        "investigation",
+        "policy"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "documentation",
+        "investigation",
+        "policy"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_010",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Use facility forms/logs as required.",
+      "keywords": [
+        "respiratory hygiene",
+        "hand hygiene",
+        "ppe",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "respiratory hygiene",
+        "hand hygiene",
+        "ppe",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_011",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Compare findings to baseline and note any change.",
+      "keywords": [
+        "ltc",
+        "reporting",
+        "nysdoh",
+        "outbreak"
+      ],
+      "tags": [
+        "nys",
+        "ltc",
+        "reporting",
+        "nysdoh",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_012",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Maintain infection control practices throughout.",
+      "keywords": [
+        "documentation",
+        "provider",
+        "vitals",
+        "notify"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "provider",
+        "vitals",
+        "notify"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_013",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Maintain infection control practices throughout.",
+      "keywords": [
+        "infection",
+        "fever",
+        "cdc",
+        "isolation"
+      ],
+      "tags": [
+        "infection",
+        "fever",
+        "cdc",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_014",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "post-fall",
+        "head strike",
+        "monitoring",
+        "fall"
+      ],
+      "tags": [
+        "falls",
+        "post-fall",
+        "head strike",
+        "monitoring",
+        "fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_015",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Ensure documentation is timely and objective.",
+      "keywords": [
+        "policy",
+        "investigation",
+        "documentation",
+        "appendix pp"
+      ],
+      "tags": [
+        "regulatory",
+        "policy",
+        "investigation",
+        "documentation",
+        "appendix pp"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_016",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "respiratory hygiene",
+        "hand hygiene",
+        "droplet",
+        "contact"
+      ],
+      "tags": [
+        "cdc",
+        "respiratory hygiene",
+        "hand hygiene",
+        "droplet",
+        "contact"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_017",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Ensure documentation is timely and objective.",
+      "keywords": [
+        "outbreak",
+        "communicable",
+        "nysdoh",
+        "isolation"
+      ],
+      "tags": [
+        "nys",
+        "outbreak",
+        "communicable",
+        "nysdoh",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_018",
+      "heading": "Monitoring after change",
+      "text": "Increase monitoring frequency based on clinical presentation and provider orders; document trends and escalation criteria. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "documentation",
+        "provider",
+        "vitals",
+        "notify"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "provider",
+        "vitals",
+        "notify"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_019",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "fever",
+        "isolation",
+        "precautions",
+        "infection"
+      ],
+      "tags": [
+        "infection",
+        "fever",
+        "isolation",
+        "precautions"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_020",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Ensure documentation is timely and objective.",
+      "keywords": [
+        "head strike",
+        "fall",
+        "post-fall",
+        "neuro"
+      ],
+      "tags": [
+        "falls",
+        "head strike",
+        "fall",
+        "post-fall",
+        "neuro"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_021",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Compare findings to baseline and note any change.",
+      "keywords": [
+        "survey",
+        "policy",
+        "documentation",
+        "ftag"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "policy",
+        "documentation",
+        "ftag"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_022",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Use facility forms/logs as required.",
+      "keywords": [
+        "hand hygiene",
+        "respiratory hygiene",
+        "ppe",
+        "tbp"
+      ],
+      "tags": [
+        "cdc",
+        "hand hygiene",
+        "respiratory hygiene",
+        "ppe",
+        "tbp"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_023",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Maintain infection control practices throughout.",
+      "keywords": [
+        "outbreak",
+        "communicable",
+        "ltc",
+        "isolation"
+      ],
+      "tags": [
+        "nys",
+        "outbreak",
+        "communicable",
+        "ltc",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_024",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "provider",
+        "change of condition",
+        "sbar",
+        "vitals"
+      ],
+      "tags": [
+        "change of condition",
+        "provider",
+        "sbar",
+        "vitals"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_025",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Compare findings to baseline and note any change.",
+      "keywords": [
+        "fever",
+        "isolation",
+        "cdc",
+        "infection"
+      ],
+      "tags": [
+        "infection",
+        "fever",
+        "isolation",
+        "cdc"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_026",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "fall",
+        "post-fall",
+        "head strike",
+        "neuro"
+      ],
+      "tags": [
+        "falls",
+        "fall",
+        "post-fall",
+        "head strike",
+        "neuro"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_027",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Maintain infection control practices throughout.",
+      "keywords": [
+        "appendix pp",
+        "cfr",
+        "investigation",
+        "ftag"
+      ],
+      "tags": [
+        "regulatory",
+        "appendix pp",
+        "cfr",
+        "investigation",
+        "ftag"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_028",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Maintain infection control practices throughout.",
+      "keywords": [
+        "hand hygiene",
+        "droplet",
+        "contact",
+        "respiratory hygiene"
+      ],
+      "tags": [
+        "cdc",
+        "hand hygiene",
+        "droplet",
+        "contact",
+        "respiratory hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_029",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Use facility forms/logs as required.",
+      "keywords": [
+        "ltc",
+        "communicable",
+        "nysdoh",
+        "isolation"
+      ],
+      "tags": [
+        "nys",
+        "ltc",
+        "communicable",
+        "nysdoh",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_030",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Compare findings to baseline and note any change.",
+      "keywords": [
+        "documentation",
+        "sbar",
+        "change of condition",
+        "provider"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "sbar",
+        "provider"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_031",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Ensure documentation is timely and objective.",
+      "keywords": [
+        "infection",
+        "fever",
+        "cdc",
+        "monitoring"
+      ],
+      "tags": [
+        "infection",
+        "fever",
+        "cdc",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_032",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Ensure documentation is timely and objective.",
+      "keywords": [
+        "neuro",
+        "anticoagulant",
+        "fall",
+        "monitoring"
+      ],
+      "tags": [
+        "falls",
+        "neuro",
+        "anticoagulant",
+        "fall",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_033",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Maintain infection control practices throughout.",
+      "keywords": [
+        "survey",
+        "cfr",
+        "appendix pp",
+        "investigation"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "cfr",
+        "appendix pp",
+        "investigation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_034",
+      "heading": "Respiratory hygiene",
+      "text": "Encourage source control, cough etiquette, and masking during respiratory illness as indicated. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "hand hygiene",
+        "standard precautions",
+        "contact",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "hand hygiene",
+        "standard precautions",
+        "contact",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_035",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Use facility forms/logs as required.",
+      "keywords": [
+        "communicable",
+        "outbreak",
+        "nysdoh",
+        "ltc"
+      ],
+      "tags": [
+        "nys",
+        "communicable",
+        "outbreak",
+        "nysdoh",
+        "ltc"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_036",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "baseline",
+        "notify",
+        "vitals",
+        "sbar"
+      ],
+      "tags": [
+        "change of condition",
+        "baseline",
+        "notify",
+        "vitals",
+        "sbar"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_037",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Ensure documentation is timely and objective.",
+      "keywords": [
+        "isolation",
+        "cdc",
+        "precautions",
+        "infection"
+      ],
+      "tags": [
+        "infection",
+        "isolation",
+        "cdc",
+        "precautions"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_038",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Maintain infection control practices throughout.",
+      "keywords": [
+        "fall",
+        "anticoagulant",
+        "neuro",
+        "incident"
+      ],
+      "tags": [
+        "falls",
+        "fall",
+        "anticoagulant",
+        "neuro",
+        "incident"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_039",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "investigation",
+        "appendix pp",
+        "cfr",
+        "documentation"
+      ],
+      "tags": [
+        "regulatory",
+        "investigation",
+        "appendix pp",
+        "cfr",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_040",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Maintain infection control practices throughout.",
+      "keywords": [
+        "respiratory hygiene",
+        "droplet",
+        "ppe",
+        "tbp"
+      ],
+      "tags": [
+        "cdc",
+        "respiratory hygiene",
+        "droplet",
+        "ppe",
+        "tbp"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_041",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "reporting",
+        "communicable",
+        "ltc",
+        "nysdoh"
+      ],
+      "tags": [
+        "nys",
+        "reporting",
+        "communicable",
+        "ltc",
+        "nysdoh"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_042",
+      "heading": "Monitoring after change",
+      "text": "Increase monitoring frequency based on clinical presentation and provider orders; document trends and escalation criteria. Use facility forms/logs as required.",
+      "keywords": [
+        "vitals",
+        "documentation",
+        "change of condition",
+        "assessment"
+      ],
+      "tags": [
+        "change of condition",
+        "vitals",
+        "documentation",
+        "assessment"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_043",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Use facility forms/logs as required.",
+      "keywords": [
+        "cdc",
+        "infection",
+        "outbreak",
+        "monitoring"
+      ],
+      "tags": [
+        "infection",
+        "cdc",
+        "outbreak",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_044",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Use facility forms/logs as required.",
+      "keywords": [
+        "incident",
+        "monitoring",
+        "neuro",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "incident",
+        "monitoring",
+        "neuro",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_045",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Compare findings to baseline and note any change.",
+      "keywords": [
+        "ftag",
+        "cfr",
+        "survey",
+        "documentation"
+      ],
+      "tags": [
+        "regulatory",
+        "ftag",
+        "cfr",
+        "survey",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_046",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Compare findings to baseline and note any change.",
+      "keywords": [
+        "hand hygiene",
+        "respiratory hygiene",
+        "contact",
+        "standard precautions"
+      ],
+      "tags": [
+        "cdc",
+        "hand hygiene",
+        "respiratory hygiene",
+        "contact",
+        "standard precautions"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_047",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "ltc",
+        "nysdoh",
+        "isolation",
+        "reporting"
+      ],
+      "tags": [
+        "nys",
+        "ltc",
+        "nysdoh",
+        "isolation",
+        "reporting"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_048",
+      "heading": "Monitoring after change",
+      "text": "Increase monitoring frequency based on clinical presentation and provider orders; document trends and escalation criteria. Compare findings to baseline and note any change.",
+      "keywords": [
+        "documentation",
+        "sbar",
+        "notify",
+        "provider"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "sbar",
+        "notify",
+        "provider"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_049",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Use facility forms/logs as required.",
+      "keywords": [
+        "monitoring",
+        "isolation",
+        "outbreak",
+        "fever"
+      ],
+      "tags": [
+        "infection",
+        "monitoring",
+        "isolation",
+        "outbreak",
+        "fever"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_050",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Compare findings to baseline and note any change.",
+      "keywords": [
+        "post-fall",
+        "incident",
+        "fall",
+        "monitoring"
+      ],
+      "tags": [
+        "falls",
+        "post-fall",
+        "incident",
+        "fall",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_051",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Use facility forms/logs as required.",
+      "keywords": [
+        "policy",
+        "documentation",
+        "cfr",
+        "survey"
+      ],
+      "tags": [
+        "regulatory",
+        "policy",
+        "documentation",
+        "cfr",
+        "survey"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_052",
+      "heading": "Respiratory hygiene",
+      "text": "Encourage source control, cough etiquette, and masking during respiratory illness as indicated. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "tbp",
+        "respiratory hygiene",
+        "contact",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "tbp",
+        "respiratory hygiene",
+        "contact",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_053",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Ensure documentation is timely and objective.",
+      "keywords": [
+        "ltc",
+        "nysdoh",
+        "reporting",
+        "communicable"
+      ],
+      "tags": [
+        "nys",
+        "ltc",
+        "nysdoh",
+        "reporting",
+        "communicable"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_054",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Compare findings to baseline and note any change.",
+      "keywords": [
+        "change of condition",
+        "provider",
+        "sbar",
+        "assessment"
+      ],
+      "tags": [
+        "change of condition",
+        "provider",
+        "sbar",
+        "assessment"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_055",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Compare findings to baseline and note any change.",
+      "keywords": [
+        "outbreak",
+        "precautions",
+        "cdc",
+        "isolation"
+      ],
+      "tags": [
+        "infection",
+        "outbreak",
+        "precautions",
+        "cdc",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_056",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Ensure documentation is timely and objective.",
+      "keywords": [
+        "monitoring",
+        "neuro",
+        "head strike",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "monitoring",
+        "neuro",
+        "head strike",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_057",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Compare findings to baseline and note any change.",
+      "keywords": [
+        "investigation",
+        "cfr",
+        "policy",
+        "ftag"
+      ],
+      "tags": [
+        "regulatory",
+        "investigation",
+        "cfr",
+        "policy",
+        "ftag"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_058",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Compare findings to baseline and note any change.",
+      "keywords": [
+        "respiratory hygiene",
+        "standard precautions",
+        "tbp",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "respiratory hygiene",
+        "standard precautions",
+        "tbp",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_059",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Use facility forms/logs as required.",
+      "keywords": [
+        "isolation",
+        "nysdoh",
+        "ltc",
+        "reporting"
+      ],
+      "tags": [
+        "nys",
+        "isolation",
+        "nysdoh",
+        "ltc",
+        "reporting"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_060",
+      "heading": "Monitoring after change",
+      "text": "Increase monitoring frequency based on clinical presentation and provider orders; document trends and escalation criteria. Maintain infection control practices throughout.",
+      "keywords": [
+        "documentation",
+        "assessment",
+        "change of condition",
+        "baseline"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "assessment",
+        "baseline"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_061",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Compare findings to baseline and note any change.",
+      "keywords": [
+        "isolation",
+        "precautions",
+        "fever",
+        "outbreak"
+      ],
+      "tags": [
+        "infection",
+        "isolation",
+        "precautions",
+        "fever",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_062",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Use facility forms/logs as required.",
+      "keywords": [
+        "anticoagulant",
+        "fall",
+        "monitoring",
+        "head strike"
+      ],
+      "tags": [
+        "falls",
+        "anticoagulant",
+        "fall",
+        "monitoring",
+        "head strike"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_063",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Maintain infection control practices throughout.",
+      "keywords": [
+        "investigation",
+        "policy",
+        "documentation",
+        "cfr"
+      ],
+      "tags": [
+        "regulatory",
+        "investigation",
+        "policy",
+        "documentation",
+        "cfr"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_064",
+      "heading": "Respiratory hygiene",
+      "text": "Encourage source control, cough etiquette, and masking during respiratory illness as indicated. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "hand hygiene",
+        "respiratory hygiene",
+        "contact",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "hand hygiene",
+        "respiratory hygiene",
+        "contact",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_065",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "ltc",
+        "isolation",
+        "outbreak",
+        "communicable"
+      ],
+      "tags": [
+        "nys",
+        "ltc",
+        "isolation",
+        "outbreak",
+        "communicable"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_066",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Use facility forms/logs as required.",
+      "keywords": [
+        "provider",
+        "notify",
+        "change of condition",
+        "assessment"
+      ],
+      "tags": [
+        "change of condition",
+        "provider",
+        "notify",
+        "assessment"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_067",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "infection",
+        "outbreak",
+        "monitoring",
+        "isolation"
+      ],
+      "tags": [
+        "infection",
+        "outbreak",
+        "monitoring",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_068",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Compare findings to baseline and note any change.",
+      "keywords": [
+        "monitoring",
+        "neuro",
+        "fall",
+        "post-fall"
+      ],
+      "tags": [
+        "falls",
+        "monitoring",
+        "neuro",
+        "fall",
+        "post-fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_069",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "cfr",
+        "appendix pp",
+        "policy",
+        "survey"
+      ],
+      "tags": [
+        "regulatory",
+        "cfr",
+        "appendix pp",
+        "policy",
+        "survey"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_070",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Ensure documentation is timely and objective.",
+      "keywords": [
+        "hand hygiene",
+        "droplet",
+        "tbp",
+        "respiratory hygiene"
+      ],
+      "tags": [
+        "cdc",
+        "hand hygiene",
+        "droplet",
+        "tbp",
+        "respiratory hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_071",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Use facility forms/logs as required.",
+      "keywords": [
+        "isolation",
+        "communicable",
+        "outbreak",
+        "reporting"
+      ],
+      "tags": [
+        "nys",
+        "isolation",
+        "communicable",
+        "outbreak",
+        "reporting"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_072",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "vitals",
+        "change of condition",
+        "documentation",
+        "provider"
+      ],
+      "tags": [
+        "change of condition",
+        "vitals",
+        "documentation",
+        "provider"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_073",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "monitoring",
+        "isolation",
+        "outbreak",
+        "fever"
+      ],
+      "tags": [
+        "infection",
+        "monitoring",
+        "isolation",
+        "outbreak",
+        "fever"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_074",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "anticoagulant",
+        "incident",
+        "neuro",
+        "fall"
+      ],
+      "tags": [
+        "falls",
+        "anticoagulant",
+        "incident",
+        "neuro",
+        "fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_075",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Compare findings to baseline and note any change.",
+      "keywords": [
+        "ftag",
+        "policy",
+        "appendix pp",
+        "investigation"
+      ],
+      "tags": [
+        "regulatory",
+        "ftag",
+        "policy",
+        "appendix pp",
+        "investigation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_076",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Compare findings to baseline and note any change.",
+      "keywords": [
+        "ppe",
+        "tbp",
+        "hand hygiene",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "ppe",
+        "tbp",
+        "hand hygiene",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_077",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Compare findings to baseline and note any change.",
+      "keywords": [
+        "isolation",
+        "ltc",
+        "communicable",
+        "outbreak"
+      ],
+      "tags": [
+        "nys",
+        "isolation",
+        "ltc",
+        "communicable",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_078",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Ensure documentation is timely and objective.",
+      "keywords": [
+        "baseline",
+        "change of condition",
+        "vitals",
+        "sbar"
+      ],
+      "tags": [
+        "change of condition",
+        "baseline",
+        "vitals",
+        "sbar"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_079",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Ensure documentation is timely and objective.",
+      "keywords": [
+        "cdc",
+        "fever",
+        "outbreak",
+        "specimen"
+      ],
+      "tags": [
+        "infection",
+        "cdc",
+        "fever",
+        "outbreak",
+        "specimen"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_080",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Ensure documentation is timely and objective.",
+      "keywords": [
+        "anticoagulant",
+        "post-fall",
+        "fall",
+        "neuro"
+      ],
+      "tags": [
+        "falls",
+        "anticoagulant",
+        "post-fall",
+        "fall",
+        "neuro"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_081",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Use facility forms/logs as required.",
+      "keywords": [
+        "ftag",
+        "appendix pp",
+        "investigation",
+        "survey"
+      ],
+      "tags": [
+        "regulatory",
+        "ftag",
+        "appendix pp",
+        "investigation",
+        "survey"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_082",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Maintain infection control practices throughout.",
+      "keywords": [
+        "tbp",
+        "standard precautions",
+        "respiratory hygiene",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "tbp",
+        "standard precautions",
+        "respiratory hygiene",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_083",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Compare findings to baseline and note any change.",
+      "keywords": [
+        "outbreak",
+        "nysdoh",
+        "reporting",
+        "isolation"
+      ],
+      "tags": [
+        "nys",
+        "outbreak",
+        "nysdoh",
+        "reporting",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_084",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "notify",
+        "provider",
+        "documentation",
+        "baseline"
+      ],
+      "tags": [
+        "change of condition",
+        "notify",
+        "provider",
+        "documentation",
+        "baseline"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_085",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Compare findings to baseline and note any change.",
+      "keywords": [
+        "cdc",
+        "precautions",
+        "fever",
+        "specimen"
+      ],
+      "tags": [
+        "infection",
+        "cdc",
+        "precautions",
+        "fever",
+        "specimen"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_086",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Ensure documentation is timely and objective.",
+      "keywords": [
+        "fall",
+        "monitoring",
+        "anticoagulant",
+        "post-fall"
+      ],
+      "tags": [
+        "falls",
+        "fall",
+        "monitoring",
+        "anticoagulant",
+        "post-fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_087",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Use facility forms/logs as required.",
+      "keywords": [
+        "cfr",
+        "survey",
+        "ftag",
+        "documentation"
+      ],
+      "tags": [
+        "regulatory",
+        "cfr",
+        "survey",
+        "ftag",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_088",
+      "heading": "Respiratory hygiene",
+      "text": "Encourage source control, cough etiquette, and masking during respiratory illness as indicated. Use facility forms/logs as required.",
+      "keywords": [
+        "respiratory hygiene",
+        "hand hygiene",
+        "droplet",
+        "ppe"
+      ],
+      "tags": [
+        "cdc",
+        "respiratory hygiene",
+        "hand hygiene",
+        "droplet",
+        "ppe"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_089",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "reporting",
+        "outbreak",
+        "ltc",
+        "isolation"
+      ],
+      "tags": [
+        "nys",
+        "reporting",
+        "outbreak",
+        "ltc",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_090",
+      "heading": "Monitoring after change",
+      "text": "Increase monitoring frequency based on clinical presentation and provider orders; document trends and escalation criteria. Compare findings to baseline and note any change.",
+      "keywords": [
+        "assessment",
+        "provider",
+        "change of condition",
+        "sbar"
+      ],
+      "tags": [
+        "change of condition",
+        "assessment",
+        "provider",
+        "sbar"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_091",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Ensure documentation is timely and objective.",
+      "keywords": [
+        "cdc",
+        "isolation",
+        "infection",
+        "fever"
+      ],
+      "tags": [
+        "infection",
+        "cdc",
+        "isolation",
+        "fever"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_092",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Use facility forms/logs as required.",
+      "keywords": [
+        "incident",
+        "anticoagulant",
+        "neuro",
+        "post-fall"
+      ],
+      "tags": [
+        "falls",
+        "incident",
+        "anticoagulant",
+        "neuro",
+        "post-fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_093",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "ftag",
+        "survey",
+        "cfr",
+        "investigation"
+      ],
+      "tags": [
+        "regulatory",
+        "ftag",
+        "survey",
+        "cfr",
+        "investigation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_094",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Use facility forms/logs as required.",
+      "keywords": [
+        "standard precautions",
+        "ppe",
+        "contact",
+        "respiratory hygiene"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "ppe",
+        "contact",
+        "respiratory hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_095",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "reporting",
+        "nysdoh",
+        "outbreak",
+        "isolation"
+      ],
+      "tags": [
+        "nys",
+        "reporting",
+        "nysdoh",
+        "outbreak",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_096",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "change of condition",
+        "provider",
+        "notify",
+        "documentation"
+      ],
+      "tags": [
+        "change of condition",
+        "provider",
+        "notify",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_097",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "isolation",
+        "infection",
+        "cdc",
+        "fever"
+      ],
+      "tags": [
+        "infection",
+        "isolation",
+        "cdc",
+        "fever"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_098",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "incident",
+        "fall",
+        "post-fall",
+        "head strike"
+      ],
+      "tags": [
+        "falls",
+        "incident",
+        "fall",
+        "post-fall",
+        "head strike"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_099",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Ensure documentation is timely and objective.",
+      "keywords": [
+        "survey",
+        "ftag",
+        "appendix pp",
+        "investigation"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "ftag",
+        "appendix pp",
+        "investigation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_100",
+      "heading": "Respiratory hygiene",
+      "text": "Encourage source control, cough etiquette, and masking during respiratory illness as indicated. Compare findings to baseline and note any change.",
+      "keywords": [
+        "standard precautions",
+        "respiratory hygiene",
+        "contact",
+        "tbp"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "respiratory hygiene",
+        "contact",
+        "tbp"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_101",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Maintain infection control practices throughout.",
+      "keywords": [
+        "communicable",
+        "outbreak",
+        "ltc",
+        "nysdoh"
+      ],
+      "tags": [
+        "nys",
+        "communicable",
+        "outbreak",
+        "ltc",
+        "nysdoh"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_102",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Maintain infection control practices throughout.",
+      "keywords": [
+        "provider",
+        "change of condition",
+        "vitals",
+        "baseline"
+      ],
+      "tags": [
+        "change of condition",
+        "provider",
+        "vitals",
+        "baseline"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_103",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Use facility forms/logs as required.",
+      "keywords": [
+        "precautions",
+        "cdc",
+        "specimen",
+        "outbreak"
+      ],
+      "tags": [
+        "infection",
+        "precautions",
+        "cdc",
+        "specimen",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_104",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Maintain infection control practices throughout.",
+      "keywords": [
+        "incident",
+        "monitoring",
+        "post-fall",
+        "fall"
+      ],
+      "tags": [
+        "falls",
+        "incident",
+        "monitoring",
+        "post-fall",
+        "fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_105",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Ensure documentation is timely and objective.",
+      "keywords": [
+        "cfr",
+        "documentation",
+        "appendix pp",
+        "ftag"
+      ],
+      "tags": [
+        "regulatory",
+        "cfr",
+        "documentation",
+        "appendix pp",
+        "ftag"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_106",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Use facility forms/logs as required.",
+      "keywords": [
+        "respiratory hygiene",
+        "standard precautions",
+        "contact",
+        "tbp"
+      ],
+      "tags": [
+        "cdc",
+        "respiratory hygiene",
+        "standard precautions",
+        "contact",
+        "tbp"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_107",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "nysdoh",
+        "communicable",
+        "ltc",
+        "outbreak"
+      ],
+      "tags": [
+        "nys",
+        "nysdoh",
+        "communicable",
+        "ltc",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_108",
+      "heading": "Monitoring after change",
+      "text": "Increase monitoring frequency based on clinical presentation and provider orders; document trends and escalation criteria. Maintain infection control practices throughout.",
+      "keywords": [
+        "sbar",
+        "vitals",
+        "baseline",
+        "change of condition"
+      ],
+      "tags": [
+        "change of condition",
+        "sbar",
+        "vitals",
+        "baseline"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_109",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Use facility forms/logs as required.",
+      "keywords": [
+        "cdc",
+        "specimen",
+        "fever",
+        "precautions"
+      ],
+      "tags": [
+        "infection",
+        "cdc",
+        "specimen",
+        "fever",
+        "precautions"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_110",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Compare findings to baseline and note any change.",
+      "keywords": [
+        "post-fall",
+        "monitoring",
+        "head strike",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "post-fall",
+        "monitoring",
+        "head strike",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_111",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Ensure documentation is timely and objective.",
+      "keywords": [
+        "survey",
+        "documentation",
+        "appendix pp",
+        "ftag"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "documentation",
+        "appendix pp",
+        "ftag"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_112",
+      "heading": "Respiratory hygiene",
+      "text": "Encourage source control, cough etiquette, and masking during respiratory illness as indicated. Compare findings to baseline and note any change.",
+      "keywords": [
+        "standard precautions",
+        "respiratory hygiene",
+        "tbp",
+        "ppe"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "respiratory hygiene",
+        "tbp",
+        "ppe"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_113",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "isolation",
+        "ltc",
+        "reporting",
+        "nysdoh"
+      ],
+      "tags": [
+        "nys",
+        "isolation",
+        "ltc",
+        "reporting",
+        "nysdoh"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_114",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Ensure documentation is timely and objective.",
+      "keywords": [
+        "documentation",
+        "provider",
+        "vitals",
+        "change of condition"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "provider",
+        "vitals"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_115",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Compare findings to baseline and note any change.",
+      "keywords": [
+        "monitoring",
+        "precautions",
+        "outbreak",
+        "cdc"
+      ],
+      "tags": [
+        "infection",
+        "monitoring",
+        "precautions",
+        "outbreak",
+        "cdc"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_116",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Use facility forms/logs as required.",
+      "keywords": [
+        "head strike",
+        "incident",
+        "fall",
+        "post-fall"
+      ],
+      "tags": [
+        "falls",
+        "head strike",
+        "incident",
+        "fall",
+        "post-fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_117",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Ensure documentation is timely and objective.",
+      "keywords": [
+        "survey",
+        "ftag",
+        "appendix pp",
+        "policy"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "ftag",
+        "appendix pp",
+        "policy"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_118",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Maintain infection control practices throughout.",
+      "keywords": [
+        "hand hygiene",
+        "ppe",
+        "droplet",
+        "tbp"
+      ],
+      "tags": [
+        "cdc",
+        "hand hygiene",
+        "ppe",
+        "droplet",
+        "tbp"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_119",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Ensure documentation is timely and objective.",
+      "keywords": [
+        "isolation",
+        "nysdoh",
+        "reporting",
+        "outbreak"
+      ],
+      "tags": [
+        "nys",
+        "isolation",
+        "nysdoh",
+        "reporting",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_120",
+      "heading": "Monitoring after change",
+      "text": "Increase monitoring frequency based on clinical presentation and provider orders; document trends and escalation criteria. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "vitals",
+        "sbar",
+        "baseline",
+        "documentation"
+      ],
+      "tags": [
+        "change of condition",
+        "vitals",
+        "sbar",
+        "baseline",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_121",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Ensure documentation is timely and objective.",
+      "keywords": [
+        "outbreak",
+        "infection",
+        "isolation",
+        "monitoring"
+      ],
+      "tags": [
+        "infection",
+        "outbreak",
+        "isolation",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_122",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Ensure documentation is timely and objective.",
+      "keywords": [
+        "post-fall",
+        "fall",
+        "head strike",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "post-fall",
+        "fall",
+        "head strike",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_123",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "documentation",
+        "cfr",
+        "survey",
+        "appendix pp"
+      ],
+      "tags": [
+        "regulatory",
+        "documentation",
+        "cfr",
+        "survey",
+        "appendix pp"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_124",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "standard precautions",
+        "ppe",
+        "droplet",
+        "contact"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "ppe",
+        "droplet",
+        "contact"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_125",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Use facility forms/logs as required.",
+      "keywords": [
+        "nysdoh",
+        "reporting",
+        "ltc",
+        "outbreak"
+      ],
+      "tags": [
+        "nys",
+        "nysdoh",
+        "reporting",
+        "ltc",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_126",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "vitals",
+        "change of condition",
+        "notify",
+        "documentation"
+      ],
+      "tags": [
+        "change of condition",
+        "vitals",
+        "notify",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_127",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Ensure documentation is timely and objective.",
+      "keywords": [
+        "outbreak",
+        "isolation",
+        "precautions",
+        "fever"
+      ],
+      "tags": [
+        "infection",
+        "outbreak",
+        "isolation",
+        "precautions",
+        "fever"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_128",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Ensure documentation is timely and objective.",
+      "keywords": [
+        "fall",
+        "monitoring",
+        "neuro",
+        "post-fall"
+      ],
+      "tags": [
+        "falls",
+        "fall",
+        "monitoring",
+        "neuro",
+        "post-fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_129",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "survey",
+        "investigation",
+        "appendix pp",
+        "cfr"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "investigation",
+        "appendix pp",
+        "cfr"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_130",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Use facility forms/logs as required.",
+      "keywords": [
+        "standard precautions",
+        "contact",
+        "hand hygiene",
+        "tbp"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "contact",
+        "hand hygiene",
+        "tbp"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_131",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Ensure documentation is timely and objective.",
+      "keywords": [
+        "nysdoh",
+        "communicable",
+        "isolation",
+        "outbreak"
+      ],
+      "tags": [
+        "nys",
+        "nysdoh",
+        "communicable",
+        "isolation",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_132",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "documentation",
+        "change of condition",
+        "baseline",
+        "sbar"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "baseline",
+        "sbar"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_133",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Use facility forms/logs as required.",
+      "keywords": [
+        "specimen",
+        "precautions",
+        "monitoring",
+        "outbreak"
+      ],
+      "tags": [
+        "infection",
+        "specimen",
+        "precautions",
+        "monitoring",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_134",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "head strike",
+        "monitoring",
+        "post-fall",
+        "neuro"
+      ],
+      "tags": [
+        "falls",
+        "head strike",
+        "monitoring",
+        "post-fall",
+        "neuro"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_135",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Maintain infection control practices throughout.",
+      "keywords": [
+        "documentation",
+        "survey",
+        "ftag",
+        "cfr"
+      ],
+      "tags": [
+        "regulatory",
+        "documentation",
+        "survey",
+        "ftag",
+        "cfr"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_136",
+      "heading": "Respiratory hygiene",
+      "text": "Encourage source control, cough etiquette, and masking during respiratory illness as indicated. Compare findings to baseline and note any change.",
+      "keywords": [
+        "standard precautions",
+        "tbp",
+        "respiratory hygiene",
+        "hand hygiene"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "tbp",
+        "respiratory hygiene",
+        "hand hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_137",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "communicable",
+        "outbreak",
+        "ltc",
+        "reporting"
+      ],
+      "tags": [
+        "nys",
+        "communicable",
+        "outbreak",
+        "ltc",
+        "reporting"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_138",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Maintain infection control practices throughout.",
+      "keywords": [
+        "notify",
+        "sbar",
+        "change of condition",
+        "assessment"
+      ],
+      "tags": [
+        "change of condition",
+        "notify",
+        "sbar",
+        "assessment"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_139",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Maintain infection control practices throughout.",
+      "keywords": [
+        "infection",
+        "precautions",
+        "monitoring",
+        "specimen"
+      ],
+      "tags": [
+        "infection",
+        "precautions",
+        "monitoring",
+        "specimen"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_140",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Maintain infection control practices throughout.",
+      "keywords": [
+        "post-fall",
+        "fall",
+        "head strike",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "post-fall",
+        "fall",
+        "head strike",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_141",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Maintain infection control practices throughout.",
+      "keywords": [
+        "cfr",
+        "survey",
+        "appendix pp",
+        "investigation"
+      ],
+      "tags": [
+        "regulatory",
+        "cfr",
+        "survey",
+        "appendix pp",
+        "investigation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_142",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Use facility forms/logs as required.",
+      "keywords": [
+        "ppe",
+        "respiratory hygiene",
+        "droplet",
+        "tbp"
+      ],
+      "tags": [
+        "cdc",
+        "ppe",
+        "respiratory hygiene",
+        "droplet",
+        "tbp"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_143",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Maintain infection control practices throughout.",
+      "keywords": [
+        "isolation",
+        "reporting",
+        "nysdoh",
+        "ltc"
+      ],
+      "tags": [
+        "nys",
+        "isolation",
+        "reporting",
+        "nysdoh",
+        "ltc"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_144",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Use facility forms/logs as required.",
+      "keywords": [
+        "assessment",
+        "vitals",
+        "notify",
+        "documentation"
+      ],
+      "tags": [
+        "change of condition",
+        "assessment",
+        "vitals",
+        "notify",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_145",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Ensure documentation is timely and objective.",
+      "keywords": [
+        "precautions",
+        "fever",
+        "isolation",
+        "outbreak"
+      ],
+      "tags": [
+        "infection",
+        "precautions",
+        "fever",
+        "isolation",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_146",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Use facility forms/logs as required.",
+      "keywords": [
+        "fall",
+        "incident",
+        "head strike",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "fall",
+        "incident",
+        "head strike",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_147",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Compare findings to baseline and note any change.",
+      "keywords": [
+        "policy",
+        "ftag",
+        "cfr",
+        "investigation"
+      ],
+      "tags": [
+        "regulatory",
+        "policy",
+        "ftag",
+        "cfr",
+        "investigation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_148",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Maintain infection control practices throughout.",
+      "keywords": [
+        "contact",
+        "standard precautions",
+        "hand hygiene",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "contact",
+        "standard precautions",
+        "hand hygiene",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_149",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Ensure documentation is timely and objective.",
+      "keywords": [
+        "nysdoh",
+        "reporting",
+        "isolation",
+        "outbreak"
+      ],
+      "tags": [
+        "nys",
+        "nysdoh",
+        "reporting",
+        "isolation",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_150",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "provider",
+        "vitals",
+        "documentation",
+        "baseline"
+      ],
+      "tags": [
+        "change of condition",
+        "provider",
+        "vitals",
+        "documentation",
+        "baseline"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_151",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Use facility forms/logs as required.",
+      "keywords": [
+        "infection",
+        "fever",
+        "specimen",
+        "precautions"
+      ],
+      "tags": [
+        "infection",
+        "fever",
+        "specimen",
+        "precautions"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_152",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Maintain infection control practices throughout.",
+      "keywords": [
+        "post-fall",
+        "head strike",
+        "neuro",
+        "incident"
+      ],
+      "tags": [
+        "falls",
+        "post-fall",
+        "head strike",
+        "neuro",
+        "incident"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_153",
+      "heading": "Reporting expectations",
+      "text": "Follow facility and regulatory reporting requirements for allegations, incidents, and significant changes. Ensure documentation is timely and objective.",
+      "keywords": [
+        "ftag",
+        "investigation",
+        "appendix pp",
+        "survey"
+      ],
+      "tags": [
+        "regulatory",
+        "ftag",
+        "investigation",
+        "appendix pp",
+        "survey"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_154",
+      "heading": "Transmission-Based Precautions",
+      "text": "Use Contact/Droplet/Airborne precautions when indicated. Post signage and ensure staff education. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "contact",
+        "tbp",
+        "hand hygiene",
+        "droplet"
+      ],
+      "tags": [
+        "cdc",
+        "contact",
+        "tbp",
+        "hand hygiene",
+        "droplet"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_155",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "nysdoh",
+        "communicable",
+        "outbreak",
+        "ltc"
+      ],
+      "tags": [
+        "nys",
+        "nysdoh",
+        "communicable",
+        "outbreak",
+        "ltc"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_156",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Compare findings to baseline and note any change.",
+      "keywords": [
+        "documentation",
+        "vitals",
+        "assessment",
+        "notify"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "vitals",
+        "assessment",
+        "notify"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_157",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "isolation",
+        "outbreak",
+        "monitoring",
+        "precautions"
+      ],
+      "tags": [
+        "infection",
+        "isolation",
+        "outbreak",
+        "monitoring",
+        "precautions"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_158",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Use facility forms/logs as required.",
+      "keywords": [
+        "fall",
+        "monitoring",
+        "neuro",
+        "head strike"
+      ],
+      "tags": [
+        "falls",
+        "fall",
+        "monitoring",
+        "neuro",
+        "head strike"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_159",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Use facility forms/logs as required.",
+      "keywords": [
+        "cfr",
+        "ftag",
+        "appendix pp",
+        "documentation"
+      ],
+      "tags": [
+        "regulatory",
+        "cfr",
+        "ftag",
+        "appendix pp",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_160",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Use facility forms/logs as required.",
+      "keywords": [
+        "tbp",
+        "ppe",
+        "droplet",
+        "respiratory hygiene"
+      ],
+      "tags": [
+        "cdc",
+        "tbp",
+        "ppe",
+        "droplet",
+        "respiratory hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_161",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Compare findings to baseline and note any change.",
+      "keywords": [
+        "outbreak",
+        "ltc",
+        "nysdoh",
+        "isolation"
+      ],
+      "tags": [
+        "nys",
+        "outbreak",
+        "ltc",
+        "nysdoh",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_162",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Maintain infection control practices throughout.",
+      "keywords": [
+        "provider",
+        "sbar",
+        "notify",
+        "vitals"
+      ],
+      "tags": [
+        "change of condition",
+        "provider",
+        "sbar",
+        "notify",
+        "vitals"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_163",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Ensure documentation is timely and objective.",
+      "keywords": [
+        "precautions",
+        "isolation",
+        "fever",
+        "infection"
+      ],
+      "tags": [
+        "infection",
+        "precautions",
+        "isolation",
+        "fever"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_164",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Maintain infection control practices throughout.",
+      "keywords": [
+        "post-fall",
+        "head strike",
+        "fall",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "post-fall",
+        "head strike",
+        "fall",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_165",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Use facility forms/logs as required.",
+      "keywords": [
+        "survey",
+        "documentation",
+        "appendix pp",
+        "ftag"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "documentation",
+        "appendix pp",
+        "ftag"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_166",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Compare findings to baseline and note any change.",
+      "keywords": [
+        "ppe",
+        "tbp",
+        "contact",
+        "hand hygiene"
+      ],
+      "tags": [
+        "cdc",
+        "ppe",
+        "tbp",
+        "contact",
+        "hand hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_167",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "ltc",
+        "communicable",
+        "outbreak",
+        "reporting"
+      ],
+      "tags": [
+        "nys",
+        "ltc",
+        "communicable",
+        "outbreak",
+        "reporting"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_168",
+      "heading": "Documentation essentials",
+      "text": "Document objective assessment findings, interventions performed, resident response, provider notification, orders received, and family/EC notification when applicable. Compare findings to baseline and note any change.",
+      "keywords": [
+        "sbar",
+        "change of condition",
+        "assessment",
+        "provider"
+      ],
+      "tags": [
+        "change of condition",
+        "sbar",
+        "assessment",
+        "provider"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_169",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "specimen",
+        "fever",
+        "cdc",
+        "infection"
+      ],
+      "tags": [
+        "infection",
+        "specimen",
+        "fever",
+        "cdc"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_170",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "incident",
+        "neuro",
+        "head strike",
+        "fall"
+      ],
+      "tags": [
+        "falls",
+        "incident",
+        "neuro",
+        "head strike",
+        "fall"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_171",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Use facility forms/logs as required.",
+      "keywords": [
+        "cfr",
+        "appendix pp",
+        "investigation",
+        "survey"
+      ],
+      "tags": [
+        "regulatory",
+        "cfr",
+        "appendix pp",
+        "investigation",
+        "survey"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_172",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "ppe",
+        "contact",
+        "hand hygiene",
+        "standard precautions"
+      ],
+      "tags": [
+        "cdc",
+        "ppe",
+        "contact",
+        "hand hygiene",
+        "standard precautions"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_173",
+      "heading": "Staff guidance",
+      "text": "Reinforce PPE, hand hygiene, and exclusion guidance per facility/NYSDOH recommendations when applicable. Use facility forms/logs as required.",
+      "keywords": [
+        "reporting",
+        "communicable",
+        "nysdoh",
+        "ltc"
+      ],
+      "tags": [
+        "nys",
+        "reporting",
+        "communicable",
+        "nysdoh",
+        "ltc"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_174",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Use facility forms/logs as required.",
+      "keywords": [
+        "sbar",
+        "assessment",
+        "change of condition",
+        "provider"
+      ],
+      "tags": [
+        "change of condition",
+        "sbar",
+        "assessment",
+        "provider"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_175",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Ensure documentation is timely and objective.",
+      "keywords": [
+        "outbreak",
+        "precautions",
+        "specimen",
+        "monitoring"
+      ],
+      "tags": [
+        "infection",
+        "outbreak",
+        "precautions",
+        "specimen",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_176",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Ensure documentation is timely and objective.",
+      "keywords": [
+        "neuro",
+        "monitoring",
+        "incident",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "neuro",
+        "monitoring",
+        "incident",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_177",
+      "heading": "Care planning",
+      "text": "Identify and address risks through individualized interventions and care plan updates; document implementation. Ensure documentation is timely and objective.",
+      "keywords": [
+        "documentation",
+        "investigation",
+        "ftag",
+        "policy"
+      ],
+      "tags": [
+        "regulatory",
+        "documentation",
+        "investigation",
+        "ftag",
+        "policy"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_178",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Ensure documentation is timely and objective.",
+      "keywords": [
+        "hand hygiene",
+        "contact",
+        "droplet",
+        "respiratory hygiene"
+      ],
+      "tags": [
+        "cdc",
+        "hand hygiene",
+        "contact",
+        "droplet",
+        "respiratory hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_179",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Use facility forms/logs as required.",
+      "keywords": [
+        "communicable",
+        "reporting",
+        "ltc",
+        "nysdoh"
+      ],
+      "tags": [
+        "nys",
+        "communicable",
+        "reporting",
+        "ltc",
+        "nysdoh"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_180",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "provider",
+        "baseline",
+        "sbar",
+        "documentation"
+      ],
+      "tags": [
+        "change of condition",
+        "provider",
+        "baseline",
+        "sbar",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_181",
+      "heading": "Infection control actions",
+      "text": "Implement appropriate precautions, ensure hand hygiene/PPE, and notify IP per facility process. Consider cohorting during outbreaks. Use facility forms/logs as required.",
+      "keywords": [
+        "outbreak",
+        "specimen",
+        "cdc",
+        "fever"
+      ],
+      "tags": [
+        "infection",
+        "outbreak",
+        "specimen",
+        "cdc",
+        "fever"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_182",
+      "heading": "Notifications & reporting",
+      "text": "Notify provider and family/EC per policy; complete incident report and update care plan/interventions. Compare findings to baseline and note any change.",
+      "keywords": [
+        "head strike",
+        "post-fall",
+        "monitoring",
+        "incident"
+      ],
+      "tags": [
+        "falls",
+        "head strike",
+        "post-fall",
+        "monitoring",
+        "incident"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_183",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Ensure documentation is timely and objective.",
+      "keywords": [
+        "survey",
+        "investigation",
+        "documentation",
+        "appendix pp"
+      ],
+      "tags": [
+        "regulatory",
+        "survey",
+        "investigation",
+        "documentation",
+        "appendix pp"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_184",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Use facility forms/logs as required.",
+      "keywords": [
+        "standard precautions",
+        "droplet",
+        "ppe",
+        "contact"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "droplet",
+        "ppe",
+        "contact"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_185",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Ensure documentation is timely and objective.",
+      "keywords": [
+        "communicable",
+        "ltc",
+        "isolation",
+        "nysdoh"
+      ],
+      "tags": [
+        "nys",
+        "communicable",
+        "ltc",
+        "isolation",
+        "nysdoh"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_186",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Compare findings to baseline and note any change.",
+      "keywords": [
+        "assessment",
+        "notify",
+        "baseline",
+        "sbar"
+      ],
+      "tags": [
+        "change of condition",
+        "assessment",
+        "notify",
+        "baseline",
+        "sbar"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_187",
+      "heading": "Specimen & labs",
+      "text": "Collect specimens per order and protocol, label correctly, and document collection time and resident tolerance. Maintain infection control practices throughout.",
+      "keywords": [
+        "infection",
+        "specimen",
+        "precautions",
+        "outbreak"
+      ],
+      "tags": [
+        "infection",
+        "specimen",
+        "precautions",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_188",
+      "heading": "Neuro checks pathway",
+      "text": "Initiate neuro checks per protocol/orders when indicated (head strike suspected, anticoagulants, AMS, abnormal neuro findings). Maintain infection control practices throughout.",
+      "keywords": [
+        "neuro",
+        "incident",
+        "monitoring",
+        "anticoagulant"
+      ],
+      "tags": [
+        "falls",
+        "neuro",
+        "incident",
+        "monitoring",
+        "anticoagulant"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_189",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Use facility forms/logs as required.",
+      "keywords": [
+        "cfr",
+        "policy",
+        "documentation",
+        "investigation"
+      ],
+      "tags": [
+        "regulatory",
+        "cfr",
+        "policy",
+        "documentation",
+        "investigation"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_190",
+      "heading": "Standard Precautions",
+      "text": "Standard Precautions apply to all residents. Perform hand hygiene and use PPE based on anticipated exposure. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "respiratory hygiene",
+        "tbp",
+        "ppe",
+        "standard precautions"
+      ],
+      "tags": [
+        "cdc",
+        "respiratory hygiene",
+        "tbp",
+        "ppe",
+        "standard precautions"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_191",
+      "heading": "Communicable disease control",
+      "text": "Implement isolation and monitoring consistent with guidance; document symptoms, onset, and interventions. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "reporting",
+        "isolation",
+        "ltc",
+        "outbreak"
+      ],
+      "tags": [
+        "nys",
+        "reporting",
+        "isolation",
+        "ltc",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_192",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Use facility forms/logs as required.",
+      "keywords": [
+        "change of condition",
+        "documentation",
+        "assessment",
+        "notify"
+      ],
+      "tags": [
+        "change of condition",
+        "documentation",
+        "assessment",
+        "notify"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_193",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Use facility forms/logs as required.",
+      "keywords": [
+        "outbreak",
+        "fever",
+        "precautions",
+        "infection"
+      ],
+      "tags": [
+        "infection",
+        "outbreak",
+        "fever",
+        "precautions"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "section_id": "POL_FALL_01_falls_194",
+      "heading": "Immediate post-fall assessment",
+      "text": "Assess for injury, pain, ROM, neuro status, head strike, bleeding/bruising, and compare to baseline. Obtain vital signs. Ensure documentation is timely and objective.",
+      "keywords": [
+        "post-fall",
+        "anticoagulant",
+        "monitoring",
+        "incident"
+      ],
+      "tags": [
+        "falls",
+        "post-fall",
+        "anticoagulant",
+        "monitoring",
+        "incident"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_regulatory_195",
+      "heading": "Investigation & documentation",
+      "text": "Facilities should investigate incidents/accidents and document assessment, interventions, notifications, and follow-up actions. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "investigation",
+        "cfr",
+        "survey",
+        "appendix pp"
+      ],
+      "tags": [
+        "regulatory",
+        "investigation",
+        "cfr",
+        "survey",
+        "appendix pp"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "section_id": "CDC_IC_cdc_196",
+      "heading": "Respiratory hygiene",
+      "text": "Encourage source control, cough etiquette, and masking during respiratory illness as indicated. Ensure documentation is timely and objective.",
+      "keywords": [
+        "standard precautions",
+        "contact",
+        "respiratory hygiene",
+        "ppe"
+      ],
+      "tags": [
+        "cdc",
+        "standard precautions",
+        "contact",
+        "respiratory hygiene",
+        "ppe"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "section_id": "NYS_DOH_IP_nys_197",
+      "heading": "Outbreak reporting",
+      "text": "Notify appropriate parties per NYSDOH guidance when outbreak thresholds are met; maintain line lists as required. Ensure documentation is timely and objective.",
+      "keywords": [
+        "outbreak",
+        "ltc",
+        "reporting",
+        "nysdoh"
+      ],
+      "tags": [
+        "nys",
+        "outbreak",
+        "ltc",
+        "reporting",
+        "nysdoh"
+      ]
+    },
+    {
+      "source_id": "POL_COC_01",
+      "section_id": "POL_COC_01_change_of_condition_198",
+      "heading": "Provider notification (SBAR)",
+      "text": "Use SBAR to notify the provider of significant change in condition. Include baseline comparison, objective findings, and specific request. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "change of condition",
+        "baseline",
+        "vitals",
+        "sbar"
+      ],
+      "tags": [
+        "change of condition",
+        "baseline",
+        "vitals",
+        "sbar"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "section_id": "POL_IP_01_infection_199",
+      "heading": "Fever evaluation",
+      "text": "Assess for onset, associated symptoms (respiratory/GU/GI/wound), vital signs, SpO2, hydration status, and mental status compared to baseline. Escalate for red flags per protocol/provider orders.",
+      "keywords": [
+        "specimen",
+        "outbreak",
+        "precautions",
+        "infection"
+      ],
+      "tags": [
+        "infection",
+        "specimen",
+        "outbreak",
+        "precautions"
+      ]
+    },
+    {
+      "source_id": "ECFR_42CFR483",
+      "section_id": "ECFR_42CFR483_0001",
+      "heading": "Resident rights: refusal and informed decision-making",
+      "text": "Federal regulations include resident rights related to informed choices about care, including the right to refuse treatment. Documentation should reflect the resident\u2019s stated refusal, education provided, risks/benefits discussed, alternatives offered, and follow-up plan.",
+      "tags": [
+        "resident rights",
+        "refusal",
+        "informed consent",
+        "documentation",
+        "regulatory"
+      ],
+      "keywords": [
+        "42 cfr 483",
+        "483.10",
+        "refuse"
+      ]
+    },
+    {
+      "source_id": "ECFR_42CFR483",
+      "section_id": "ECFR_42CFR483_0002",
+      "heading": "Quality of care: change in condition response",
+      "text": "When a resident\u2019s condition changes, nursing assessment, timely notification, and appropriate interventions/monitoring are expected. Record objective findings, baseline comparison, provider notification, orders, and resident response.",
+      "tags": [
+        "change of condition",
+        "assessment",
+        "provider notification",
+        "monitoring",
+        "regulatory"
+      ],
+      "keywords": [
+        "483.25",
+        "assessment",
+        "baseline"
+      ]
+    },
+    {
+      "source_id": "ECFR_42CFR483",
+      "section_id": "ECFR_42CFR483_0003",
+      "heading": "Accidents and supervision (falls risk)",
+      "text": "Facilities must take reasonable steps to prevent accidents and provide adequate supervision/assistive devices. Post-fall documentation should include circumstances, injury assessment, neuro checks if indicated, notifications, and prevention plan updates.",
+      "tags": [
+        "falls",
+        "accident",
+        "supervision",
+        "injury",
+        "regulatory"
+      ],
+      "keywords": [
+        "accident",
+        "supervision",
+        "assistive devices"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_0101",
+      "heading": "F-tag mapping: use citations in packets",
+      "text": "Appendix PP provides interpretive guidance used by surveyors. When generating packets, include the relevant F-tag context (e.g., Resident Rights, Abuse/Neglect, Infection Control) and tie your actions/documentation to objective evidence and facility policy.",
+      "tags": [
+        "cms",
+        "appendix pp",
+        "ftag",
+        "survey",
+        "packet"
+      ],
+      "keywords": [
+        "survey",
+        "interpretive",
+        "guidance"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_0102",
+      "heading": "Abuse/neglect: immediate protection + reporting + investigation",
+      "text": "Survey expectations emphasize immediate resident protection, timely reporting, thorough investigation, and documentation of findings and follow-up. Notes should include who was notified, when, what protections were implemented, and the investigation status.",
+      "tags": [
+        "abuse",
+        "neglect",
+        "investigation",
+        "reporting",
+        "survey",
+        "documentation"
+      ],
+      "keywords": [
+        "F600",
+        "misappropriation",
+        "allegation"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "section_id": "CMS_APP_PP_0103",
+      "heading": "Infection control: program expectations",
+      "text": "Survey guidance on infection control focuses on an active program, implementation of precautions, staff education, and documentation that supports decisions (signs/symptoms, testing, isolation, monitoring).",
+      "tags": [
+        "infection",
+        "precautions",
+        "education",
+        "survey",
+        "documentation"
+      ],
+      "keywords": [
+        "F880",
+        "program"
+      ]
+    },
+    {
+      "source_id": "CDC_CORE_PRACTICES_PDF",
+      "section_id": "CDC_CORE_PRACTICES_PDF_0001",
+      "heading": "Core practices: hand hygiene + PPE selection",
+      "text": "Core IPC practices include consistent hand hygiene and selecting PPE based on anticipated exposure. Documentation and audits should focus on adherence to core practices and staff education/competency.",
+      "tags": [
+        "cdc",
+        "core practices",
+        "hand hygiene",
+        "ppe",
+        "infection prevention"
+      ],
+      "keywords": [
+        "hicpac",
+        "standard precautions"
+      ]
+    },
+    {
+      "source_id": "CDC_CORE_PRACTICES_PDF",
+      "section_id": "CDC_CORE_PRACTICES_PDF_0002",
+      "heading": "Core practices: environmental cleaning and disinfection",
+      "text": "Environmental cleaning and disinfection are key core practices. For outbreaks, emphasize high-touch surfaces, correct disinfectant use, and clear assignment of responsibilities.",
+      "tags": [
+        "cdc",
+        "core practices",
+        "cleaning",
+        "disinfection",
+        "outbreak"
+      ],
+      "keywords": [
+        "environmental",
+        "disinfectant"
+      ]
+    },
+    {
+      "source_id": "CDC_CORE_PRACTICES_PDF",
+      "section_id": "CDC_CORE_PRACTICES_PDF_0003",
+      "heading": "Core practices: respiratory hygiene/cough etiquette",
+      "text": "Respiratory hygiene and cough etiquette reduce transmission of respiratory pathogens. For symptomatic residents, include source control, masking per guidance, and timely evaluation/testing as indicated.",
+      "tags": [
+        "cdc",
+        "respiratory hygiene",
+        "source control",
+        "respiratory virus"
+      ],
+      "keywords": [
+        "cough etiquette",
+        "masking"
+      ]
+    },
+    {
+      "source_id": "CDC_LTCF_RESOURCES",
+      "section_id": "CDC_LTCF_RESOURCES_0001",
+      "heading": "LTCF infection prevention: resident/family education",
+      "text": "CDC LTCF resources support education for residents, families, and caregivers on preventing infections in nursing homes and assisted living facilities. Use these materials to reinforce hand hygiene, vaccination, and reporting symptoms early.",
+      "tags": [
+        "cdc",
+        "ltcf",
+        "education",
+        "infection prevention",
+        "vaccination"
+      ],
+      "keywords": [
+        "nursing home",
+        "caregiver"
+      ]
+    },
+    {
+      "source_id": "CDC_LTCF_RESOURCES",
+      "section_id": "CDC_LTCF_RESOURCES_0002",
+      "heading": "LTCF prevention focus: early symptom recognition",
+      "text": "Emphasize early recognition of new symptoms and prompt reporting to nursing staff to reduce spread and complications. Pair with facility policy for triage and provider notification.",
+      "tags": [
+        "cdc",
+        "ltcf",
+        "symptoms",
+        "triage",
+        "change of condition"
+      ],
+      "keywords": [
+        "recognize",
+        "report"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF",
+      "section_id": "CDC_NHSN_LTCF_0001",
+      "heading": "NHSN LTCF Component: surveillance and process measures",
+      "text": "NHSN LTCF Component supports tracking infections and prevention process measures to identify problems, improve care, and monitor progress. Consider aligning facility line lists and surveillance logs with NHSN concepts.",
+      "tags": [
+        "cdc",
+        "nhsn",
+        "ltcf",
+        "surveillance",
+        "line list"
+      ],
+      "keywords": [
+        "process measures",
+        "tracking"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF",
+      "section_id": "CDC_NHSN_LTCF_0002",
+      "heading": "Common LTCF modules: UTI, MDRO/CDI, vaccination",
+      "text": "NHSN LTCF includes modules relevant to nursing homes (e.g., UTI, MDRO/CDI, HCP flu vaccination, prevention process measures). Use these as a reference framework for consistent surveillance documentation.",
+      "tags": [
+        "cdc",
+        "nhsn",
+        "uti",
+        "mdro",
+        "cdi",
+        "vaccination"
+      ],
+      "keywords": [
+        "module",
+        "framework"
+      ]
+    },
+    {
+      "source_id": "CDC_RESP_VIRUS_TOOLKIT",
+      "section_id": "CDC_RESP_VIRUS_TOOLKIT_0001",
+      "heading": "Respiratory viruses: prepare and respond in nursing homes",
+      "text": "Toolkit actions include preparation steps, symptom-based response, testing considerations, and escalation when respiratory illness is detected among residents or staff. Use for influenza/RSV/COVID-19 season planning and outbreak response.",
+      "tags": [
+        "cdc",
+        "respiratory virus",
+        "toolkit",
+        "nursing home",
+        "outbreak"
+      ],
+      "keywords": [
+        "influenza",
+        "rsv",
+        "covid"
+      ]
+    },
+    {
+      "source_id": "CDC_RESP_VIRUS_TOOLKIT",
+      "section_id": "CDC_RESP_VIRUS_TOOLKIT_0002",
+      "heading": "Outbreak workflow: line lists and communication",
+      "text": "Maintain clear line lists, communicate with leadership and public health as required, and document cohorting/precautions decisions. Ensure staff education and consistent PPE use.",
+      "tags": [
+        "cdc",
+        "outbreak",
+        "line list",
+        "communication",
+        "ppe"
+      ],
+      "keywords": [
+        "cohorting",
+        "public health"
+      ]
+    },
+    {
+      "source_id": "IHI_SBAR",
+      "section_id": "IHI_SBAR_0001",
+      "heading": "SBAR structure for provider notification",
+      "text": "SBAR provides a structured way to communicate changes in condition: Situation (what is happening now), Background (baseline and history), Assessment (your findings), Recommendation (what you need/next steps). Use SBAR in notes to show clear escalation.",
+      "tags": [
+        "sbar",
+        "provider notification",
+        "communication",
+        "change of condition",
+        "documentation"
+      ],
+      "keywords": [
+        "situation",
+        "background",
+        "assessment",
+        "recommendation"
+      ]
+    },
+    {
+      "source_id": "IHI_SBAR",
+      "section_id": "IHI_SBAR_0002",
+      "heading": "SBAR documentation cues for LTC/SNF notes",
+      "text": "In documentation, capture: objective findings (VS, symptoms, timeline), baseline comparison, what was communicated to provider, orders received, interventions performed, and resident response/monitoring plan.",
+      "tags": [
+        "sbar",
+        "documentation",
+        "vitals",
+        "baseline",
+        "orders"
+      ],
+      "keywords": [
+        "objective",
+        "timeline",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "AHRQ_LTC_MOD2_TOOLS",
+      "section_id": "AHRQ_LTC_MOD2_TOOLS_0001",
+      "heading": "Change in condition communication: early warning tools",
+      "text": "AHRQ LTC tools include early warning/communication supports to help staff recognize and communicate changes in condition. Integrate into your wizard by prompting for objective findings and clear escalation steps.",
+      "tags": [
+        "ahrq",
+        "change of condition",
+        "early warning",
+        "communication",
+        "wizard"
+      ],
+      "keywords": [
+        "triage",
+        "handoff"
+      ]
+    },
+    {
+      "source_id": "AHRQ_LTC_MOD2_TOOLS",
+      "section_id": "AHRQ_LTC_MOD2_TOOLS_0002",
+      "heading": "Team communication training: standardize the message",
+      "text": "Use standardized communication (e.g., SBAR) and team training to reduce missed information during a change in condition. Pair with documentation checklists and packet citations.",
+      "tags": [
+        "ahrq",
+        "training",
+        "sbar",
+        "standardization",
+        "documentation"
+      ],
+      "keywords": [
+        "team",
+        "handoff"
+      ]
+    },
+    {
+      "source_id": "CMS_QAPI_RESOURCES",
+      "section_id": "CMS_QAPI_RESOURCES_0001",
+      "heading": "QAPI: link findings to education and re-audit",
+      "text": "CMS QAPI resources emphasize systematic improvement: identify a problem, implement interventions (including staff education), measure outcomes, and sustain changes. Use this to power closed-loop QA \u2192 Education \u2192 Re-audit workflows.",
+      "tags": [
+        "cms",
+        "qapi",
+        "quality",
+        "education",
+        "re-audit"
+      ],
+      "keywords": [
+        "PI",
+        "QA"
+      ]
+    },
+    {
+      "source_id": "CMS_QAPI_AT_A_GLANCE",
+      "section_id": "CMS_QAPI_AT_A_GLANCE_0001",
+      "heading": "QAPI governance: leadership and accountability",
+      "text": "QAPI at a Glance highlights leadership responsibility, data-driven improvement, and ongoing performance monitoring. Use this as an executive-language reference in survey packets and QAPI minutes.",
+      "tags": [
+        "cms",
+        "qapi",
+        "leadership",
+        "governance",
+        "metrics"
+      ],
+      "keywords": [
+        "minutes",
+        "executive summary"
+      ]
+    },
+    {
+      "source_id": "NYSDOH_RIGHTS_PDF",
+      "section_id": "NYSDOH_RIGHTS_PDF_0001",
+      "heading": "NY nursing home resident rights: key themes",
+      "text": "NYSDOH resident rights resources emphasize dignity, respect, communication, and participation in care decisions. Documentation should reflect education provided, resident preferences, and involvement of representative when appropriate.",
+      "tags": [
+        "nysdoh",
+        "resident rights",
+        "dignity",
+        "informed decision",
+        "documentation"
+      ],
+      "keywords": [
+        "rights",
+        "preferences"
+      ]
+    },
+    {
+      "source_id": "NYCRR_415_3",
+      "section_id": "NYCRR_415_3_0001",
+      "heading": "NYCRR 415.3: resident rights baseline",
+      "text": "10 NYCRR 415.3 describes nursing home responsibilities to protect and promote resident rights, including dignity, privacy, and self-determination. Use when building refusal-of-treatment packets and documenting resident-centered decision-making.",
+      "tags": [
+        "nycrr",
+        "415.3",
+        "resident rights",
+        "refusal",
+        "self-determination"
+      ],
+      "keywords": [
+        "privacy",
+        "dignity"
+      ]
+    },
+    {
+      "source_id": "NYSDOH_ABUSE_REPORT_REQ",
+      "section_id": "NYSDOH_ABUSE_REPORT_REQ_0001",
+      "heading": "NY reporting expectations: suspected abuse/neglect",
+      "text": "NYSDOH outlines reporting requirements for suspected abuse, mistreatment, and neglect. Documentation should include immediate protections, notifications, and the status of investigation/reporting per policy.",
+      "tags": [
+        "nysdoh",
+        "abuse",
+        "neglect",
+        "reporting",
+        "investigation"
+      ],
+      "keywords": [
+        "report",
+        "telephone",
+        "written"
+      ]
+    },
+    {
+      "source_id": "NYSDOH_ABUSE_REPORT_FORM",
+      "section_id": "NYSDOH_ABUSE_REPORT_FORM_0001",
+      "heading": "NY investigation report: what to include",
+      "text": "The NYSDOH incident/abuse reporting materials support consistent investigation reporting. For packets, include objective findings, timeline, actions taken, notifications, and follow-up/monitoring.",
+      "tags": [
+        "nysdoh",
+        "investigation",
+        "report",
+        "timeline",
+        "follow-up"
+      ],
+      "keywords": [
+        "allegation",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "NYSDOH_COMPLAINT_FORM",
+      "section_id": "NYSDOH_COMPLAINT_FORM_0001",
+      "heading": "NY complaint process: resident/family pathway",
+      "text": "NYSDOH provides an online complaint form and hotline information. Include this reference in resident rights packets when concerns escalate beyond facility grievance processes.",
+      "tags": [
+        "nysdoh",
+        "complaint",
+        "grievance",
+        "hotline",
+        "resident rights"
+      ],
+      "keywords": [
+        "form",
+        "report"
+      ]
+    },
+    {
+      "source_id": "CMS_QSO_25_14_NH",
+      "section_id": "CMS_QSO_25_14_NH_900",
+      "heading": "What this memo changes (high level)",
+      "text": "CMS issued QSO-25-14-NH to revise long-term care surveyor guidance. Use this memo as the \u201cwhy\u201d behind Appendix PP updates and align facility education, audits, and packets with the updated expectations.",
+      "tags": [
+        "cms",
+        "qso",
+        "appendix pp",
+        "survey"
+      ],
+      "keywords": [
+        "qso-25-14-nh",
+        "appendix pp update",
+        "survey guidance"
+      ]
+    },
+    {
+      "source_id": "CMS_QSO_25_14_NH",
+      "section_id": "CMS_QSO_25_14_NH_901",
+      "heading": "Effective date and rollout",
+      "text": "Treat the updated surveyor guidance as effective on the stated CMS rollout date; ensure staff education, competency checks, and audit tools reflect the revised interpretive guidance and critical element pathways.",
+      "tags": [
+        "cms",
+        "survey",
+        "effective date",
+        "education"
+      ],
+      "keywords": [
+        "rollout",
+        "critical element pathways",
+        "training"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF_MANUAL",
+      "section_id": "CDC_NHSN_LTCF_MANUAL_910",
+      "heading": "Why NHSN LTCF tracking matters",
+      "text": "Use NHSN LTCF component concepts to standardize infection tracking and prevention measures. A consistent surveillance approach supports outbreak detection, QAPI trending, and documentation that is easy to defend.",
+      "tags": [
+        "cdc",
+        "nhsn",
+        "surveillance",
+        "qapi"
+      ],
+      "keywords": [
+        "ltcf component",
+        "infection tracking",
+        "prevention process measures"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF_MANUAL",
+      "section_id": "CDC_NHSN_LTCF_MANUAL_911",
+      "heading": "Line list discipline",
+      "text": "Maintain a clean line list during clusters/outbreaks: who, what symptoms, onset dates, test results, unit/room, isolation status, and outcomes. Keep it current and use it for escalation and reporting.",
+      "tags": [
+        "nhsn",
+        "line list",
+        "outbreak"
+      ],
+      "keywords": [
+        "line listing",
+        "onset date",
+        "testing",
+        "isolation"
+      ]
+    },
+    {
+      "source_id": "AHRQ_NH_AS_GUIDE",
+      "section_id": "AHRQ_NH_AS_GUIDE_920",
+      "heading": "Antibiotic stewardship in nursing homes (program focus)",
+      "text": "Use a nursing-home-specific antimicrobial stewardship framework: define criteria for suspected infection, improve communication (SBAR), and monitor antibiotic starts, indications, and durations as part of QAPI.",
+      "tags": [
+        "ahrq",
+        "antibiotic stewardship",
+        "qapi"
+      ],
+      "keywords": [
+        "antimicrobial stewardship",
+        "criteria",
+        "tracking",
+        "qapi"
+      ]
+    },
+    {
+      "source_id": "AHRQ_NH_AS_GUIDE",
+      "section_id": "AHRQ_NH_AS_GUIDE_921",
+      "heading": "Documentation cues for suspected infection",
+      "text": "When antibiotics are considered, document the suspected source, objective signs/symptoms, relevant vitals, test plan, and monitoring/escalation plan. Avoid vague \u201cUTI\u201d language without clinical criteria.",
+      "tags": [
+        "documentation",
+        "uti",
+        "infection",
+        "stewardship"
+      ],
+      "keywords": [
+        "objective criteria",
+        "signs and symptoms",
+        "avoid vague"
+      ]
+    },
+    {
+      "source_id": "IDSA_ASYMPTOMATIC_BACTERIURIA",
+      "section_id": "IDSA_ASYMPTOMATIC_BACTERIURIA_930",
+      "heading": "Do not treat asymptomatic bacteriuria (LTC)",
+      "text": "In older residents in long-term care, bacteriuria without symptoms is common. Use clinical criteria before treating; do not screen or treat asymptomatic bacteriuria unless specific exceptions apply (follow provider/facility protocol).",
+      "tags": [
+        "idsa",
+        "uti",
+        "asymptomatic bacteriuria",
+        "stewardship"
+      ],
+      "keywords": [
+        "asb",
+        "no treatment",
+        "older adults",
+        "long-term care"
+      ]
+    },
+    {
+      "source_id": "IDSA_COMPLICATED_UTI",
+      "section_id": "IDSA_COMPLICATED_UTI_940",
+      "heading": "When UTI is complicated",
+      "text": "Use provider guidance and clinical criteria to distinguish uncomplicated lower urinary symptoms from complicated UTI (e.g., obstruction, systemic illness, instrumentation). Document reason for concern and escalation plan.",
+      "tags": [
+        "idsa",
+        "uti",
+        "escalation"
+      ],
+      "keywords": [
+        "complicated uti",
+        "systemic illness",
+        "escalation"
+      ]
+    },
+    {
+      "source_id": "SHEA_APIC_LTCF",
+      "section_id": "SHEA_APIC_LTCF_950",
+      "heading": "Core elements of infection prevention in LTC",
+      "text": "A strong LTC infection prevention program includes surveillance, outbreak response, staff education, hand hygiene/PPE, environmental cleaning, and reporting to public health when required. Tie infection control work to QAPI.",
+      "tags": [
+        "shea",
+        "apic",
+        "infection control",
+        "ltc",
+        "qapi"
+      ],
+      "keywords": [
+        "core elements",
+        "surveillance",
+        "outbreak response",
+        "education"
+      ]
+    },
+    {
+      "source_id": "SHEA_APIC_LTCF",
+      "section_id": "SHEA_APIC_LTCF_951",
+      "heading": "Notifiable disease reporting expectations",
+      "text": "Maintain a system to recognize and report notifiable diseases to public health. Document who was notified, when, and what data were provided (line list, labs, case counts).",
+      "tags": [
+        "public health",
+        "reporting",
+        "outbreak"
+      ],
+      "keywords": [
+        "notifiable disease",
+        "public health",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "AHRQ_NH_AS_GUIDE",
+      "section_id": "AHRQ_NH_AS_GUIDE_960",
+      "heading": "Purpose and scope",
+      "text": "Use a structured antimicrobial stewardship program in nursing homes to improve antibiotic use, reduce harms, and support appropriate diagnosis and treatment decisions.",
+      "keywords": [
+        "stewardship",
+        "antibiotics",
+        "nursing home"
+      ],
+      "tags": [
+        "antibiotic stewardship",
+        "ahrq",
+        "infection",
+        "qapi"
+      ]
+    },
+    {
+      "source_id": "AHRQ_NH_AS_GUIDE",
+      "section_id": "AHRQ_NH_AS_GUIDE_961",
+      "heading": "When to suspect infection vs colonization",
+      "text": "Focus on resident-specific signs/symptoms and avoid treating colonization; document objective findings and clinical rationale for starting or withholding antibiotics.",
+      "keywords": [
+        "colonization",
+        "symptoms",
+        "rationale"
+      ],
+      "tags": [
+        "diagnostic stewardship",
+        "uti",
+        "asymptomatic bacteriuria",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "AHRQ_NH_AS_GUIDE",
+      "section_id": "AHRQ_NH_AS_GUIDE_962",
+      "heading": "Start, monitor, and maintain",
+      "text": "Establish facility goals, track antibiotic starts, review cultures and durations, and provide feedback/education to prescribers and staff.",
+      "keywords": [
+        "monitor",
+        "audit",
+        "feedback"
+      ],
+      "tags": [
+        "tracking",
+        "feedback",
+        "education",
+        "qapi"
+      ]
+    },
+    {
+      "source_id": "AHRQ_NH_AS_GUIDE",
+      "section_id": "AHRQ_NH_AS_GUIDE_963",
+      "heading": "Documentation essentials",
+      "text": "Document indication, symptoms, tests obtained, prescriber notification, orders, start date, planned duration, monitoring plan, and resident response.",
+      "keywords": [
+        "indication",
+        "duration",
+        "response"
+      ],
+      "tags": [
+        "documentation",
+        "orders",
+        "provider notification"
+      ]
+    },
+    {
+      "source_id": "AHRQ_NH_AS_GUIDE",
+      "section_id": "AHRQ_NH_AS_GUIDE_964",
+      "heading": "Tools and templates",
+      "text": "Use standardized forms/checklists (e.g., SBAR, stop-and-watch, antibiotic time-outs) to ensure consistent communication and decision support.",
+      "keywords": [
+        "checklist",
+        "communication"
+      ],
+      "tags": [
+        "tools",
+        "templates",
+        "sbar",
+        "stop-and-watch"
+      ]
+    },
+    {
+      "source_id": "CDC_RESP_VIRUS_TOOLKIT",
+      "section_id": "CDC_RESP_VIRUS_TOOLKIT_970",
+      "heading": "Early recognition and response",
+      "text": "When respiratory symptoms are identified, implement a structured response: assess, consider testing per guidance, and apply appropriate source control and precautions.",
+      "keywords": [
+        "symptoms",
+        "testing",
+        "precautions"
+      ],
+      "tags": [
+        "respiratory",
+        "toolkit",
+        "cdc",
+        "nursing home"
+      ]
+    },
+    {
+      "source_id": "CDC_RESP_VIRUS_TOOLKIT",
+      "section_id": "CDC_RESP_VIRUS_TOOLKIT_971",
+      "heading": "Cohorting and precautions",
+      "text": "Use appropriate precautions (standard + transmission-based as indicated), consider cohorting residents/units, and reinforce PPE/hand hygiene.",
+      "keywords": [
+        "cohort",
+        "isolation",
+        "PPE"
+      ],
+      "tags": [
+        "cohorting",
+        "precautions",
+        "ppe",
+        "hand hygiene"
+      ]
+    },
+    {
+      "source_id": "CDC_RESP_VIRUS_TOOLKIT",
+      "section_id": "CDC_RESP_VIRUS_TOOLKIT_972",
+      "heading": "Outbreak communication",
+      "text": "Maintain line lists as needed, communicate with leadership and public health per policy, and document education and monitoring.",
+      "keywords": [
+        "line list",
+        "public health"
+      ],
+      "tags": [
+        "outbreak",
+        "line list",
+        "reporting",
+        "communication"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF_MANUAL",
+      "section_id": "CDC_NHSN_LTCF_MANUAL_980",
+      "heading": "What NHSN LTCF tracks",
+      "text": "Use the NHSN LTCF Component to track infections and prevention process measures over time to identify trends and improve care.",
+      "keywords": [
+        "track",
+        "measure",
+        "trend"
+      ],
+      "tags": [
+        "nhsn",
+        "ltcf",
+        "surveillance",
+        "cdc"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF_MANUAL",
+      "section_id": "CDC_NHSN_LTCF_MANUAL_981",
+      "heading": "UTI and MDRO surveillance concepts",
+      "text": "Standardize definitions and reporting approaches for events like UTI and MDRO/CDI to support consistent surveillance and benchmarking.",
+      "keywords": [
+        "surveillance",
+        "definitions"
+      ],
+      "tags": [
+        "uti",
+        "mdro",
+        "cdi",
+        "definitions"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF_MANUAL",
+      "section_id": "CDC_NHSN_LTCF_MANUAL_982",
+      "heading": "Process measures",
+      "text": "Use process measures (e.g., hand hygiene, PPE, vaccination, prevention bundles) to drive improvement work alongside outcome measures.",
+      "keywords": [
+        "bundles",
+        "process"
+      ],
+      "tags": [
+        "process measures",
+        "hand hygiene",
+        "ppe",
+        "vaccination"
+      ]
+    },
+    {
+      "source_id": "SHEA_APIC_LTCF",
+      "section_id": "SHEA_APIC_LTCF_990",
+      "heading": "Infection prevention program elements",
+      "text": "Maintain an organized infection prevention program with surveillance, education, policy oversight, and outbreak response capability.",
+      "keywords": [
+        "surveillance",
+        "education",
+        "policy"
+      ],
+      "tags": [
+        "shea",
+        "apic",
+        "infection control",
+        "program"
+      ]
+    },
+    {
+      "source_id": "SHEA_APIC_LTCF",
+      "section_id": "SHEA_APIC_LTCF_991",
+      "heading": "Hand hygiene and PPE fundamentals",
+      "text": "Reinforce hand hygiene and PPE selection based on risk assessment; use audits and feedback to improve compliance.",
+      "keywords": [
+        "audit",
+        "feedback"
+      ],
+      "tags": [
+        "hand hygiene",
+        "ppe",
+        "audits",
+        "compliance"
+      ]
+    },
+    {
+      "source_id": "SHEA_APIC_LTCF",
+      "section_id": "SHEA_APIC_LTCF_992",
+      "heading": "Outbreak detection and response",
+      "text": "Establish triggers for outbreak detection, initiate control measures promptly, and coordinate reporting to public health when required.",
+      "keywords": [
+        "control measures",
+        "triggers"
+      ],
+      "tags": [
+        "outbreak",
+        "reporting",
+        "public health"
+      ]
+    },
+    {
+      "source_id": "SHEA_APIC_LTCF",
+      "section_id": "SHEA_APIC_LTCF_993",
+      "heading": "Employee health considerations",
+      "text": "Include staff illness reporting and work restriction guidance, vaccination programs, and exposure management as part of infection prevention.",
+      "keywords": [
+        "work restriction",
+        "illness"
+      ],
+      "tags": [
+        "employee health",
+        "vaccination",
+        "exposure"
+      ]
+    },
+    {
+      "source_id": "SHEA_APIC_LTCF",
+      "section_id": "SHEA_APIC_LTCF_994",
+      "heading": "Integration with QAPI",
+      "text": "Align infection prevention work with QAPI: track data, prioritize improvement projects, and document interventions and outcomes.",
+      "keywords": [
+        "data",
+        "projects",
+        "outcomes"
+      ],
+      "tags": [
+        "qapi",
+        "performance improvement",
+        "tracking"
+      ]
+    },
+    {
+      "source_id": "IDSA_ASYMPTOMATIC_BACTERIURIA",
+      "section_id": "IDSA_ASYMPTOMATIC_BACTERIURIA_1000",
+      "heading": "Avoid treating ASB in LTC residents",
+      "text": "In older residents of long-term care facilities, avoid screening for or treating asymptomatic bacteriuria; focus evaluation on symptoms and objective findings.",
+      "keywords": [
+        "screening",
+        "treatment",
+        "LTC"
+      ],
+      "tags": [
+        "idsa",
+        "asymptomatic bacteriuria",
+        "uti",
+        "stewardship"
+      ]
+    },
+    {
+      "source_id": "IDSA_ASYMPTOMATIC_BACTERIURIA",
+      "section_id": "IDSA_ASYMPTOMATIC_BACTERIURIA_1001",
+      "heading": "Documentation tip",
+      "text": "Document presence/absence of urinary symptoms and objective findings; if no symptoms, document rationale for not treating and monitoring plan.",
+      "keywords": [
+        "symptoms",
+        "plan"
+      ],
+      "tags": [
+        "documentation",
+        "rationale",
+        "monitoring"
+      ]
+    },
+    {
+      "source_id": "CMS_QSO_25_14_NH",
+      "section_id": "CMS_QSO_25_14_NH_1010",
+      "heading": "Effective date awareness",
+      "text": "Appendix PP revisions take effect on the stated CMS effective date; facilities should align training, audits, and policies accordingly.",
+      "keywords": [
+        "effective",
+        "training",
+        "audit"
+      ],
+      "tags": [
+        "cms",
+        "qso",
+        "appendix pp",
+        "effective date"
+      ]
+    },
+    {
+      "source_id": "CMS_QSO_25_14_NH",
+      "section_id": "CMS_QSO_25_14_NH_1011",
+      "heading": "Training and readiness",
+      "text": "Prepare staff and leadership by reviewing revised pathways and guidance, updating facility processes, and ensuring documentation supports compliance.",
+      "keywords": [
+        "readiness",
+        "pathways"
+      ],
+      "tags": [
+        "training",
+        "survey readiness",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "section_id": "KB_COC_GUIDE_coc_000",
+      "heading": "Start here: safety, baseline, and urgency",
+      "text": "When a change of condition is reported, first determine immediate safety/medical urgency, compare to baseline, and obtain objective data (vitals and focused assessment) before escalation. Document a clear timeline (what changed, when, who observed) and the resident response to interventions.",
+      "keywords": [
+        "change of condition",
+        "baseline",
+        "vitals",
+        "assessment",
+        "timeline"
+      ],
+      "tags": [
+        "change of condition",
+        "assessment",
+        "vitals",
+        "documentation",
+        "triage"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "section_id": "KB_COC_GUIDE_coc_010",
+      "heading": "Behavior / agitation / new confusion: red flags",
+      "text": "Escalate immediately per facility emergency protocol for any danger to self/others, severe aggression, suspected stroke symptoms, severe respiratory distress, uncontrolled bleeding, or rapidly declining level of consciousness. Ensure safety measures and obtain assistance early.",
+      "keywords": [
+        "behavior",
+        "confusion",
+        "red flags",
+        "emergency"
+      ],
+      "tags": [
+        "behavior",
+        "acute change",
+        "red flags",
+        "escalation"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "section_id": "KB_COC_GUIDE_coc_011",
+      "heading": "Behavior / acute mental status change: reversible causes checklist",
+      "text": "Assess for common reversible contributors: pain, constipation, urinary retention/UTI symptoms, fever/respiratory symptoms, dehydration/poor intake, hypoxia, hypoglycemia, medication changes (new meds, dose changes, PRNs), sleep disruption, and environmental triggers. Obtain vitals and compare to baseline; perform focused neuro/mental status assessment.",
+      "keywords": [
+        "delirium",
+        "pain",
+        "constipation",
+        "dehydration",
+        "hypoxia",
+        "hypoglycemia",
+        "med changes"
+      ],
+      "tags": [
+        "behavior",
+        "mental status",
+        "assessment",
+        "reversible causes"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "section_id": "KB_COC_GUIDE_coc_020",
+      "heading": "Refusal of medication/treatment: informed refusal steps",
+      "text": "Clarify what is refused and why; assess understanding/decision-making capacity as appropriate; explain risks/benefits and alternatives in plain language; offer reasonable alternatives (timing, formulation, comfort measures) when safe; re-approach per plan; notify provider and resident representative/EC as indicated; document education provided, resident statements, notifications, and follow-up plan.",
+      "keywords": [
+        "refusal",
+        "informed refusal",
+        "capacity",
+        "education",
+        "alternatives"
+      ],
+      "tags": [
+        "refusal",
+        "resident rights",
+        "documentation",
+        "provider notification"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "section_id": "KB_COC_GUIDE_coc_021",
+      "heading": "Refusal: documentation that surveyors expect",
+      "text": "Document: (1) the specific med/treatment refused, (2) resident stated reason, (3) education provided and response, (4) capacity/representative involvement when applicable, (5) provider notification and orders, (6) safety monitoring and re-approach plan, and (7) any harm-reduction steps taken.",
+      "keywords": [
+        "survey",
+        "documentation",
+        "refusal"
+      ],
+      "tags": [
+        "refusal",
+        "survey",
+        "documentation",
+        "care plan"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "section_id": "KB_COC_GUIDE_coc_030",
+      "heading": "New symptoms: triage and escalation",
+      "text": "Capture objective data first: full vital signs, symptom onset/time course, baseline comparison, and focused assessment (respiratory, urinary, GI, wound, neuro, pain). Escalate promptly for chest pain, new unilateral weakness/facial droop, acute shortness of breath, persistent SpO2 decline, uncontrolled bleeding, or rapid deterioration.",
+      "keywords": [
+        "symptoms",
+        "triage",
+        "chest pain",
+        "stroke",
+        "shortness of breath",
+        "SpO2"
+      ],
+      "tags": [
+        "symptoms",
+        "triage",
+        "red flags",
+        "escalation"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "section_id": "KB_COC_GUIDE_coc_040",
+      "heading": "Provider notification: SBAR template",
+      "text": "S: What changed and why you are calling now. B: Baseline diagnosis/status, relevant history, recent meds/changes, allergies. A: Objective assessment (vitals, focused findings) and what you think is happening. R: What you need (orders, transfer eval, labs, monitoring parameters) and what you have already done.",
+      "keywords": [
+        "SBAR",
+        "provider notification"
+      ],
+      "tags": [
+        "SBAR",
+        "provider notification",
+        "communication",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "section_id": "KB_COC_GUIDE_coc_050",
+      "heading": "Packet-building: what to attach (survey-ready)",
+      "text": "For survey-ready packets, attach: facility Change-of-Condition policy (documentation and notification expectations), any relevant F-tag/Appendix PP interpretive guidance section(s), resident rights reference for refusals, and the SBAR template. Include citations with source title and effective date/last update, plus a concise event timeline.",
+      "keywords": [
+        "packet",
+        "survey",
+        "citations"
+      ],
+      "tags": [
+        "packet",
+        "survey",
+        "citations",
+        "change of condition"
+      ]
+    }
+  ]
+}

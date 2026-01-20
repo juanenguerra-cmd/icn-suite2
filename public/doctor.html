@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover" />
+  <title>ICN Suite — Schema Doctor</title>
+  <link rel="stylesheet" href="/icn-theme.css?v=7" />
+  <style>
+    body{ margin:0; }
+    .mono{ font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; }
+    .grid{ display:grid; grid-template-columns: 1fr; gap: 12px; }
+    @media(min-width: 980px){ .grid{ grid-template-columns: 1fr 1fr; } }
+    textarea{ width:100%; min-height: 220px; }
+    .tiny{ font-size: 12px; color: var(--icn-muted); }
+  </style>
+</head>
+<body>
+  <div class="icn-wrap">
+    <div class="icn-appbar">
+      <div class="icn-brand">
+        <div class="icn-logo" aria-hidden="true"></div>
+        <div>
+          <p class="icn-title">ICN Suite</p>
+          <p class="icn-subtitle">Schema Doctor — Stage 7.1</p>
+        </div>
+      </div>
+      <nav class="icn-tabs">
+        <a class="icn-tab" href="/ops?v=7"><span class="icn-dot"></span>Ops Pro</a>
+        <a class="icn-tab" href="/backup?v=7"><span class="icn-dot"></span>Backup</a>
+        <a class="icn-tab" href="/reports?v=7"><span class="icn-dot"></span>Reports</a>
+        <a class="icn-tab active" href="/doctor?v=7"><span class="icn-dot"></span>Doctor</a>
+      </nav>
+    </div>
+
+    <div class="icn-card">
+      <h1 class="icn-h1">Schema Doctor</h1>
+      <p class="icn-p">Detects your tracker localStorage key, creates a backup, and normalizes data into the canonical modules shape so all pages see consistent data.</p>
+
+      <div class="icn-pill">Build: <span class="mono">2026-01-20T05:01:23Z</span></div>
+
+      <div class="icn-hr"></div>
+
+      <div class="grid">
+        <div>
+          <div class="icn-pill">Detected key: <span id="key" class="mono">—</span></div>
+          <div class="icn-pill" style="margin-left:8px;">Wrapped: <span id="wrapped" class="mono">—</span></div>
+          <div class="icn-pill" style="margin-left:8px;">Latest backup: <span id="backupKey" class="mono">—</span></div>
+
+          <div class="icn-hr"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="detect" class="icn-btn">Detect</button>
+            <button id="run" class="icn-btn primary">Run Schema Doctor</button>
+            <button id="restore" class="icn-btn">Restore latest backup</button>
+          </div>
+
+          <p class="tiny" style="margin-top:10px;">
+            Canonical target:
+            <span class="mono">modules.abt.courses[]</span>,
+            <span class="mono">modules.vaccinations.records[]</span>,
+            <span class="mono">modules.ip.cases[]</span>,
+            and <span class="mono">residentsById{}</span>.
+          </p>
+
+          <label class="icn-label">Log</label>
+          <textarea id="log" class="icn-textarea mono" readonly></textarea>
+        </div>
+
+        <div>
+          <label class="icn-label">State summary (before / after)</label>
+          <textarea id="summary" class="icn-textarea mono" readonly></textarea>
+          <label class="icn-label">Raw preview (first 1200 chars)</label>
+          <textarea id="raw" class="icn-textarea mono" readonly></textarea>
+        </div>
+      </div>
+
+      <div class="icn-footer">If anything looks wrong, click “Restore latest backup” and you’re back.</div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const BACKUP_PREFIX = "icn_state_backup_";
+  const LATEST_BACKUP_KEY = "icn_latest_backup_key_v1";
+
+  const els = {
+    key: document.getElementById("key"),
+    wrapped: document.getElementById("wrapped"),
+    backupKey: document.getElementById("backupKey"),
+    detect: document.getElementById("detect"),
+    run: document.getElementById("run"),
+    restore: document.getElementById("restore"),
+    log: document.getElementById("log"),
+    summary: document.getElementById("summary"),
+    raw: document.getElementById("raw"),
+  };
+
+  function ts(){ return new Date().toISOString().replace("T"," ").replace("Z",""); }
+  function log(line){ els.log.value = `[${ts()}] ${line}\n` + (els.log.value || ""); }
+  function safeParse(raw){ try{ return JSON.parse(raw); }catch(e){ return null; } }
+
+  function scoreState(state){
+    let s = 0;
+    if(!state || typeof state !== "object") return 0;
+    if(state.modules && typeof state.modules === "object") s += 5;
+    if(state.modules?.abt?.courses && Array.isArray(state.modules.abt.courses)) s += 5;
+    if(state.modules?.vaccinations?.records && Array.isArray(state.modules.vaccinations.records)) s += 5;
+    if(state.modules?.ip?.cases && Array.isArray(state.modules.ip.cases)) s += 5;
+    if(Array.isArray(state.abt) || Array.isArray(state.antibiotics)) s += 3;
+    if(Array.isArray(state.vaccinations) || Array.isArray(state.vax)) s += 3;
+    if(Array.isArray(state.ipCases) || Array.isArray(state.ip) || Array.isArray(state.cases)) s += 3;
+    if(state.residentsById && typeof state.residentsById === "object" && !Array.isArray(state.residentsById)) s += 2;
+    return s;
+  }
+
+  function detectKey(){
+    const keys = Object.keys(localStorage);
+    let best = null;
+    for(const k of keys){
+      const raw = localStorage.getItem(k);
+      if(!raw || raw.length < 20) continue;
+      if(raw[0] !== "{" && raw[0] !== "[") continue;
+      const obj = safeParse(raw);
+      if(!obj || typeof obj !== "object") continue;
+      const wrapped = !!obj.state;
+      const state = wrapped ? obj.state : obj;
+      const sc = scoreState(state);
+      if(sc <= 0) continue;
+      if(!best || sc > best.score) best = { key:k, wrapped, score: sc };
+    }
+    return best;
+  }
+
+  function getObjAndState(det){
+    const raw = localStorage.getItem(det.key) || "";
+    const obj = safeParse(raw);
+    const state = det.wrapped ? (obj && obj.state ? obj.state : {}) : (obj || {});
+    return { raw, obj, state };
+  }
+
+  function setSummary(label, state){
+    const mods = state.modules || {};
+    const abt = (mods.abt && Array.isArray(mods.abt.courses)) ? mods.abt.courses.length : 0;
+    const vax = (mods.vaccinations && Array.isArray(mods.vaccinations.records)) ? mods.vaccinations.records.length : 0;
+    const ip  = (mods.ip && Array.isArray(mods.ip.cases)) ? mods.ip.cases.length : 0;
+    const alt = {
+      abt: (Array.isArray(state.abt) ? state.abt.length : (Array.isArray(state.antibiotics) ? state.antibiotics.length : 0)),
+      vax: (Array.isArray(state.vaccinations) ? state.vaccinations.length : (Array.isArray(state.vax) ? state.vax.length : 0)),
+      ip:  (Array.isArray(state.ipCases) ? state.ipCases.length : (Array.isArray(state.ip) ? state.ip.length : (Array.isArray(state.cases) ? state.cases.length : 0)))
+    };
+    const resCount = state.residentsById && typeof state.residentsById === "object" ? Object.keys(state.residentsById).length : 0;
+    return [
+      `${label}`,
+      `modules.abt.courses: ${abt}`,
+      `modules.vaccinations.records: ${vax}`,
+      `modules.ip.cases: ${ip}`,
+      `legacy arrays — abt: ${alt.abt}, vax: ${alt.vax}, ip: ${alt.ip}`,
+      `residentsById keys: ${resCount}`,
+      `migrations: ${JSON.stringify(state.migrations || {}, null, 0)}`
+    ].join("\n");
+  }
+
+  function backupKeyName(){
+    const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
+    return BACKUP_PREFIX + stamp;
+  }
+
+  function ensure(obj, path, def){
+    const parts = path.split(".");
+    let cur = obj;
+    for(let i=0;i<parts.length;i++){ 
+      const p = parts[i];
+      if(i === parts.length-1){ 
+        if(cur[p] === undefined) cur[p] = def;
+        return cur[p];
+      }
+      if(cur[p] === undefined || cur[p] === null || typeof cur[p] !== "object") cur[p] = {};
+      cur = cur[p];
+    }
+    return null;
+  }
+
+  function mergeArray(into, from){
+    if(!Array.isArray(from) || !from.length) return 0;
+    if(!Array.isArray(into)) return 0;
+    let add = 0;
+    for(const r of from){ into.push(r); add++; }
+    return add;
+  }
+
+  function runDoctor(){
+    const det = detectKey();
+    if(!det){ alert("No tracker state detected. Open your React tracker once, then retry."); return; }
+    els.key.textContent = det.key;
+    els.wrapped.textContent = det.wrapped ? "YES" : "NO";
+
+    const beforeRaw = localStorage.getItem(det.key) || "";
+    const bkey = backupKeyName();
+    localStorage.setItem(bkey, beforeRaw);
+    localStorage.setItem(LATEST_BACKUP_KEY, bkey);
+    els.backupKey.textContent = bkey;
+    log(`Backup created: ${bkey}`);
+
+    const { raw, obj, state } = getObjAndState(det);
+    const beforeSummary = setSummary("BEFORE", state);
+
+    ensure(state, "modules", {});
+    ensure(state, "modules.abt", {});
+    ensure(state, "modules.abt.courses", []);
+    ensure(state, "modules.vaccinations", {});
+    ensure(state, "modules.vaccinations.records", []);
+    ensure(state, "modules.ip", {});
+    ensure(state, "modules.ip.cases", []);
+    ensure(state, "residentsById", {});
+    ensure(state, "migrations", {});
+
+    const abtLegacy = Array.isArray(state.abt) ? state.abt : (Array.isArray(state.antibiotics) ? state.antibiotics : []);
+    const vaxLegacy = Array.isArray(state.vaccinations) ? state.vaccinations : (Array.isArray(state.vax) ? state.vax : []);
+    const ipLegacy  = Array.isArray(state.ipCases) ? state.ipCases : (Array.isArray(state.ip) ? state.ip : (Array.isArray(state.cases) ? state.cases : []));
+
+    const addAbt = mergeArray(state.modules.abt.courses, abtLegacy);
+    const addVax = mergeArray(state.modules.vaccinations.records, vaxLegacy);
+    const addIp  = mergeArray(state.modules.ip.cases, ipLegacy);
+
+    if(Array.isArray(state.abt)) state.abt = [];
+    if(Array.isArray(state.antibiotics)) state.antibiotics = [];
+    if(Array.isArray(state.vaccinations)) state.vaccinations = [];
+    if(Array.isArray(state.vax)) state.vax = [];
+    if(Array.isArray(state.ipCases)) state.ipCases = [];
+    if(Array.isArray(state.ip)) state.ip = [];
+    if(Array.isArray(state.cases)) state.cases = [];
+
+    state.migrations.schemaDoctorV1 = new Date().toISOString();
+    state.migrations.schemaDoctorMoved = { abt: addAbt, vaccinations: addVax, ip: addIp };
+
+    if(det.wrapped){ obj.state = state; localStorage.setItem(det.key, JSON.stringify(obj)); }
+    else { localStorage.setItem(det.key, JSON.stringify(state)); }
+
+    const afterSummary = setSummary("AFTER", state);
+    els.summary.value = beforeSummary + "\n\n" + afterSummary;
+    els.raw.value = (localStorage.getItem(det.key) || "").slice(0,1200);
+
+    log(`Moved → ABT: +${addAbt}, VAX: +${addVax}, IP: +${addIp}`);
+    log("Done. Refresh your tracker + reports.");
+    alert("Schema Doctor complete. Open Reports and refresh.");
+  }
+
+  function doDetect(){
+    const det = detectKey();
+    if(!det){ els.key.textContent = "NOT FOUND"; els.wrapped.textContent = "—"; log("No tracker key detected."); return; }
+    els.key.textContent = det.key;
+    els.wrapped.textContent = det.wrapped ? "YES" : "NO";
+    const { raw, obj, state } = getObjAndState(det);
+    els.summary.value = setSummary("CURRENT", state);
+    els.raw.value = raw.slice(0,1200);
+    const latest = localStorage.getItem(LATEST_BACKUP_KEY) || "";
+    els.backupKey.textContent = latest || "—";
+    log(`Detected key: ${det.key} (score ${det.score})`);
+  }
+
+  function restoreLatest(){
+    const det = detectKey();
+    if(!det){ alert("No tracker key detected."); return; }
+    const latest = localStorage.getItem(LATEST_BACKUP_KEY) || "";
+    if(!latest){ alert("No latest backup key found."); return; }
+    const raw = localStorage.getItem(latest);
+    if(raw === null){ alert("Latest backup not found in localStorage."); return; }
+    localStorage.setItem(det.key, raw);
+    log(`Restored backup ${latest} into ${det.key}`);
+    doDetect();
+    alert("Restored. Refresh the tracker.");
+  }
+
+  els.detect.addEventListener("click", doDetect);
+  els.run.addEventListener("click", runDoctor);
+  els.restore.addEventListener("click", restoreLatest);
+
+  doDetect();
+})();
+</script>
+</body>
+</html>

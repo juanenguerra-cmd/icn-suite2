@@ -15,4 +15,6 @@
 /backup/ /backup.html 200
 /ops /ops.html 200
 /ops/ /ops.html 200
+/doctor /doctor.html 200
+/doctor/ /doctor.html 200
 /* /index.html 200

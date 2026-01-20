@@ -3,20 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover" />
-  <title>ICN Suite — Ops Dashboard</title>
-  <link rel="stylesheet" href="/icn-theme.css" />
+  <title>ICN Suite — Ops Pro</title>
+  <link rel="stylesheet" href="/icn-theme.css?v=6" />
   <style>
     body{ margin:0; }
+    .mono{ font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; }
     .ops-shell{ min-height:100vh; display:flex; flex-direction:column; }
-    .ops-main{ flex:1 1 auto; }
-    .ops-frame{ width:100%; height: calc(100vh - 120px); border:0; border-radius: 18px; box-shadow: var(--icn-shadow); background:#fff; }
-    @media (max-width: 480px){
-      .ops-frame{ height: calc(100vh - 132px); }
-    }
+    .ops-frame{ width:100%; height: calc(100vh - 176px); border:0; border-radius: 18px; box-shadow: var(--icn-shadow); background:#fff; }
+    @media (max-width: 480px){ .ops-frame{ height: calc(100vh - 196px); } }
     .ops-actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
     .ops-actions a{ text-decoration:none; }
+    .ops-grid{ display:grid; grid-template-columns: 1fr; gap: 12px; }
+    @media(min-width: 980px){ .ops-grid{ grid-template-columns: 1.3fr .7fr; align-items:start; } }
+    .ops-widgets{ display:grid; grid-template-columns: 1fr; gap: 10px; }
+    @media(min-width: 980px){ .ops-widgets{ position: sticky; top: 96px; } }
+    .widget{ border:1px solid var(--icn-border); border-radius: 18px; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); box-shadow: var(--icn-shadow-sm); padding: 12px; }
+    .wtitle{ font-size: 12px; color: var(--icn-muted); margin:0 0 6px; }
+    .wbig{ font-size: 20px; font-weight: 800; margin:0; letter-spacing: .2px; }
+    .wsub{ font-size: 12px; color: var(--icn-muted); margin: 4px 0 0; line-height: 1.2; }
+    .badge{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius: 9999px; border:1px solid rgba(37,99,235,.35); background: rgba(37,99,235,.08); color: var(--icn-text); font-size: 12px; }
+    .badge strong{ font-weight: 800; }
     .ops-note{ font-size:12px; color: var(--icn-muted); margin: 8px 0 0; }
-    .mono{ font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; }
+    .ops-topline{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
   </style>
 </head>
 <body>
@@ -27,40 +35,93 @@
           <div class="icn-logo" aria-hidden="true"></div>
           <div>
             <p class="icn-title">ICN Suite</p>
-            <p class="icn-subtitle">Ops Dashboard — single place to work</p>
+            <p class="icn-subtitle">Ops Pro — Local First</p>
           </div>
         </div>
 
         <nav class="icn-tabs" id="tabs">
-          <a class="icn-tab active" data-src="/entry" href="#entry"><span class="icn-dot"></span>Entry</a>
-          <a class="icn-tab" data-src="/protex" href="#protex"><span class="icn-dot"></span>Protex</a>
-          <a class="icn-tab" data-src="/apply" href="#apply"><span class="icn-dot"></span>Apply</a>
-          <a class="icn-tab" data-src="/reports" href="#reports"><span class="icn-dot"></span>Reports</a>
-          <a class="icn-tab" data-src="/backup" href="#backup"><span class="icn-dot"></span>Backup</a>
-          <a class="icn-tab" data-src="/import" href="#collector"><span class="icn-dot"></span>Collector</a>
-          <a class="icn-tab" data-src="/working" href="#working"><span class="icn-dot"></span>Working</a>
+          <a class="icn-tab active" data-src="/entry?v=6" href="#entry"><span class="icn-dot"></span>Entry</a>
+          <a class="icn-tab" data-src="/protex?v=6" href="#protex"><span class="icn-dot"></span>Protex</a>
+          <a class="icn-tab" data-src="/apply?v=6" href="#apply"><span class="icn-dot"></span>Apply</a>
+          <a class="icn-tab" data-src="/reports?v=6" href="#reports"><span class="icn-dot"></span>Reports</a>
+          <a class="icn-tab" data-src="/backup?v=6" href="#backup"><span class="icn-dot"></span>Backup</a>
+          <a class="icn-tab" data-src="/import?v=6" href="#collector"><span class="icn-dot"></span>Collector</a>
+          <a class="icn-tab" data-src="/working?v=6" href="#working"><span class="icn-dot"></span>Working</a>
         </nav>
       </div>
 
       <div class="icn-card">
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-          <div>
-            <div class="icn-pill">Local-first • Entry/Protex → Queue → Apply → Reports</div>
-            <div class="ops-note">Tip: if you don’t see changes after deploy, add <span class="mono">?v=5</span> to bypass cache.</div>
+        <div class="ops-topline">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <span class="badge"><strong>OPS PRO v6</strong> <span class="mono">2026-01-20T04:33:10Z</span></span>
+            <span class="icn-pill">Local-first • Entry/Protex → Queue → Apply → Reports</span>
           </div>
           <div class="ops-actions">
-            <a id="openNew" href="/entry" target="_blank" rel="noopener"><button class="icn-btn">Open in new tab</button></a>
+            <a id="openNew" href="/entry?v=6" target="_blank" rel="noopener"><button class="icn-btn">Open current tab in new window</button></a>
             <button id="reload" class="icn-btn primary">Reload view</button>
           </div>
         </div>
 
-        <div class="icn-hr"></div>
+        <div class="ops-grid" style="margin-top:12px;">
+          <div>
+            <iframe id="frame" class="ops-frame" src="/entry?v=6" loading="eager"></iframe>
+            <div class="ops-note">If you just deployed and still see an old look, open <span class="mono">/ops?v=6</span>.</div>
+          </div>
+          <div class="ops-widgets">
+            <div class="widget">
+              <p class="wtitle">Queue items</p>
+              <p class="wbig" id="qCount">—</p>
+              <p class="wsub mono">icn_import_queue_v1</p>
+              <div style="margin-top:10px;">
+                <button id="goApply" class="icn-btn primary" style="width:100%;">Go to Apply</button>
+              </div>
+            </div>
 
-        <div class="ops-main">
-          <iframe id="frame" class="ops-frame" src="/entry" loading="eager"></iframe>
+            <div class="widget">
+              <p class="wtitle">Last backup</p>
+              <p class="wbig" id="bWhen">—</p>
+              <p class="wsub mono">icn_last_backup_at_v1</p>
+              <div style="margin-top:10px;">
+                <button id="goBackup" class="icn-btn" style="width:100%;">Open Backup Center</button>
+              </div>
+            </div>
+
+            <div class="widget">
+              <p class="wtitle">ABT active courses</p>
+              <p class="wbig" id="abtActive">—</p>
+              <p class="wsub" id="abtTop">Top: —</p>
+            </div>
+
+            <div class="widget">
+              <p class="wtitle">IP active cases</p>
+              <p class="wbig" id="ipActive">—</p>
+              <p class="wsub">Filter: status ACTIVE</p>
+            </div>
+
+            <div class="widget">
+              <p class="wtitle">Vaccination records</p>
+              <p class="wbig" id="vaxTotal">—</p>
+              <p class="wsub">Snapshot counts on Reports tab</p>
+            </div>
+
+            <div class="widget">
+              <p class="wtitle">Detected tracker key</p>
+              <p class="wbig mono" id="storeKey" style="font-size:12px; font-weight:700;">—</p>
+              <p class="wsub">Open the React tracker once if not detected.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="icn-footer">Ops Dashboard is a wrapper. Data stays local in your browser.</div>
+        
+            <div class="widget">
+              <p class="wtitle">Schema Doctor</p>
+              <p class="wsub">Normalize legacy arrays into modules.* so all pages see consistent data.</p>
+              <div style="margin-top:10px;">
+                <a href="/doctor?v=7" style="text-decoration:none;"><button class="icn-btn primary" style="width:100%;">Run Schema Doctor</button></a>
+              </div>
+            </div>
+
+<div class="icn-footer">Ops Pro is a wrapper; your data stays local in your browser.</div>
       </div>
     </div>
   </div>
@@ -71,6 +132,21 @@
   const frame = document.getElementById("frame");
   const openNew = document.getElementById("openNew");
   const reload = document.getElementById("reload");
+
+  const QUEUE_KEY = "icn_import_queue_v1";
+  const LAST_BACKUP_AT_KEY = "icn_last_backup_at_v1";
+
+  const els = {
+    qCount: document.getElementById("qCount"),
+    bWhen: document.getElementById("bWhen"),
+    abtActive: document.getElementById("abtActive"),
+    abtTop: document.getElementById("abtTop"),
+    ipActive: document.getElementById("ipActive"),
+    vaxTotal: document.getElementById("vaxTotal"),
+    storeKey: document.getElementById("storeKey"),
+    goApply: document.getElementById("goApply"),
+    goBackup: document.getElementById("goBackup"),
+  };
 
   function setActive(link){
     Array.from(tabs.querySelectorAll(".icn-tab")).forEach(a => a.classList.remove("active"));
@@ -84,8 +160,16 @@
 
   function routeFromHash(){
     const h = (location.hash || "").replace("#","");
-    const map = { entry:"/entry", protex:"/protex", apply:"/apply", reports:"/reports", backup:"/backup", collector:"/import", working:"/working" };
-    return map[h] || "/entry";
+    const map = {
+      entry: "/entry?v=6",
+      protex: "/protex?v=6",
+      apply: "/apply?v=6",
+      reports: "/reports?v=6",
+      backup: "/backup?v=6",
+      collector: "/import?v=6",
+      working: "/working?v=6"
+    };
+    return map[h] || "/entry?v=6";
   }
 
   tabs.addEventListener("click", (e) => {
@@ -102,10 +186,138 @@
     try{ frame.contentWindow.location.reload(); }catch(e){ frame.src = frame.src; }
   });
 
+  function detectKey(){
+    const keys = Object.keys(localStorage);
+    for(const k of keys){
+      const raw = localStorage.getItem(k);
+      if(!raw || raw.length < 20) continue;
+      if(raw[0] !== "{") continue;
+      try{
+        const obj = JSON.parse(raw);
+        const state = obj && obj.state ? obj.state : obj;
+        if(state && typeof state === "object"){
+          const has = (state.modules && typeof state.modules === "object") ||
+                      (state.residentsById && typeof state.residentsById === "object") ||
+                      Array.isArray(state.abt) || Array.isArray(state.antibiotics) ||
+                      Array.isArray(state.vaccinations) || Array.isArray(state.vax) ||
+                      Array.isArray(state.ipCases) || Array.isArray(state.ip) ||
+                      (state.modules && state.modules.abt && Array.isArray(state.modules.abt.courses)) ||
+                      (state.modules && state.modules.vaccinations && Array.isArray(state.modules.vaccinations.records)) ||
+                      (state.modules && state.modules.ip && Array.isArray(state.modules.ip.cases));
+          if(has) return { key:k, wrapped: !!obj.state };
+        }
+      }catch(e){}
+    }
+    return null;
+  }
+
+  function getState(det){
+    if(!det) return null;
+    const raw = localStorage.getItem(det.key);
+    if(!raw) return null;
+    const obj = JSON.parse(raw);
+    return det.wrapped ? obj.state : obj;
+  }
+
+  function toISODate(s){
+    if(!s) return "";
+    const t = String(s).trim();
+    if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+    const m = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m){
+      const mm = String(parseInt(m[1],10)).padStart(2,"0");
+      const dd = String(parseInt(m[2],10)).padStart(2,"0");
+      return `${m[3]}-${mm}-${dd}`;
+    }
+    const m2 = t.match(/^(\d{4}-\d{2}-\d{2})T/);
+    if(m2) return m2[1];
+    return t;
+  }
+
+  function activeABT(records, today){
+    return records.filter(r => {
+      const end = toISODate(r.end || r.endDate || "");
+      return !end || end >= today;
+    });
+  }
+
+  function activeIP(cases){
+    return cases.filter(c => String(c.status || c.caseStatus || "ACTIVE").toUpperCase() === "ACTIVE");
+  }
+
+  function groupCount(items, keyFn){
+    const m = {};
+    items.forEach(x => {
+      const k = keyFn(x);
+      if(!k) return;
+      m[k] = (m[k] || 0) + 1;
+    });
+    return Object.entries(m).sort((a,b)=>b[1]-a[1]);
+  }
+
+  function fmtWhen(iso){
+    if(!iso) return "NEVER";
+    return iso.replace("T"," ").replace("Z","");
+  }
+
+  function refreshHealth(){
+    let qCount = 0;
+    try{
+      const q = JSON.parse(localStorage.getItem(QUEUE_KEY) || "[]");
+      qCount = Array.isArray(q) ? q.length : 0;
+    }catch(e){}
+    els.qCount.textContent = String(qCount);
+
+    els.bWhen.textContent = fmtWhen(localStorage.getItem(LAST_BACKUP_AT_KEY) || "");
+
+    const det = detectKey();
+    els.storeKey.textContent = det ? det.key : "NOT FOUND";
+    const state = det ? getState(det) : null;
+    if(!state){
+      els.abtActive.textContent = "—";
+      els.abtTop.textContent = "Top: —";
+      els.ipActive.textContent = "—";
+      els.vaxTotal.textContent = "—";
+      return;
+    }
+
+    const today = new Date().toISOString().slice(0,10);
+
+    const abt = (state.modules && state.modules.abt && Array.isArray(state.modules.abt.courses)) ? state.modules.abt.courses :
+                (Array.isArray(state.abt) ? state.abt : (Array.isArray(state.antibiotics) ? state.antibiotics : []));
+    const ip  = (state.modules && state.modules.ip && Array.isArray(state.modules.ip.cases)) ? state.modules.ip.cases :
+                (Array.isArray(state.ipCases) ? state.ipCases : (Array.isArray(state.ip) ? state.ip : []));
+    const vax = (state.modules && state.modules.vaccinations && Array.isArray(state.modules.vaccinations.records)) ? state.modules.vaccinations.records :
+                ((state.modules && state.modules.vax && Array.isArray(state.modules.vax.records)) ? state.modules.vax.records :
+                (Array.isArray(state.vaccinations) ? state.vaccinations : (Array.isArray(state.vax) ? state.vax : [])));
+
+    const abtA = activeABT(abt, today);
+    const ipA = activeIP(ip);
+
+    els.abtActive.textContent = String(abtA.length);
+    els.ipActive.textContent = String(ipA.length);
+    els.vaxTotal.textContent = String(vax.length);
+
+    const top = groupCount(abtA, r => String(r.antibiotic || r.med || r.drug || "").trim()).slice(0,1);
+    els.abtTop.textContent = top.length ? ("Top: " + top[0][0] + " (" + top[0][1] + ")") : "Top: —";
+  }
+
+  els.goApply.addEventListener("click", () => {
+    const link = Array.from(tabs.querySelectorAll(".icn-tab")).find(a => (a.getAttribute("href") || "") === "#apply");
+    if(link) link.click();
+  });
+  els.goBackup.addEventListener("click", () => {
+    const link = Array.from(tabs.querySelectorAll(".icn-tab")).find(a => (a.getAttribute("href") || "") === "#backup");
+    if(link) link.click();
+  });
+
   const initialSrc = routeFromHash();
   const initialLink = Array.from(tabs.querySelectorAll(".icn-tab")).find(a => a.getAttribute("data-src") === initialSrc);
   if(initialLink) setActive(initialLink);
   setSrc(initialSrc);
+
+  refreshHealth();
+  setInterval(refreshHealth, 4000);
 })();
 </script>
 </body>

@@ -1,0 +1,445 @@
+{
+  "sources": [
+    {
+      "source_id": "POL_COC_01",
+      "type": "facility_policy",
+      "title": "Change of Condition / Provider Notification Policy",
+      "jurisdiction": "Facility",
+      "effective_date": "2026-01-01",
+      "review_by": "2026-12-31",
+      "url_or_location": "Binder: Nursing Admin \u2192 Policies \u2192 Change of Condition",
+      "tags": [
+        "change of condition",
+        "SBAR",
+        "provider notification",
+        "documentation"
+      ]
+    },
+    {
+      "source_id": "POL_IP_01",
+      "type": "facility_policy",
+      "title": "Infection Prevention Policy",
+      "jurisdiction": "Facility",
+      "effective_date": "2026-01-01",
+      "review_by": "2026-12-31",
+      "url_or_location": "Binder: IP \u2192 Policies",
+      "tags": [
+        "infection",
+        "isolation",
+        "precautions",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "POL_FALL_01",
+      "type": "facility_policy",
+      "title": "Falls: Post-Fall Assessment & Monitoring",
+      "jurisdiction": "Facility",
+      "effective_date": "2026-01-01",
+      "review_by": "2026-12-31",
+      "url_or_location": "Binder: Nursing \u2192 Falls Program",
+      "tags": [
+        "fall",
+        "post-fall",
+        "neuro checks",
+        "incident report"
+      ]
+    },
+    {
+      "source_id": "CMS_APP_PP",
+      "type": "interpretive_guidance",
+      "title": "CMS State Operations Manual Appendix PP (LTC Guidance to Surveyors)",
+      "jurisdiction": "Federal",
+      "effective_date": "2024-08-08",
+      "review_by": "",
+      "url_or_location": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "tags": [
+        "cms",
+        "appendix pp",
+        "survey",
+        "ftag",
+        "interpretive guidance",
+        "ltc"
+      ]
+    },
+    {
+      "source_id": "CDC_IC",
+      "type": "guideline",
+      "title": "CDC Infection Control: Core Practices + Precautions (Healthcare Settings)",
+      "jurisdiction": "CDC",
+      "effective_date": "2024-04-12",
+      "review_by": "",
+      "url_or_location": "https://www.cdc.gov/infection-control/hcp/core-practices/index.html",
+      "tags": [
+        "cdc",
+        "infection control",
+        "standard precautions",
+        "transmission-based precautions",
+        "ppe",
+        "hand hygiene"
+      ]
+    },
+    {
+      "source_id": "NYS_DOH_IP",
+      "type": "guideline",
+      "title": "NYSDOH Nursing Home Resident Rights / Abuse Reporting / IP Guidance (Landing)",
+      "jurisdiction": "New York",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.health.ny.gov/facilities/nursing/rights/",
+      "tags": [
+        "nysdoh",
+        "nursing home",
+        "resident rights",
+        "abuse reporting",
+        "complaint",
+        "infection prevention"
+      ]
+    },
+    {
+      "source_id": "ECFR_42CFR483",
+      "type": "regulation",
+      "title": "42 CFR Part 483 \u2013 Requirements for States and Long Term Care Facilities (eCFR)",
+      "jurisdiction": "Federal",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483",
+      "tags": [
+        "ecfr",
+        "42 cfr 483",
+        "regulation",
+        "resident rights",
+        "ltc"
+      ]
+    },
+    {
+      "source_id": "CDC_CORE_PRACTICES_PDF",
+      "type": "guideline",
+      "title": "CDC/HICPAC Core Infection Prevention and Control Practices (PDF)",
+      "jurisdiction": "CDC",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://stacks.cdc.gov/view/cdc/134781/cdc_134781_DS1.pdf",
+      "tags": [
+        "cdc",
+        "hicpac",
+        "core practices",
+        "infection prevention",
+        "all settings"
+      ]
+    },
+    {
+      "source_id": "CDC_LTCF_RESOURCES",
+      "type": "guideline",
+      "title": "CDC Infection Prevention and Long-term Care Facility Residents (LTCFs)",
+      "jurisdiction": "CDC",
+      "effective_date": "2024-03-26",
+      "review_by": "",
+      "url_or_location": "https://www.cdc.gov/long-term-care-facilities/about/index.html",
+      "tags": [
+        "cdc",
+        "ltcf",
+        "nursing home",
+        "infection prevention",
+        "resident education"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF",
+      "type": "guideline",
+      "title": "CDC NHSN Long-term Care Facility (LTCF) Component",
+      "jurisdiction": "CDC",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.cdc.gov/nhsn/ltc/index.html",
+      "tags": [
+        "cdc",
+        "nhsn",
+        "ltcf",
+        "surveillance",
+        "uti",
+        "mdro",
+        "cdi",
+        "vaccination"
+      ]
+    },
+    {
+      "source_id": "CDC_RESP_VIRUS_TOOLKIT",
+      "type": "toolkit",
+      "title": "CDC Viral Respiratory Pathogens Toolkit for Nursing Homes",
+      "jurisdiction": "CDC",
+      "effective_date": "2026-01-09",
+      "review_by": "",
+      "url_or_location": "https://www.cdc.gov/long-term-care-facilities/hcp/respiratory-virus-toolkit/index.html",
+      "tags": [
+        "cdc",
+        "nursing home",
+        "respiratory virus",
+        "influenza",
+        "rsv",
+        "covid-19",
+        "outbreak"
+      ]
+    },
+    {
+      "source_id": "IHI_SBAR",
+      "type": "tool",
+      "title": "IHI SBAR Tool (Situation\u2013Background\u2013Assessment\u2013Recommendation)",
+      "jurisdiction": "IHI",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.ihi.org/library/tools/sbar-tool-situation-background-assessment-recommendation",
+      "tags": [
+        "sbar",
+        "communication",
+        "provider notification",
+        "change of condition",
+        "handoff"
+      ]
+    },
+    {
+      "source_id": "AHRQ_LTC_MOD2_TOOLS",
+      "type": "toolkit",
+      "title": "AHRQ Long-Term Care: Communicating Change in a Resident\u2019s Condition (Tools)",
+      "jurisdiction": "AHRQ",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.ahrq.gov/patient-safety/settings/long-term-care/resource/facilities/ltc/mod2tools.html",
+      "tags": [
+        "ahrq",
+        "long-term care",
+        "change in condition",
+        "communication",
+        "early warning"
+      ]
+    },
+    {
+      "source_id": "CMS_QAPI_RESOURCES",
+      "type": "guideline",
+      "title": "CMS Nursing Home QAPI Resources (includes INTERACT II link)",
+      "jurisdiction": "Federal",
+      "effective_date": "2024-09-10",
+      "review_by": "",
+      "url_or_location": "https://www.cms.gov/medicare/provider-enrollment-and-certification/qapi/qapiresources",
+      "tags": [
+        "cms",
+        "qapi",
+        "quality assurance",
+        "performance improvement",
+        "interact"
+      ]
+    },
+    {
+      "source_id": "CMS_QAPI_AT_A_GLANCE",
+      "type": "guideline",
+      "title": "CMS QAPI at a Glance (PDF)",
+      "jurisdiction": "Federal",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.cms.gov/medicare/provider-enrollment-and-certification/qapi/downloads/qapiataglance.pdf",
+      "tags": [
+        "cms",
+        "qapi",
+        "leadership",
+        "governance",
+        "quality"
+      ]
+    },
+    {
+      "source_id": "NYSDOH_RIGHTS_PDF",
+      "type": "guideline",
+      "title": "NYSDOH: Your Rights as a Nursing Home Resident in New York State (PDF)",
+      "jurisdiction": "New York",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.health.ny.gov/facilities/nursing/rights/docs/your_rights_as_a_nursing_home_resident.pdf",
+      "tags": [
+        "nysdoh",
+        "resident rights",
+        "informed consent",
+        "refusal",
+        "grievance"
+      ]
+    },
+    {
+      "source_id": "NYCRR_415_3",
+      "type": "regulation",
+      "title": "10 NYCRR 415.3 \u2013 Residents\u2019 Rights (New York)",
+      "jurisdiction": "New York",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.law.cornell.edu/regulations/new-york/10-NYCRR-415.3",
+      "tags": [
+        "nycrr",
+        "415.3",
+        "resident rights",
+        "dignity",
+        "privacy",
+        "refusal"
+      ]
+    },
+    {
+      "source_id": "NYSDOH_ABUSE_REPORT_REQ",
+      "type": "regulation",
+      "title": "NYSDOH: Patient Abuse Reporting Requirements (Nursing Homes/Hospitals)",
+      "jurisdiction": "New York",
+      "effective_date": "2001-09-06",
+      "review_by": "",
+      "url_or_location": "https://www.health.ny.gov/professionals/nursing_home_administrator/report_requirements.htm",
+      "tags": [
+        "nysdoh",
+        "abuse",
+        "neglect",
+        "mistreatment",
+        "reporting",
+        "investigation"
+      ]
+    },
+    {
+      "source_id": "NYSDOH_ABUSE_REPORT_FORM",
+      "type": "guideline",
+      "title": "NYSDOH: Nursing Home Resident Abuse & Complaint Investigation Report (PDF)",
+      "jurisdiction": "New York",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://www.health.ny.gov/facilities/nursing/rights/docs/2024_nh_resident_abuse_report.pdf",
+      "tags": [
+        "nysdoh",
+        "abuse",
+        "investigation",
+        "report",
+        "complaint"
+      ]
+    },
+    {
+      "source_id": "NYSDOH_COMPLAINT_FORM",
+      "type": "guideline",
+      "title": "NYSDOH Nursing Home Complaint Form (Online)",
+      "jurisdiction": "New York",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://apps.health.ny.gov/surveyd8/nursing-home-complaint-form",
+      "tags": [
+        "nysdoh",
+        "complaint",
+        "hotline",
+        "resident rights"
+      ]
+    },
+    {
+      "source_id": "CMS_QSO_25_14_NH",
+      "type": "policy_memo",
+      "title": "CMS QSO-25-14-NH \u2013 Revised LTC Surveyor Guidance (Appendix PP updates)",
+      "jurisdiction": "Federal",
+      "effective_date": "2025-04-28",
+      "review_by": "",
+      "url_or_location": "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+      "tags": [
+        "cms",
+        "qso",
+        "appendix pp",
+        "surveyor guidance",
+        "policy memo"
+      ]
+    },
+    {
+      "source_id": "CDC_NHSN_LTCF_MANUAL",
+      "type": "guideline",
+      "title": "CDC NHSN Long-term Care Facility (LTCF) Component Manual",
+      "jurisdiction": "CDC",
+      "effective_date": "2018-05-01",
+      "review_by": "",
+      "url_or_location": "https://www.cdc.gov/nhsn/pdfs/validation/2018/ltcf-manual-508.pdf",
+      "tags": [
+        "cdc",
+        "nhsn",
+        "ltcf",
+        "surveillance",
+        "manual"
+      ]
+    },
+    {
+      "source_id": "AHRQ_NH_AS_GUIDE",
+      "type": "guideline",
+      "title": "AHRQ Nursing Home Antimicrobial Stewardship Guide",
+      "jurisdiction": "AHRQ",
+      "effective_date": "",
+      "review_by": "",
+      "url_or_location": "https://psnet.ahrq.gov/issue/nursing-home-antimicrobial-stewardship-guide",
+      "tags": [
+        "ahrq",
+        "antibiotic stewardship",
+        "nursing home",
+        "infection",
+        "antimicrobial"
+      ]
+    },
+    {
+      "source_id": "IDSA_ASYMPTOMATIC_BACTERIURIA",
+      "type": "guideline",
+      "title": "IDSA Clinical Practice Guideline \u2013 Asymptomatic Bacteriuria",
+      "jurisdiction": "IDSA",
+      "effective_date": "2019-03-21",
+      "review_by": "",
+      "url_or_location": "https://www.idsociety.org/practice-guideline/asymptomatic-bacteriuria/",
+      "tags": [
+        "idsa",
+        "asymptomatic bacteriuria",
+        "uti",
+        "long-term care",
+        "antibiotic stewardship"
+      ]
+    },
+    {
+      "source_id": "IDSA_COMPLICATED_UTI",
+      "type": "guideline",
+      "title": "IDSA Clinical Practice Guideline \u2013 Complicated Urinary Tract Infections (cUTI)",
+      "jurisdiction": "IDSA",
+      "effective_date": "2025-07-17",
+      "review_by": "",
+      "url_or_location": "https://www.idsociety.org/practice-guideline/complicated-urinary-tract-infections/",
+      "tags": [
+        "idsa",
+        "complicated uti",
+        "uti",
+        "antibiotics",
+        "clinical guideline"
+      ]
+    },
+    {
+      "source_id": "SHEA_APIC_LTCF",
+      "type": "guideline",
+      "title": "SHEA/APIC Guideline \u2013 Infection Prevention and Control in the Long-Term Care Facility",
+      "jurisdiction": "SHEA/APIC",
+      "effective_date": "2008-01-01",
+      "review_by": "",
+      "url_or_location": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3319407/",
+      "tags": [
+        "shea",
+        "apic",
+        "infection control",
+        "ltc",
+        "guideline"
+      ]
+    },
+    {
+      "source_id": "KB_COC_GUIDE",
+      "type": "guideline",
+      "title": "Change of Condition \u2013 Behavior / Refusal / Symptoms (Decision Support)",
+      "jurisdiction": "Facility",
+      "effective_date": "2026-01-20",
+      "review_by": "2027-01-20",
+      "url_or_location": "KB internal: /kb/kb_change_of_condition.json",
+      "tags": [
+        "change of condition",
+        "behavior",
+        "acute mental status change",
+        "refusal",
+        "symptoms",
+        "triage",
+        "SBAR",
+        "documentation"
+      ]
+    }
+  ]
+}

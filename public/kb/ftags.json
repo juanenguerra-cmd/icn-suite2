@@ -1,0 +1,135 @@
+{
+  "F600": {
+    "title": "Freedom from Abuse, Neglect, and Exploitation",
+    "definition": "Facility must protect residents from abuse, neglect, exploitation, and misappropriation.",
+    "surveyFocus": [
+      "Reporting, investigation, protection, and follow-up",
+      "Staff training and competence"
+    ],
+    "docCues": [
+      "Objective findings and timeline",
+      "Who was notified and when",
+      "Immediate protections implemented"
+    ]
+  },
+  "F550": {
+    "title": "Resident Rights (General)",
+    "definition": "Facilities must protect and promote each resident’s rights, including dignity, self-determination, participation in care, and communication/access.",
+    "surveyFocus": [
+      "Notice of rights and policies",
+      "Respect, choice, and non-retaliation",
+      "Access to representatives and grievance process"
+    ],
+    "docCues": [
+      "Resident/rep informed",
+      "Choices offered",
+      "Education provided",
+      "Objective behavior/response documented"
+    ]
+  },
+  "F689": {
+    "title": "Accident Hazards / Supervision / Devices",
+    "definition": "Residents must be free from accident hazards and receive adequate supervision and assistive devices to prevent accidents.",
+    "surveyFocus": [
+      "Fall risk assessment and interventions",
+      "Post-fall assessment and monitoring",
+      "Investigation and prevention plan"
+    ],
+    "docCues": [
+      "Injury assessment",
+      "Neuro checks if indicated",
+      "Root-cause notes",
+      "Care plan updates"
+    ]
+  },
+  "F880": {
+    "title": "Infection Prevention and Control",
+    "definition": "Facilities must establish and maintain an infection prevention and control program to provide a safe, sanitary, and comfortable environment and help prevent development and transmission of disease and infection.",
+    "surveyFocus": [
+      "Standard and transmission-based precautions",
+      "Surveillance/outbreak response",
+      "Staff training and compliance"
+    ],
+    "docCues": [
+      "Precautions initiated",
+      "Specimen collection and results follow-up",
+      "Line listing/outbreak notes",
+      "Education documented"
+    ]
+  },
+  "F580": {
+    "title": "Notification of Changes",
+    "definition": "Facilities must notify the resident, representative, and physician of significant changes, accidents/incidents, or as required.",
+    "surveyFocus": [
+      "Timely provider/rep notifications",
+      "Follow-through on orders",
+      "Documentation of who/when/how notified"
+    ],
+    "docCues": [
+      "Time of change noted",
+      "Provider notified w/ SBAR",
+      "Orders received/implemented",
+      "Family/EC notified when applicable"
+    ]
+  },
+  "F758": {
+    "title": "Free From Unnecessary Psychotropic Medications",
+    "definition": "Psychotropic medications must not be used unless necessary to treat a specific documented condition; gradual dose reductions and non-pharmacologic interventions are required unless clinically contraindicated.",
+    "surveyFocus": [
+      "Clear indication and monitoring",
+      "Non-pharm interventions tried",
+      "GDR attempts/justification"
+    ],
+    "docCues": [
+      "Target behaviors described objectively",
+      "Interventions and response",
+      "Provider rationale",
+      "Monitoring for side effects"
+    ]
+  },
+  "F842": {
+    "title": "Medical Records - Content",
+    "definition": "Clinical records must be complete, accurately documented, readily accessible, and systematically organized.",
+    "surveyFocus": [
+      "Timely, objective documentation",
+      "Completeness across disciplines",
+      "Consistency with assessments/orders"
+    ],
+    "docCues": [
+      "Objective findings",
+      "Time-stamped timeline",
+      "Orders and implementation",
+      "Resident response"
+    ]
+  },
+  "F887": {
+    "title": "COVID-19 (as applicable) / Infection Control",
+    "definition": "Facilities must implement infection control requirements specific to COVID-19 and other respiratory pathogens when applicable.",
+    "surveyFocus": [
+      "Respiratory pathogen response",
+      "Isolation/PPE guidance",
+      "Communication and reporting"
+    ],
+    "docCues": [
+      "Symptom onset timeline",
+      "Testing/notification",
+      "Isolation rationale",
+      "Monitoring plan"
+    ]
+  },
+  "F881": {
+    "title": "Antibiotic Stewardship Program",
+    "definition": "Facilities must develop and implement an antibiotic stewardship program that includes protocols and monitoring to promote appropriate antibiotic use.",
+    "surveyFocus": [
+      "Appropriate initiation and selection",
+      "Tracking and reporting",
+      "Education"
+    ],
+    "docCues": [
+      "Indication documented",
+      "Culture/specimens obtained as ordered",
+      "Stop dates/review plan",
+      "Resident response/adverse effects"
+    ]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "kb_version": "0.3.3",
+  "effective_date": "2026-01-20",
+  "approval": {
+    "status": "approved",
+    "approved_by_role": "Admin",
+    "approved_date": "2026-01-19"
+  },
+  "files": {
+    "sources": "sources.json",
+    "sections": "source_sections.json",
+    "search_index": "search_index.json",
+    "events": "kb_events.json",
+    "facility": "kb_facility.json",
+    "medical": "kb_medical.json",
+    "documentation": "kb_documentation.json"
+  },
+  "active_trees": [],
+  "changelog": [
+    {
+      "date": "2026-01-20",
+      "summary": "Added dedicated KB file for Change of Condition triage (Behavior/Refusal/Symptoms) with survey-ready sections, SBAR template, refusal documentation expectations, and packet-building guidance. Added KB_COC_GUIDE source and indexed sections for search.",
+      "files_changed": [
+        "kb_change_of_condition.json",
+        "sources.json",
+        "source_sections.json",
+        "search_index.json",
+        "manifest.json"
+      ],
+      "ticket_or_reason": "Content: Change of Condition decision-support KB doc"
+    },
+    {
+      "date": "2026-01-20",
+      "summary": "Authority pack expansion: CMS (Appendix PP + QSO memo), eCFR, CDC (core practices/NHSN/LTC toolkits), AHRQ stewardship + change-in-condition tools, IDSA UTI guidance, expanded F-tag definitions, and expanded citation sections for stronger search + packet credibility.",
+      "files_changed": [
+        "manifest.json",
+        "sources.json",
+        "source_sections.json",
+        "ftags.json",
+        "search_index.json"
+      ],
+      "ticket_or_reason": "Content expansion: regulatory + medical references"
+    },
+    {
+      "date": "2026-01-19",
+      "summary": "Authority pack expansion: CMS policy memo + NHSN manual + AHRQ antimicrobial stewardship + IDSA UTI guidance + SHEA/APIC LTC infection guideline; expanded F-tag definitions and searchable citation sections.",
+      "files_changed": [
+        "manifest.json",
+        "sources.json",
+        "source_sections.json",
+        "ftags.json",
+        "synonyms.json",
+        "search_index.json"
+      ],
+      "ticket_or_reason": "Content enhancement pack v0.3.1"
+    },
+    {
+      "date": "2026-01-19",
+      "summary": "Authority packs expanded: added Federal (eCFR 42 CFR 483), CMS QAPI, CDC LTCF/NHSN/Respiratory Toolkit, IHI SBAR, AHRQ LTC tools, NYSDOH rights/abuse reporting sources; expanded F-tag definitions and citation sections.",
+      "files_changed": [
+        "manifest.json",
+        "sources.json",
+        "source_sections.json",
+        "ftags.json",
+        "synonyms.json",
+        "search_index.json"
+      ],
+      "ticket_or_reason": "Content enhancement pack v0.3.1"
+    },
+    {
+      "date": "2026-01-19",
+      "summary": "Bulk KB update: expanded snippets (200) + event catalog (77) + documentation templates + governance.",
+      "files_changed": [
+        "manifest.json",
+        "sources.json",
+        "source_sections.json",
+        "kb_events.json",
+        "kb_facility.json",
+        "kb_medical.json",
+        "kb_documentation.json"
+      ],
+      "ticket_or_reason": "Bulk update pack v0.3.0"
+    }
+  ]
+}

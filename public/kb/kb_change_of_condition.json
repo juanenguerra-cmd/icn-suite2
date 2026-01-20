@@ -1,0 +1,59 @@
+{
+  "doc_id": "KB_COC_GUIDE",
+  "title": "Change of Condition – Behavior / Refusal / Symptoms (Decision Support)",
+  "type": "guideline",
+  "jurisdiction": "Facility",
+  "effective_date": "2026-01-20",
+  "review_by": "2027-01-20",
+  "summary": "Decision-support guidance for common change-of-condition scenarios in LTC/SNF: behavior/acute mental status change, refusal of medication/treatment, and new physical symptoms. Designed for survey-ready documentation and packet building.",
+  "references": [
+    { "source_id": "POL_COC_01", "note": "Facility Change of Condition / Provider Notification Policy" },
+    { "source_id": "CMS_APP_PP", "note": "CMS Appendix PP interpretive guidance (survey expectations)" },
+    { "source_id": "ECFR_483", "note": "42 CFR Part 483 (Federal LTC regulations; includes resident rights)" },
+    { "source_id": "IHI_SBAR", "note": "SBAR communication framework" },
+    { "source_id": "AHRQ_LTC_COC", "note": "AHRQ long-term care change-in-condition tools" },
+    { "source_id": "NYS_415_3", "note": "NY resident rights (if applicable)" }
+  ],
+  "sections": [
+    {
+      "section_id": "KB_COC_GUIDE_coc_000",
+      "heading": "Start here: safety, baseline, and urgency",
+      "text": "When a change of condition is reported, first determine immediate safety/medical urgency, compare to baseline, and obtain objective data (vitals and focused assessment) before escalation. Document a clear timeline (what changed, when, who observed) and the resident response to interventions."
+    },
+    {
+      "section_id": "KB_COC_GUIDE_coc_010",
+      "heading": "Behavior / agitation / new confusion: red flags",
+      "text": "Escalate immediately per facility emergency protocol for any danger to self/others, severe aggression, suspected stroke symptoms, severe respiratory distress, uncontrolled bleeding, or rapidly declining level of consciousness. Ensure safety measures and obtain assistance early."
+    },
+    {
+      "section_id": "KB_COC_GUIDE_coc_011",
+      "heading": "Behavior / acute mental status change: reversible causes checklist",
+      "text": "Assess for common reversible contributors: pain, constipation, urinary retention/UTI symptoms, fever/respiratory symptoms, dehydration/poor intake, hypoxia, hypoglycemia, medication changes (new meds, dose changes, PRNs), sleep disruption, and environmental triggers. Obtain vitals and compare to baseline; perform focused neuro/mental status assessment."
+    },
+    {
+      "section_id": "KB_COC_GUIDE_coc_020",
+      "heading": "Refusal of medication/treatment: informed refusal steps",
+      "text": "Clarify what is refused and why; assess understanding/decision-making capacity as appropriate; explain risks/benefits and alternatives in plain language; offer reasonable alternatives (timing, formulation, comfort measures) when safe; re-approach per plan; notify provider and resident representative/EC as indicated; document education provided, resident statements, notifications, and follow-up plan."
+    },
+    {
+      "section_id": "KB_COC_GUIDE_coc_021",
+      "heading": "Refusal: documentation that surveyors expect",
+      "text": "Document: (1) the specific med/treatment refused, (2) resident stated reason, (3) education provided and response, (4) capacity/representative involvement when applicable, (5) provider notification and orders, (6) safety monitoring and re-approach plan, and (7) any harm-reduction steps taken."
+    },
+    {
+      "section_id": "KB_COC_GUIDE_coc_030",
+      "heading": "New symptoms: triage and escalation",
+      "text": "Capture objective data first: full vital signs, symptom onset/time course, baseline comparison, and focused assessment (respiratory, urinary, GI, wound, neuro, pain). Escalate promptly for chest pain, new unilateral weakness/facial droop, acute shortness of breath, persistent SpO2 decline, uncontrolled bleeding, or rapid deterioration."
+    },
+    {
+      "section_id": "KB_COC_GUIDE_coc_040",
+      "heading": "Provider notification: SBAR template",
+      "text": "S: What changed and why you are calling now. B: Baseline diagnosis/status, relevant history, recent meds/changes, allergies. A: Objective assessment (vitals, focused findings) and what you think is happening. R: What you need (orders, transfer eval, labs, monitoring parameters) and what you have already done."
+    },
+    {
+      "section_id": "KB_COC_GUIDE_coc_050",
+      "heading": "Packet-building: what to attach (survey-ready)",
+      "text": "For survey-ready packets, attach: facility Change-of-Condition policy (documentation and notification expectations), any relevant F-tag/Appendix PP interpretive guidance section(s), resident rights reference for refusals, and the SBAR template. Include citations with source title and effective date/last update, plus a concise event timeline." 
+    }
+  ]
+}
