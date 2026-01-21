@@ -1,14 +1,8 @@
-# Ops Pack v7 — Schema Doctor (Stage 7.1)
+# Ops Pack v8 — Portal (Visual Check)
 
 Adds:
-- /doctor : detects tracker localStorage key, creates backup, migrates legacy arrays into canonical:
-  - modules.abt.courses[]
-  - modules.vaccinations.records[]
-  - modules.ip.cases[]
-  - residentsById{}
-- Clears legacy arrays after move to prevent double counting
-- Stores migration metadata under state.migrations.schemaDoctorV1
-- Adds “Run Schema Doctor” widget in /ops
-- _redirects updated for /doctor
+- public/portal.html
+- public/_redirects: /portal -> /portal.html
+- public/ops.html: widget link to Portal
 
-Deploy: overwrite public/ and push. Open /doctor?v=7.
+Open: /portal?v=8
