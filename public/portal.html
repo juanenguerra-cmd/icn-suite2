@@ -98,10 +98,11 @@
         </div>
       </div>
       <div class="pills">
-        <a class="pill primary" href="/app?v=9"><span class="dot"></span>Open App</a>
-        <a class="pill" href="/ops?v=9"><span class="dot"></span>Ops Pro</a>
-        <a class="pill" href="/import?v=9"><span class="dot"></span>Import</a>
-        <a class="pill" href="/reports?v=9"><span class="dot"></span>Reports</a>
+        <a class="pill primary" href="/app?v=1"><span class="dot"></span>Open App</a>
+        <a class="pill" href="/ops?v=1"><span class="dot"></span>Ops Pro</a>
+        <a class="pill" href="/import?v=1"><span class="dot"></span>Collector</a>
+        <a class="pill" href="/reports?v=1"><span class="dot"></span>Reports</a>
+        <a class="pill" href="/backup?v=1"><span class="dot"></span>Backup</a>
       </div>
     </div>
 
@@ -125,12 +126,12 @@
     <div class="grid">
       <div>
         <div class="cards">
-          <div class="card"><h3>Import</h3><p>Apply queued packs (backup + dedup).</p><a href="/import?v=9">Open →</a></div>
-          <div class="card"><h3>Reports</h3><p>ABT/IP/Vax reports (print + CSV).</p><a href="/reports?v=9">Open →</a></div>
-          <div class="card"><h3>Ops Pro</h3><p>Collector + Protex + backup lane.</p><a href="/ops?v=9">Open →</a></div>
-          <div class="card"><h3>Census</h3><p>Paste → Preview → Commit.</p><a href="/app?v=9#census">Open →</a></div>
-          <div class="card"><h3>Vaccinations</h3><p>Enter/import vaccine events.</p><a href="/app?v=9#vaccinations">Open →</a></div>
-          <div class="card"><h3>ABT</h3><p>Antibiotic course tracking.</p><a href="/app?v=9#abt">Open →</a></div>
+          <div class="card"><h3>Collector</h3><p>Paste / Protex parse / build pack.</p><a href="/import?v=1">Open →</a></div>
+          <div class="card"><h3>Ops Pro</h3><p>Collector + backup lane.</p><a href="/ops?v=1">Open →</a></div>
+          <div class="card"><h3>Reports</h3><p>Operational reporting page.</p><a href="/reports?v=1">Open →</a></div>
+          <div class="card"><h3>Backup</h3><p>Export JSON at end of day.</p><a href="/backup?v=1">Open →</a></div>
+          <div class="card"><h3>Doctor</h3><p>Schema normalization.</p><a href="/doctor?v=1">Open →</a></div>
+          <div class="card"><h3>React App</h3><p>Your Phase 1 UI (Census/Vax/ABT).</p><a href="/app?v=1">Open →</a></div>
         </div>
       </div>
 
@@ -138,8 +139,8 @@
         <div class="panel">
           <h2>Quick checks</h2>
           <ul>
-            <li>If ABT/IP/Vax counts are non-zero, your data layer is working.</li>
-            <li>If you don’t see this page after deploy, Cloudflare isn’t applying <span class="mono">public/_redirects</span>.</li>
+            <li>If ABT/IP/Vax counts are non-zero, your local data layer is working.</li>
+            <li>If you still see the old page at /, Cloudflare isn’t applying <span class="mono">public/_redirects</span>.</li>
             <li>Open in Private tab if your phone cache is stubborn.</li>
           </ul>
         </div>
@@ -150,67 +151,59 @@
 
 <script>
 (function(){
-  const QUEUE_KEY = "icn_import_queue_v1";
-  function safeParse(raw){ try{ return JSON.parse(raw);}catch(e){ return null; } }
+  const QUEUE_KEY="icn_import_queue_v1";
+  function safeParse(raw){try{return JSON.parse(raw)}catch(e){return null}}
   function score(state){
-    if(!state || typeof state !== "object") return 0;
-    let s = 0;
-    if(state.modules) s += 5;
-    if(Array.isArray(state.modules?.abt?.courses)) s += 5;
-    if(Array.isArray(state.modules?.vaccinations?.records)) s += 5;
-    if(Array.isArray(state.modules?.ip?.cases)) s += 5;
-    if(Array.isArray(state.abt) || Array.isArray(state.antibiotics)) s += 3;
-    if(Array.isArray(state.vaccinations) || Array.isArray(state.vax)) s += 3;
-    if(Array.isArray(state.ipCases) || Array.isArray(state.ip) || Array.isArray(state.cases)) s += 3;
+    if(!state||typeof state!=="object")return 0;
+    let s=0;
+    if(state.modules)s+=5;
+    if(Array.isArray(state.modules?.abt?.courses))s+=5;
+    if(Array.isArray(state.modules?.vaccinations?.records))s+=5;
+    if(Array.isArray(state.modules?.ip?.cases))s+=5;
+    if(Array.isArray(state.abt)||Array.isArray(state.antibiotics))s+=3;
+    if(Array.isArray(state.vaccinations)||Array.isArray(state.vax))s+=3;
+    if(Array.isArray(state.ipCases)||Array.isArray(state.ip)||Array.isArray(state.cases))s+=3;
     return s;
   }
   function detectKey(){
-    const keys = Object.keys(localStorage);
-    let best = null;
+    const keys=Object.keys(localStorage); let best=null;
     for(const k of keys){
-      const raw = localStorage.getItem(k);
-      if(!raw || raw.length < 20) continue;
-      if(raw[0] !== "{" && raw[0] !== "[") continue;
-      const obj = safeParse(raw);
-      if(!obj || typeof obj !== "object") continue;
-      const wrapped = !!obj.state;
-      const st = wrapped ? obj.state : obj;
-      const sc = score(st);
-      if(sc <= 0) continue;
-      if(!best || sc > best.score) best = { key:k, wrapped, score: sc };
+      const raw=localStorage.getItem(k);
+      if(!raw||raw.length<20)continue;
+      if(raw[0]!=="{"&&raw[0]!=="[")continue;
+      const obj=safeParse(raw);
+      if(!obj||typeof obj!=="object")continue;
+      const wrapped=!!obj.state;
+      const st=wrapped?obj.state:obj;
+      const sc=score(st);
+      if(sc<=0)continue;
+      if(!best||sc>best.score)best={key:k,wrapped,score:sc};
     }
     return best;
   }
   function counts(det){
-    if(!det) return { key:"NOT FOUND", abt:0, ip:0, vax:0 };
-    const raw = localStorage.getItem(det.key) || "";
-    const obj = safeParse(raw) || {};
-    const st = det.wrapped ? (obj.state || {}) : obj;
-    const abt = st?.modules?.abt?.courses && Array.isArray(st.modules.abt.courses) ? st.modules.abt.courses
-      : Array.isArray(st.abt) ? st.abt : Array.isArray(st.antibiotics) ? st.antibiotics : [];
-    const ip = st?.modules?.ip?.cases && Array.isArray(st.modules.ip.cases) ? st.modules.ip.cases
-      : Array.isArray(st.ipCases) ? st.ipCases : Array.isArray(st.ip) ? st.ip : Array.isArray(st.cases) ? st.cases : [];
-    const vax = st?.modules?.vaccinations?.records && Array.isArray(st.modules.vaccinations.records) ? st.modules.vaccinations.records
-      : Array.isArray(st.vaccinations) ? st.vaccinations : Array.isArray(st.vax) ? st.vax : [];
-    return { key: det.key, abt: abt.length, ip: ip.length, vax: vax.length };
+    if(!det)return{key:"NOT FOUND",abt:0,ip:0,vax:0};
+    const raw=localStorage.getItem(det.key)||"";
+    const obj=safeParse(raw)||{};
+    const st=det.wrapped?(obj.state||{}):obj;
+    const abt=st?.modules?.abt?.courses&&Array.isArray(st.modules.abt.courses)?st.modules.abt.courses
+      :Array.isArray(st.abt)?st.abt:Array.isArray(st.antibiotics)?st.antibiotics:[];
+    const ip=st?.modules?.ip?.cases&&Array.isArray(st.modules.ip.cases)?st.modules.ip.cases
+      :Array.isArray(st.ipCases)?st.ipCases:Array.isArray(st.ip)?st.ip:Array.isArray(st.cases)?st.cases:[];
+    const vax=st?.modules?.vaccinations?.records&&Array.isArray(st.modules.vaccinations.records)?st.modules.vaccinations.records
+      :Array.isArray(st.vaccinations)?st.vaccinations:Array.isArray(st.vax)?st.vax:[];
+    return{key:det.key,abt:abt.length,ip:ip.length,vax:vax.length};
   }
   function qcount(){
-    try{
-      const q = safeParse(localStorage.getItem(QUEUE_KEY) || "[]");
-      return Array.isArray(q) ? q.length : 0;
-    }catch{ return 0; }
+    try{const q=safeParse(localStorage.getItem(QUEUE_KEY)||"[]");return Array.isArray(q)?q.length:0}catch{return 0}
   }
-
-  const det = detectKey();
-  const c = counts(det);
-  const q = qcount();
-
-  document.getElementById("k").textContent = c.key;
-  document.getElementById("abt").textContent = String(c.abt);
-  document.getElementById("ip").textContent = String(c.ip);
-  document.getElementById("vax").textContent = String(c.vax);
-  document.getElementById("q").textContent = String(q);
-  document.getElementById("q2").textContent = String(q);
+  const det=detectKey(); const c=counts(det); const q=qcount();
+  document.getElementById("k").textContent=c.key;
+  document.getElementById("abt").textContent=String(c.abt);
+  document.getElementById("ip").textContent=String(c.ip);
+  document.getElementById("vax").textContent=String(c.vax);
+  document.getElementById("q").textContent=String(q);
+  document.getElementById("q2").textContent=String(q);
 })();
 </script>
 </body>
