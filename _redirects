@@ -1,5 +1,5 @@
 # Portal (Safari loop-safe)
-/portal /portal/ 301
+/portal /portal/index.html 200
 /portal/ /portal/index.html 200
 / /portal/index.html 200
 
