@@ -1,0 +1,25 @@
+# Portal (Safari loop-safe)
+/portal /portal/ 301
+/portal/ /portal/index.html 200
+/ /portal/index.html 200
+
+/working /working.html 200
+/working/ /working.html 200
+/entry /entry.html 200
+/entry/ /entry.html 200
+/protex /protex.html 200
+/protex/ /protex.html 200
+/import /collector.html 200
+/import/ /collector.html 200
+/import.html /collector.html 200
+/apply /apply.html 200
+/apply/ /apply.html 200
+/reports /reports.html 200
+/reports/ /reports.html 200
+/backup /backup.html 200
+/backup/ /backup.html 200
+/ops /ops.html 200
+/ops/ /ops.html 200
+/doctor /doctor.html 200
+/doctor/ /doctor.html 200
+/* /index.html 200
