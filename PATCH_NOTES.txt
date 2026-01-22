@@ -1,0 +1,8 @@
+ICN Suite — Portal index hotfix (Safari redirect-loop safe)
+
+1) Add file: public/portal/index.html
+2) Replace/merge public/_redirects with the one in this zip (at minimum add the top 3 portal lines + the root / line)
+
+After deploy:
+- /portal/   (note trailing slash)
+- /
